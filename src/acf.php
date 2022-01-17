@@ -1,0 +1,185 @@
+<?php
+if( !function_exists('acf_add_options_page') ) return;
+
+// Option page for the Workout Manager Settings
+acf_add_options_page(array(
+    'page_title' 	=> 'Configure the Workout Manager settings',
+    'menu_title'	=> 'Workout Manager Settings',
+    'menu_slug' 	=> 'workout_manager_settings',
+    'icon_url'     => 'dashicons-admin-settings',
+    'capability'	=> 'edit_posts',
+    'redirect'		=> false
+));
+
+acf_add_local_field_group(array(
+	'key' => 'group_'.WORKOUT_MANAGER_ACF_PREFIX.'_dashboard',
+	'title' => 'Workout Manager',
+	'fields' => array(
+		array(
+			'key' => 'field_61976c2fd453c',
+			'label' => 'Login Page',
+			'name' => 'login_page_url',
+			'type' => 'page_link',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'post_type' => array(
+				0 => 'page',
+			),
+			'taxonomy' => '',
+			'allow_null' => 0,
+			'allow_archives' => 1,
+			'multiple' => 0,
+		),
+	),
+    'location' => [
+        array(
+            array(
+                'param' => 'options_page',
+                'operator' => '==',
+                'value' => 'workout_manager_settings',
+            ),
+        )
+    ],
+    'menu_order' => 0,
+    'position' => 'normal',
+    'style' => 'seamless',
+    'label_placement' => 'top',
+    'instruction_placement' => 'label',
+    'hide_on_screen' => '',
+    'active' => true,
+    'description' => '',
+));
+
+
+// Athlete infos
+acf_add_local_field_group(array(
+	'key' => 'group_'.WORKOUT_MANAGER_ACF_PREFIX.'_athlete',
+	'title' => 'Informations athlete',
+	'fields' => array(
+		array(
+			'key' => WORKOUT_MANAGER_ACF_PREFIX.'_telephone',
+			'label' => __('Phone' , 'workout_manager'),
+			'name' => 'telephone',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => '',
+		),
+		array(
+			'key' => WORKOUT_MANAGER_ACF_PREFIX.'_adresse',
+			'label' => __('Address' , 'workout_manager'),
+			'name' => 'adresse',
+			'type' => 'textarea',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'maxlength' => '',
+			'rows' => '',
+			'new_lines' => '',
+		),
+		array(
+			'key' => WORKOUT_MANAGER_ACF_PREFIX.'_code_postal',
+			'label' => __('Postal code' , 'workout_manager'),
+			'name' => 'code_postal',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => '',
+		),
+	),
+	'location' => array(
+		array(
+			array(
+				'param' => 'user_role',
+				'operator' => '==',
+				'value' => WORKOUT_MANAGER_ROLE_NAME,
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'acf_after_title',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => true,
+	'description' => '',
+));
+
+// Infos sur le athlete
+acf_add_local_field_group(array(
+	'key' => 'group_'.WORKOUT_MANAGER_ACF_PREFIX.'_athlete_active',
+	'title' => __('Activate account' , 'workout_manager'),
+	'fields' => array(
+		array(
+			'key' => WORKOUT_MANAGER_ACTIVE_FIELD.'_active',
+			'label' => __('Active account' , 'workout_manager'),
+			'name' => WORKOUT_MANAGER_ACTIVE_FIELD,
+			'type' => 'true_false',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'message' => '',
+			'default_value' => 0,
+			'ui' => 0,
+			'ui_on_text' => '',
+			'ui_off_text' => ''
+		),
+	),
+	'location' => array(
+		array(
+			array(
+				'param' => 'user_role',
+				'operator' => '==',
+				'value' => WORKOUT_MANAGER_ROLE_NAME,
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'acf_after_title',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => true,
+	'description' => '',
+));
+

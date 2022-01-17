@@ -1,0 +1,235 @@
+<div id='athlete-dashboard' class='athlete-dashboard'>
+    <section class="bg-secondary">
+        <div class="container">
+            <div class="row py-3">
+                <div class='col-md'>
+                    <h1 class="h2 text-white mb-0"> {{ __("Welcome", "workout_manager") }} {{ user_fields["user_first_name"]["value"] }} {{ user_fields["user_last_name"]["value"] }}</h1>
+                    <span class="text-white">{{ user_fields["specialisation"]["value"] }}</span>
+                </div>
+                <div class='col-md-auto mt-2 my-md-auto'>
+                    <a class="btn btn-primary zindex alternate-btn mr-2 py-1" data-toggle="modal" data-target=".modal-user-datas">{{ __("Edit my profile", "workout_manager") }}</a>
+                    <a class="btn btn-primary zindex alternate-btn py-1" href='{{ logout_url }}'>
+                        {% if fn("wp_is_mobile") %}
+                            <span class="icon-logout ml-auto"></span>
+                        {% else %}
+                            {{ __("Disconnection", "workout_manager") }}
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container py-3">
+        <div class="row">
+            <h2 class='col mb-0'>{{ page_fields.formulaire_patient_titre }}</h2>
+            <div class="col-12 col-md mt-2 my-md-auto text-left text-md-right">
+                <a href='{{ page_fields.formulaire_patient_lien.url }}' class="btn btn-primary zindex py-1">
+                    {{ page_fields.formulaire_patient_bouton }}
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-grey-lighten py-4">
+        <div class="container">
+            <h2 class="mb-3">{{ page_fields.centre_telechargement_titre }}</h2>
+            {# {{ fn("do_shortcode", '[procab_repeater_cpt cpt_name="workout" nb="9"]')}} #}
+        </div>
+    </section>
+
+    <section class="container py-4">
+        <div class="row">
+            <div class="col-8">
+                <h2 class="mb-0">{{ page_fields.outils_titre }}</h2>
+            </div>
+            <div class="col-4">
+                <h2 class="mb-0 d-none d-md-block">{{ page_fields.media_titre }}</h2>
+            </div>
+        </div>
+        <div class="row">
+            {% for outil_bloc in page_fields.outils_blocs|slice(0,2) %}
+                <div class="col-12 col-md-4 mt-3 athlete-tool-container">
+                    <div class='card athlete-tool-card h-100 shadow-sm'>
+                        <a href="{{ outil_bloc["lien"] }}">
+                            <div class="athlete-tool-img rounded-top" style="background: url('{{ outil_bloc["image"]["sizes"]["medium_large"] }}') no-repeat center/cover"></div>
+                            <div class="card-body py-3 px-2 px-md-1 px-xxl-3 pt-md-1 pt-xxl-3">
+                                <h4 class="mb-0">{{ outil_bloc["titre"] }}</h4>
+                                <div class="text-secondary">{{ outil_bloc["texte"] }}</div>
+                                <div class="h2 icon-plus m-0 p-0 text-primary text-right"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="col-12 col-md-4 mt-3 mb-3 mb-md-0">
+                <h2 class="d-block d-md-none">{{ page_fields.media_titre }}</h2>
+                {% if page_fields.media_blocs is not empty %}
+                <div id="carousel-athlete-media" class="athlete-media-container shadow-sm rounded h-100 mb-3">
+                    {% for media_bloc in page_fields.media_blocs %}
+                        <div class='card athlete-media-card'>
+                            {% if media_bloc["type"] == "image" %}
+                                <a href="{{ media_bloc["lien"] }}">
+                                    <div class="athlete-media rounded-top" style="background: url('{{ media_bloc["image"]["sizes"]["medium_large"] }}') no-repeat center/cover"></div>
+                                </a>
+                            {% else %}
+                                <div class="athlete-media rounded-top" style="background: url('{{ media_bloc["image"]["sizes"]["medium_large"] }}') no-repeat center/cover">
+                                    {# {{ fn("do_shortcode", '[procab_video_player
+                                        src="'~media_bloc["video"]~'"
+                                        hide_overlay="1"
+                                        element_class="rounded-top"
+                                        ]')
+                                    }} #}
+                                </div>
+                            {% endif %}
+                            <div class="card-body pt-1 pb-4 px-2 px-md-1 pb-lg-3 px-xxl-3 pt-xxl-3">
+                                <h4 class="mb-0">{{ media_bloc["titre"] }}</h4>
+                                <div class="text-secondary">{{ media_bloc["texte"] }}</div>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            {% for outil_bloc in page_fields.outils_blocs[2:] %}
+                <div class="col-12 col-md-4 mt-3 athlete-tool-container">
+                    <div class='card athlete-tool-card shadow-sm'>
+                        <a href="{{ outil_bloc["lien"] }}">
+                            <div class="athlete-tool-img rounded-top" style="background: url('{{ outil_bloc["image"]["sizes"]["medium_large"] }}') no-repeat center/cover"></div>
+                            <div class="card-body py-3 px-2 px-md-1 px-xxl-3 pt-md-1 pt-xxl-3">
+                                <h4 class="mb-0">{{ outil_bloc["titre"] }}</h4>
+                                <div class="text-secondary">{{ outil_bloc["texte"] }}</div>
+                                <div class="h2 icon-plus m-0 p-0 text-primary text-right"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <div class="bg-grey-lighten">
+        <div class="container pt-3 pb-2 py-md-4">
+            <section class="mb-4">
+                <h2>{{ page_fields.telechargement_titre }}</h2>
+                <div class="model    animated workout-manager-repeater-cpt">
+                    <div class="row">
+                    {% for post in telechargements %}
+                    <div class="col-12 col-sm-4 mb-3">
+                        <a href="{{ post.acf_fields.fichier.url }}">
+                            <div class="card">
+                                <div class="card-img" style="background: url('{{ post.acf_fields.illustration.url }}') no-repeat center/cover"></div>
+                                <div class="card-body align-items-center row py-1 py-lg-3">
+                                    <div class="col-9">
+                                        <h3 class="card-title text-secondary mb-0">{{ post.post_title }}</h3>
+                                    </div>
+                                    <div class="col-3 align-items-center d-flex justify-content-center">
+                                        <span class="card-link icon-cloud-download text-primary"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                                
+                    {% endfor %}
+                    </div>
+
+                </div>
+
+
+            </section>
+
+            <section class="row">
+                <div class="col-12 col-md pr-2 mb-4 mb-md-0">
+                    <div class="pr-md-4">
+                        <h2>{{ page_fields.accreditations_titre }}</h2>
+                        <div>
+                            {{ page_fields.accreditations_texte }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-15 col-md pl-2">
+                    <div class="d-flex flex-column h-100 pl-md-4">
+                        <h2>{{ fn("get_field", "titre_prochaine_formation", "option") }}</h2>
+                        <div class="row my-auto">
+                            <div class="col-auto my-auto">
+                                {% set formation = fn("get_field", "formation_a_metre_en_avant", "option") %}
+                                {% set date_next_formation = fn("get_the_date", "l j F", formation.ID)|split(' ') %}
+                                <div id="menu-navbar-formation-date" class="font-weight-bold h5 mb-0 text-secondary text-center text-uppercase">
+                                    <div>{{ date_next_formation[0] }}</div>
+                                    <div class="h1 mb-0 font-weight-bold">{{ date_next_formation[1] }}</div>
+                                    <div>{{ date_next_formation[2] }}</div>
+                                </div>
+                            </div>
+                            <div class="col my-auto text-secondary">
+                                <div>{{ formation.post_title }}</div>
+                                <a href="{{ fn("get_the_permalink", formation.ID) }}" class="text-secondary link_underline_animate link_underline_animate_reverse">
+                                    {{ __("More information", "workout_manager") }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="mt-4">
+                <h2>{{ page_fields.en_savoir_plus_titre }}</h2>
+                <div class="row">
+                    {% for en_savoir_plus_bloc in page_fields.en_savoir_plus_blocs %}
+                        <div class="col-12 col-md athlete-find-out-more  {{ fn("wp_is_mobile") ? "mb-3" }}">
+                            <div style="background: url({{ en_savoir_plus_bloc["image"]["sizes"]["large"] }}) no-repeat center/cover"
+                                 class="find-out-more-media rounded bg-cover img-fluid {{ loop.index is odd ? "bg-filter-primary" : "bg-filter-secondary" }}">
+                                <div class="text-white text-center py-5 py-md-6">
+                                    <h2 class="mb-0">{{ en_savoir_plus_bloc.titre }}</h2>
+                                    <a href="{{ en_savoir_plus_bloc.lien }}" class="text-white link_underline_animate link_underline_animate_reverse">
+                                        {{ __("More information", "workout_manager") }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-user-datas" tabindex="-1" role="dialog" aria-labelledby="modalUserDatas" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modification de vos informations personnelles</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="athlete-infopersos" method="post">
+                    <div class="row">
+                        {% for input_name, input_datas in user_fields %}
+                            <div class="col-12 col-sm-6 form-group mb-2 ">
+                                <label for="input-{{ input_name }}">{{ input_datas.label }}</label>
+                                <input required type="text" class="form-control" id='input-{{ input_name }}' name='{{ input_name }}' value='{{ input_datas.value }}' placeholder="{{ input_datas.label }}*" />
+                            </div>
+                        {% endfor %}
+                        <div class="col-12 col-sm-6 form-group mb-2 ">
+                            <label for="password_1">{{ __("Change password" , "workout_manager") }}</label>
+                            <input type="password" class="form-control" id='password_1' name='password_1' placeholder='{{ __("Let empty to keep actual password" , "workout_manager") }}' />
+                        </div>
+                        <div class="col-12 col-sm-6 form-group mb-2 ">
+                            <label for="password_2">{{ __("Confirm password" , "workout_manager") }}</label>
+                            <input type="password" class="form-control" id='password_2' name='password_2' />
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-full btn-secondary">{{ __("Change my informations" , "workout_manager") }} </button> 
+                        <button onclick='workout_manager_delete_account();return false;' class="btn btn-full btn-warning">{{ __("Delete my account" , "workout_manager") }} </button>
+                        <center><img src='{{ fn("get_admin_url") }}images/spinner.gif' class="d-none loader" /></center>
+                    </div>
+                    {{ nonce_user_fields }}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
