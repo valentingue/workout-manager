@@ -54,10 +54,6 @@ add_action( 'plugins_loaded', 'workout_manager_plugins_loaded' );
 function workout_manager_init(){
 
 	\workout_manager\create_cpt();
-
-	$user = get_user_by( 'id', 31 );
-	printr($user);
-
 }
 add_action( 'init', 'workout_manager_init' );
 
@@ -147,6 +143,17 @@ function workout_manager_remove_admin_bar() {
 	if (current_user_can(WORKOUT_MANAGER_ROLE_NAME)) show_admin_bar(false);
 }
 add_action('after_setup_theme', 'workout_manager_remove_admin_bar');
+
+// ===================== Empeche les athletes non activés de se connecter =====================
+//add_filter( 'authenticate', 'chk_active_user',100,2);
+function chk_active_user ($user,$username) {
+	$user_data = $user->data;
+	$user_id = $user_data->ID;
+	$user_sts = get_user_meta($user_id,"user_active_status",true);
+	if ($user_sts==="no") return new WP_Error( 'disabled_account','this account is disabled');
+	else return $user;
+	
+}
 
 // ===================== Athlete dashboard page name =====================
 add_filter( 'wpseo_opengraph_title'		, 'workout_manager_change_single_title_tag_with_site_name' , 100 ,1	);
