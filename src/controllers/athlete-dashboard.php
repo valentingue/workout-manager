@@ -20,8 +20,8 @@ foreach($acf_fields as $field){
 $context["page_fields"]  = $page_fields;
 
 
-// Récupération des "formulaires interne"
-$posts = get_posts( 'post_type="'.cpt\workout::$cpt_name.'"&numberposts=-1&orderby=date&order=DESC' );
+// Récupération des "workout"
+$posts = get_posts( 'post_type="'.cpt\workout\cpt::$cpt_name.'"&numberposts=-1&orderby=date&order=DESC' );
 foreach($posts as $k => $post){
     $acf_fields         = get_fields($post->ID);
     $post->acf_fields = [];

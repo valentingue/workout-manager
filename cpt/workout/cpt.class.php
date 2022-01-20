@@ -1,12 +1,21 @@
 <?php
 
 namespace workout_manager\cpt\workout;
-class cpt
-{
+class cpt{
 
+    public $cpt_label;
     public static $cpt_name = "wm-workout";
     public $dashicon = "dashicons-media-document";
 
+    private static $instance = null;
+
+	public static function get() {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
+    
 
     public function __construct()
     {
@@ -26,7 +35,7 @@ class cpt
         register_post_type(self::$cpt_name,
             array(
                 'labels' => array(
-                    'name' => $this->cpt_label,
+                    'name' => __('Workouts', 'workout_manager'),
                     'singular_name' => __('Workout', 'workout_manager'),
                     'all_items' => __('All workouts', 'workout_manager'),
                     'add_new_item' => __('Add workout', 'workout_manager'),

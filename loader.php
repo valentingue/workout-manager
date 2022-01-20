@@ -17,7 +17,7 @@ define( 'WORKOUT_MANAGER_URL'		, plugins_url('/', __FILE__) );
 // ===================== Autoloader des classes du plugin avec namespace  =====================
 function workout_manager_autoloader( $class_name ) {
 
-	if ( false !== strpos( $class_name, 'workout_manager\\' ) ) {
+	/* if ( false !== strpos( $class_name, 'workout_manager\\' ) ) {
 
 		$class_name = str_replace("workout_manager\\", "", $class_name);
 		$class_name = str_replace("\\", "/", $class_name);
@@ -27,7 +27,8 @@ function workout_manager_autoloader( $class_name ) {
         if (file_exists($classFile)) require_once $classFile;
         else die("Missing file class : ".$classFile);
 	   
-	}
+	} */
+	require_once( WORKOUT_MANAGER_DIR . '/cpt/workout/cpt.class.php');
 
 }
 spl_autoload_register( 'workout_manager_autoloader' );
@@ -41,7 +42,7 @@ function workout_manager_plugins_loaded(){
 	require_once( WORKOUT_MANAGER_DIR . '/src/ajax.php' );
 	require_once( WORKOUT_MANAGER_DIR . "/src/acf.php");
 	
-	if(is_admin())	new \workout_manager\back\main();
+	//if(is_admin())	new \workout_manager\back\main();
 
 	\workout_manager\get_plugin_version();
 
@@ -132,10 +133,12 @@ add_action( 'wp_enqueue_scripts', 'workout_manager_enqueue_scripts' );
 
 // ===================== Athlete role creation =====================
 function workout_manager_update_custom_roles() {
-    if ( get_option( 'workout_manager_update_custom_roles' ) < 1 ) {
+    /* if ( get_option( 'workout_manager_update_custom_roles' ) < 1 ) {
         add_role( WORKOUT_MANAGER_ROLE_NAME, 'Athlete', array( 'read' => true, 'level_0' => true ) );
         update_option( 'workout_manager_update_custom_roles', 1 );
-    }
+    } */
+	add_role( WORKOUT_MANAGER_ROLE_NAME, 'Athlete', array( 'read' => true, 'level_0' => true ) );
+	update_option( 'workout_manager_update_custom_roles', 1 );
 }
 add_action( 'init', 'workout_manager_update_custom_roles' );
 
@@ -205,7 +208,7 @@ function workout_manager_include_template_dashboard() {
 
 	if ( ! isset( $wp->request ) || $wp->request != WORKOUT_MANAGER_URL_DASHBOARD )  return;
 
-	// If you're not a doctor => can't access to the dashboard
+	// If you're not a athlete => can't access to the dashboard
 	if(!is_user_logged_in() || !current_user_can(WORKOUT_MANAGER_ROLE_NAME)){
         wp_redirect(home_url());
         exit;
