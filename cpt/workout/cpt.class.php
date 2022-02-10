@@ -115,7 +115,7 @@ class cpt{
 
         if (!function_exists("acf_add_local_field_group")) return;
 
-        $all_users = get_users(array('role'=>'Subscriber'));
+        $all_users = get_users(array('role'=>'athlete'));
         $athletes = [];
 
         foreach($all_users as $index => $athlete){
