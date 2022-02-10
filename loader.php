@@ -38,6 +38,7 @@ spl_autoload_register( 'workout_manager_autoloader' );
 function workout_manager_plugins_loaded(){
 
 	require_once( WORKOUT_MANAGER_DIR . "/includes/functions.php"  );
+	require_once( WORKOUT_MANAGER_DIR . "/includes/hooks.php"  );
 	require_once( WORKOUT_MANAGER_DIR . "/includes/constants.php"  );
 	require_once( WORKOUT_MANAGER_DIR . '/src/ajax.php' );
 	require_once( WORKOUT_MANAGER_DIR . "/src/acf.php");

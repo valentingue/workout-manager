@@ -185,7 +185,7 @@ class cpt{
                         'id' => '',
                     ),
                     'display_format' => 'd/m/Y',
-                    'return_format' => 'dmY',
+                    'return_format' => 'Y-m-d',
                     'first_day' => 1,
                 ),
                 array(
@@ -202,7 +202,7 @@ class cpt{
                         'id' => '',
                     ),
                     'display_format' => 'd/m/Y',
-                    'return_format' => 'dmY',
+                    'return_format' => 'Y-m-d',
                     'first_day' => 1,
                 ),
                 array(
