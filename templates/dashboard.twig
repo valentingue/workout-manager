@@ -21,7 +21,10 @@
 
     <section class="workout-section">
         {% for workout in workouts %}
-        {# {{dump(workout.acf_fields['wm-workout_field_exercices'])}} #}
+            {# {{dump(workout)}} #}
+
+            <h2 class="workout-name">{{workout.acf_fields['wm-workout_field_name']}}</h2>
+
             <table class="table">
                 <thead>
                     <tr>
