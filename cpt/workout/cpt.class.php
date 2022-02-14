@@ -218,7 +218,7 @@ class cpt{
                         'class' => '',
                         'id' => '',
                     ),
-                    'collapsed' => $prefix_field.'exercice_name',
+                    'collapsed' => 'exercice_name',
                     'min' => 0,
                     'max' => 0,
                     'layout' => 'row',

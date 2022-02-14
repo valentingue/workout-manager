@@ -18,9 +18,12 @@ foreach($acf_fields as $field){
     if(empty($field["name"])) continue;
     $page_fields[$field["name"]] = get_field($field["name"] , 'option');
 }
-$context["page_fields"]  = $page_fields;
-// Récupération des "workout"
 
+$context["page_fields"]  = $page_fields;
+
+$context["archived_workout"] = [];
+
+// Récupération des "workout"
 $args = [
     'post_type' => cpt\workout\cpt::$cpt_name,
     'numberposts' => -1,
@@ -40,9 +43,15 @@ foreach($posts as $k => $post){
         $posts[$k] = $post;
     }
 
+    //if workout end date < today's date => add it to archived workout array
+    if( $post->acf_fields['wm-workout_field_end_date'] < date('Y-m-d')){
+        $context["archived_workout"][] = $post; 
+    }
+    else $context["workouts"][] = $post;
+
 }
 
-$context["workouts"] = $posts;
+//$context["workouts"] = $posts;
 
 
 $view_path  = WORKOUT_MANAGER_DIR."/templates/dashboard.twig";

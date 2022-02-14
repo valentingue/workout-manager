@@ -20,17 +20,18 @@
     </section>
 
     <section class="workout-section">
+        <h2 class="current-workout-title">Current Workout</h2>
         {% for workout in workouts %}
             {# {{dump(workout)}} #}
 
-            <h2 class="workout-name">{{workout.acf_fields['wm-workout_field_name']}}</h2>
+            <h4 class="workout-name">{{workout.acf_fields['wm-workout_field_name']}}</h2>
 
-            <table class="table">
+            <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">Excercice</th>
                         <th scope="col">Nombre de répétion</th>
-                        <th scope="col">Poids</th>
+                        <th scope="col">Poids (en KG)</th>
                         <th scope="col">Temps de repos</th>
                         <th scope="col">Note</th>
                     </tr>
@@ -48,5 +49,54 @@
                 </tbody>
             </table>
         {% endfor %}
+    </section>
+
+    <section class="archived-workout">
+        <h2 class="archived-workout-title">Archived Workout</h2>
+        <div id="accordion">
+            {% for past_workout in archived_workout %}
+                
+                <div class="card workout-{{ fn('sanitize_title', past_workout.post_title) }}">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#id-{{ fn('sanitize_title', past_workout.post_title) }}" aria-expanded="true" aria-controls="id-{{ fn('sanitize_title', past_workout.post_title) }}">
+                            {{past_workout.post_title}}
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="id-{{ fn('sanitize_title', past_workout.post_title) }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        {# {{dump(workout)}} #}
+
+                        <h4 class="workout-name">{{past_workout.acf_fields['wm-workout_field_name']}}</h2>
+
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Excercice</th>
+                                    <th scope="col">Nombre de répétion</th>
+                                    <th scope="col">Poids (en KG)</th>
+                                    <th scope="col">Temps de repos</th>
+                                    <th scope="col">Note</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for exercice in past_workout.acf_fields['wm-workout_field_exercices'] %}
+                                    <tr>
+                                        <th scope="row">{{exercice["exercice_name"]}}</th>
+                                        <td>{{exercice["exercice_nb_reps"]}}</td>
+                                        <td>{{exercice["exercice_weight"]}}</td>
+                                        <td>{{exercice["exercice_rest_time"]}}</td>
+                                        <td>{{exercice["exercice_note"]}}</td>
+                                    </tr>
+                                {%  endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </section>
 </div>
