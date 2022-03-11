@@ -55,6 +55,57 @@
         {% endif %}
     </section>
 
+    {% if get_future_workout %}
+        <section class="future-workout">
+            <h2 class="future-workout-title">Future Workout</h2>
+            <div id="accordion">
+                {% for future_workout in next_workouts %}
+                    
+                    <div class="card workout-{{ fn('sanitize_title', future_workout.post_title) }}">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" data-toggle="collapse" data-target="#id-{{ fn('sanitize_title', future_workout.post_title) }}" aria-expanded="true" aria-controls="id-{{ fn('sanitize_title', future_workout.post_title) }}">
+                                {{future_workout.post_title}}
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="id-{{ fn('sanitize_title', future_workout.post_title) }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            {# {{dump(workout)}} #}
+
+                            <h4 class="workout-name">{{future_workout.acf_fields['wm-workout_field_name']}}</h2>
+
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Excercice</th>
+                                        <th scope="col">Nombre de répétion</th>
+                                        <th scope="col">Poids (en KG)</th>
+                                        <th scope="col">Temps de repos</th>
+                                        <th scope="col">Note</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for exercice in future_workout.acf_fields['wm-workout_field_exercices'] %}
+                                        <tr>
+                                            <th scope="row">{{exercice["exercice_name"]}}</th>
+                                            <td>{{exercice["exercice_nb_reps"]}}</td>
+                                            <td>{{exercice["exercice_weight"]}}</td>
+                                            <td>{{exercice["exercice_rest_time"]}}</td>
+                                            <td>{{exercice["exercice_note"]}}</td>
+                                        </tr>
+                                    {%  endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+
     {% if get_archived_workout %}
         <section class="archived-workout">
             <h2 class="archived-workout-title">Archived Workout</h2>
