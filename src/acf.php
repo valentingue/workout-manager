@@ -36,6 +36,36 @@ acf_add_local_field_group(array(
 			'allow_archives' => 1,
 			'multiple' => 0,
 		),
+		array(
+			'key' => 'field_61276a2fd493c',
+			'label' => 'Show past workout on athlete dashboard',
+			'name' => 'show_archived_workout',
+			'type' => 'true_false',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'allow_null' => 0,
+		),
+		array(
+			'key' => 'field_21296a2ed493c',
+			'label' => 'Show future workout on athlete dashboard',
+			'name' => 'show_future_workout',
+			'type' => 'true_false',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'allow_null' => 0,
+		),
 	),
     'location' => [
         array(

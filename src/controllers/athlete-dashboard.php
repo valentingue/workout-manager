@@ -1,6 +1,8 @@
 <?php
 namespace workout_manager;
 
+if(!is_user_logged_in()) wp_redirect(get_field('login_page_url', 'option'));
+
 get_header("athlete");
 
 $context                    = []; 
@@ -20,10 +22,12 @@ foreach($acf_fields as $field){
 }
 
 $context["page_fields"]  = $page_fields;
-
 $context["archived_workout"] = [];
 
-// Récupération des "workout"
+$get_archived_workout = get_field('show_archived_workout', 'option');
+$get_future_workout = get_field('show_future_workout', 'option');
+
+// get workouts "workout"
 $args = [
     'post_type' => cpt\workout\cpt::$cpt_name,
     'numberposts' => -1,
@@ -43,16 +47,28 @@ foreach($posts as $k => $post){
         $posts[$k] = $post;
     }
 
-    //if workout end date < today's date => add it to archived workout array
-    if( $post->acf_fields['wm-workout_field_end_date'] < date('Y-m-d')){
-        $context["archived_workout"][] = $post; 
+    // if workout start date > today && end date < today => add workout to current workouts array
+    if ( date('Y-m-d', strtotime($post->acf_fields['wm-workout_field_start_date'])) < date('Y-m-d') && date('Y-m-d', strtotime($post->acf_fields['wm-workout_field_end_date'])) > date('Y-m-d')){
+        $context["workouts"][] = $post;
     }
-    else $context["workouts"][] = $post;
+
+    // if workout end date < today's date => add it to archived workout array
+    if ($get_archived_workout){
+        $context["get_archived_workout"] = $get_archived_workout;
+        if (strtotime($post->acf_fields['wm-workout_field_end_date']) < strtotime(date('Y-m-d'))) $context["archived_workout"][] = $post; 
+    }
+    
+    // if workout start date > today's date => add it to archived future array
+    if ($get_future_workout){
+        $context["get_future_workout"] = $get_future_workout;
+        if ( strtotime($post->acf_fields['wm-workout_field_start_date']) < strtotime(date('Y-m-d')) && strtotime($post->acf_fields['wm-workout_field_end_date']) < strtotime(date('Y-m-d'))){
+             $context["next_workouts"][] = $post; 
+        }
+    }
 
 }
-
 //$context["workouts"] = $posts;
-
+printr( $context["workouts"] );
 
 $view_path  = WORKOUT_MANAGER_DIR."/templates/dashboard.twig";
 \Timber::render($view_path, $context);
