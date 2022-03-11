@@ -68,7 +68,7 @@ foreach($posts as $k => $post){
 
 }
 //$context["workouts"] = $posts;
-printr( $context["workouts"] );
+//printr( $context["workouts"] );
 
 $view_path  = WORKOUT_MANAGER_DIR."/templates/dashboard.twig";
 \Timber::render($view_path, $context);
