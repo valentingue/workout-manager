@@ -43,12 +43,18 @@ foreach($posts as $k => $post){
     $acf_fields         = get_fields($post->ID);
     $post->acf_fields = [];
     if (is_array($acf_fields)) {
-        foreach ($acf_fields as $field_name => $field_datas)  $post->acf_fields[$field_name] = $field_datas;
+        
+        foreach ($acf_fields as $field_name => $field_datas){
+            $post->acf_fields[$field_name] = $field_datas; 
+
+        }
+
         $posts[$k] = $post;
     }
-
+    
     // if workout start date > today && end date < today => add workout to current workouts array
     if ( date('Y-m-d', strtotime($post->acf_fields['wm-workout_field_start_date'])) < date('Y-m-d') && date('Y-m-d', strtotime($post->acf_fields['wm-workout_field_end_date'])) > date('Y-m-d')){
+        $post->acf_fields['wm-workout_field_training_days'] = json_encode($post->acf_fields['wm-workout_field_training_days']);
         $context["workouts"][] = $post;
     }
 
@@ -61,12 +67,13 @@ foreach($posts as $k => $post){
     // if workout start date > today's date => add it to archived future array
     if ($get_future_workout){
         $context["get_future_workout"] = $get_future_workout;
-        if ( strtotime($post->acf_fields['wm-workout_field_start_date']) < strtotime(date('Y-m-d')) && strtotime($post->acf_fields['wm-workout_field_end_date']) < strtotime(date('Y-m-d'))){
+        if ( strtotime($post->acf_fields['wm-workout_field_start_date']) > strtotime(date('Y-m-d')) && strtotime($post->acf_fields['wm-workout_field_end_date']) > strtotime(date('Y-m-d'))){
              $context["next_workouts"][] = $post; 
         }
     }
 
 }
+
 //$context["workouts"] = $posts;
 //printr( $context["workouts"] );
 

@@ -19,6 +19,16 @@
         </div>
     </section>
 
+    {# -------------------------------------------------------------------------- */
+    /*                                  Calendar                                  */
+    /* -------------------------------------------------------------------------- #}
+    <div class='workouts-calendar' data-start-date='{{workouts[0].acf_fields['wm-workout_field_start_date']}}' data-training-days='{{workouts[0].acf_fields['wm-workout_field_training_days']}}'>
+        <div id="calendar" style='height: 20vh'></div>
+    </div>
+
+    {# -------------------------------------------------------------------------- */
+    /*                              Current Workouts                              */
+    /* -------------------------------------------------------------------------- #}
     <section class="workout-section">
         <h2 class="current-workout-title">Current Workout</h2>
         {% if workouts is empty %}
@@ -35,7 +45,7 @@
                             <th scope="col">Excercice</th>
                             <th scope="col">Nombre de répétion</th>
                             <th scope="col">Poids (en KG)</th>
-                            <th scope="col">Temps de repos</th>
+                            <th scope="col">Temps de repos (en minutes et secondes)</th>
                             <th scope="col">Note</th>
                         </tr>
                     </thead>
@@ -55,14 +65,16 @@
         {% endif %}
     </section>
 
+    {# -------------------------------------------------------------------------- */
+    /*                               Future Workouts                              */
+    /* -------------------------------------------------------------------------- #}
     {% if get_future_workout %}
         <section class="future-workout">
             <h2 class="future-workout-title">Future Workout</h2>
-            <div id="accordion">
-                {% for future_workout in next_workouts %}
-                    
+            {% for future_workout in next_workouts %}
+                <div id="accordion-{{ fn('sanitize_title', future_workout.post_title) }}">
                     <div class="card workout-{{ fn('sanitize_title', future_workout.post_title) }}">
-                        <div class="card-header" id="headingOne">
+                        <div class="card-header" id="heading-{{ fn('sanitize_title', future_workout.post_title) }}">
                             <h5 class="mb-0">
                                 <button class="btn btn-link" data-toggle="collapse" data-target="#id-{{ fn('sanitize_title', future_workout.post_title) }}" aria-expanded="true" aria-controls="id-{{ fn('sanitize_title', future_workout.post_title) }}">
                                 {{future_workout.post_title}}
@@ -70,7 +82,7 @@
                             </h5>
                         </div>
 
-                        <div id="id-{{ fn('sanitize_title', future_workout.post_title) }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div id="id-{{ fn('sanitize_title', future_workout.post_title) }}" class="collapse" aria-labelledby="heading-{{ fn('sanitize_title', future_workout.post_title) }}" data-parent="#accordion-{{ fn('sanitize_title', future_workout.post_title) }}">
                         <div class="card-body">
                             {# {{dump(workout)}} #}
 
@@ -82,7 +94,7 @@
                                         <th scope="col">Excercice</th>
                                         <th scope="col">Nombre de répétion</th>
                                         <th scope="col">Poids (en KG)</th>
-                                        <th scope="col">Temps de repos</th>
+                                        <th scope="col">Temps de repos (en minutes et secondes)</th>
                                         <th scope="col">Note</th>
                                     </tr>
                                 </thead>
@@ -101,19 +113,21 @@
                         </div>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% endfor %}
         </section>
     {% endif %}
 
+    {# -------------------------------------------------------------------------- */
+    /*                              Archived Workouts                             */
+    /* -------------------------------------------------------------------------- #}
     {% if get_archived_workout %}
         <section class="archived-workout">
             <h2 class="archived-workout-title">Archived Workout</h2>
-            <div id="accordion">
-                {% for past_workout in archived_workout %}
-                    
+            {% for past_workout in archived_workout %}
+                <div id="accordion-{{ fn('sanitize_title', past_workout.post_title) }}">
                     <div class="card workout-{{ fn('sanitize_title', past_workout.post_title) }}">
-                        <div class="card-header" id="headingOne">
+                        <div class="card-header" id="heading-{{ fn('sanitize_title', past_workout.post_title) }}">
                             <h5 class="mb-0">
                                 <button class="btn btn-link" data-toggle="collapse" data-target="#id-{{ fn('sanitize_title', past_workout.post_title) }}" aria-expanded="true" aria-controls="id-{{ fn('sanitize_title', past_workout.post_title) }}">
                                 {{past_workout.post_title}}
@@ -121,7 +135,7 @@
                             </h5>
                         </div>
 
-                        <div id="id-{{ fn('sanitize_title', past_workout.post_title) }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div id="id-{{ fn('sanitize_title', past_workout.post_title) }}" class="collapse" aria-labelledby="heading-{{ fn('sanitize_title', past_workout.post_title) }}" data-parent="#accordion-{{ fn('sanitize_title', past_workout.post_title) }}">
                         <div class="card-body">
                             {# {{dump(workout)}} #}
 
@@ -133,7 +147,7 @@
                                         <th scope="col">Excercice</th>
                                         <th scope="col">Nombre de répétion</th>
                                         <th scope="col">Poids (en KG)</th>
-                                        <th scope="col">Temps de repos</th>
+                                        <th scope="col">Temps de repos (en minutes et secondes)</th>
                                         <th scope="col">Note</th>
                                     </tr>
                                 </thead>
@@ -152,8 +166,8 @@
                         </div>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% endfor %}
         </section>
     {% endif %}
 </div>

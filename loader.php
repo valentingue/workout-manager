@@ -118,7 +118,16 @@ add_action('updated_post_meta', 'workout_manager_protect_files' , 10 , 3);
 function workout_manager_enqueue_scripts() {
 	$current_plugin_version = \workout_manager\get_plugin_version();
 
-	wp_enqueue_script( 'workout_manager_athlete_js', WORKOUT_MANAGER_URL . '/assets/js/athlete.js', array( 'jquery' ) , $current_plugin_version );
+	wp_enqueue_style('front-style', WORKOUT_MANAGER_URL.'assets/scss/front.css');
+
+	wp_enqueue_script('plyr-wm', WORKOUT_MANAGER_URL.'node_modules/plyr/dist/plyr.min.js', ["jquery"], '1.0', true);
+
+	// import calendar library
+    wp_enqueue_script('fullcalendar-js', WORKOUT_MANAGER_URL.'node_modules/fullcalendar/main.min.js');
+    wp_enqueue_style('fullcalendar-css', WORKOUT_MANAGER_URL.'node_modules/fullcalendar/main.min.css');
+
+	wp_enqueue_script( 'workout_manager_athlete_js', WORKOUT_MANAGER_URL . 'assets/js/athlete.js', array( 'jquery' ) , $current_plugin_version );
+	wp_enqueue_script( 'workout_manager_dashboard_js', WORKOUT_MANAGER_URL . 'assets/js/dashboard.js', array( 'jquery' ) , $current_plugin_version );
 	wp_localize_script( 'workout_manager_athlete_js', 'workout_manager_athlete_ajax_object', array( 
 		'ajaxurl' => admin_url( 'admin-ajax.php'),
         'redirecturl' => home_url(),
@@ -126,8 +135,12 @@ function workout_manager_enqueue_scripts() {
 		'delete_account_confirmation_sentence' => __('Are you sure you want to delete your account?' , 'workout_manager'),
     ));
 
-	wp_enqueue_script('toastr-js', WORKOUT_MANAGER_URL.'/node_modules/toastr/build/toastr.min.js', ['jquery']);
-    wp_enqueue_style('toastr-css', WORKOUT_MANAGER_URL.'/node_modules/toastr/build/toastr.min.css');
+	wp_enqueue_script('popper-wm', WORKOUT_MANAGER_URL.'node_modules/@popperjs/core/dist/umd/popper.min.js', ['jquery']);
+    wp_enqueue_script('bootstrap-wm', WORKOUT_MANAGER_URL.'node_modules/bootstrap/dist/js/bootstrap.min.js', ['jquery', 'popper-js']);
+
+	wp_enqueue_script('toastr-wm', WORKOUT_MANAGER_URL.'node_modules/toastr/build/toastr.min.js', ['jquery']);
+    wp_enqueue_style('toastr-css', WORKOUT_MANAGER_URL.'node_modules/toastr/build/toastr.min.css');
+
 	
 }
 add_action( 'wp_enqueue_scripts', 'workout_manager_enqueue_scripts' );

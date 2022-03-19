@@ -1,0 +1,10 @@
+.workouts-calendar{
+    #calendar{
+        .fc-header-toolbar, .fc-view-harness{
+            max-width: 50vw;
+        }
+        .fc-view-harness{
+            max-height: 50vh;
+        }
+    }
+}
