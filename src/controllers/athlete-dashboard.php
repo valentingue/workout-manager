@@ -54,7 +54,26 @@ foreach($posts as $k => $post){
     
     // if workout start date > today && end date < today => add workout to current workouts array
     if ( date('Y-m-d', strtotime($post->acf_fields['wm-workout_field_start_date'])) < date('Y-m-d') && date('Y-m-d', strtotime($post->acf_fields['wm-workout_field_end_date'])) > date('Y-m-d')){
-        $post->acf_fields['wm-workout_field_training_days'] = json_encode($post->acf_fields['wm-workout_field_training_days']);
+        //$post->acf_fields['wm-workout_field_training_days'] = json_encode($post->acf_fields['wm-workout_field_training_days']);
+
+        $dates = dateRange($post->acf_fields['wm-workout_field_start_date'], $post->acf_fields['wm-workout_field_end_date']);
+        
+        $days = []; 
+        $training_days = [];
+
+        foreach($post->acf_fields['wm-workout_field_training_days'] as $k => $training_day){
+            foreach($dates as $i => $date){
+                $day = $date->format("N");
+                if ($day === $training_day ) $days[] = $date;
+            }
+        }
+
+        foreach ($days as $i => $date) {
+            $training_days[] = $date->format("D Y-m-d");
+        }
+
+        $context['training_days'] = json_encode($training_days);
+
         $context["workouts"][] = $post;
     }
 
@@ -72,6 +91,30 @@ foreach($posts as $k => $post){
         }
     }
 
+}
+
+/* $str = '2022-03-';
+  for($i2=1; $i2<30; $i2++)
+  {
+
+    // echo '<br>',
+      $ddd = $str.$i2;
+    // echo '',
+      $date = date('Y M D d', $time = strtotime($ddd) );
+
+    if( strpos($date, 'Sat') || strpos($date, 'Sun') )
+    {
+      echo '<br>' .$date;
+    }
+  } */
+
+function dateRange($begin, $end, $interval = null){
+    $begin = new \DateTime($begin);
+    $end = new \DateTime($end);
+    // Because DatePeriod does not include the last date specified.
+    $end = $end->modify('+1 day');
+    $interval = new \DateInterval($interval ? $interval : 'P1D');
+    return iterator_to_array(new \DatePeriod($begin, $interval, $end));
 }
 
 //$context["workouts"] = $posts;

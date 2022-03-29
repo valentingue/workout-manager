@@ -22,8 +22,10 @@
     {# -------------------------------------------------------------------------- */
     /*                                  Calendar                                  */
     /* -------------------------------------------------------------------------- #}
-    <div class='workouts-calendar' data-start-date='{{workouts[0].acf_fields['wm-workout_field_start_date']}}' data-training-days='{{workouts[0].acf_fields['wm-workout_field_training_days']}}'>
-        <div id="calendar" style='height: 20vh'></div>
+    <div class='workouts-calendar row' data-training-days='{{training_days}}'>
+        <div class="col-6">
+            <div id="calendar"></div>
+        </div>
     </div>
 
     {# -------------------------------------------------------------------------- */

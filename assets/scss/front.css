@@ -11120,11 +11120,5 @@ textarea.form-control-lg {
   }
 }
 /* parts */
-.workouts-calendar #calendar .fc-header-toolbar, .workouts-calendar #calendar .fc-view-harness {
-  max-width: 50vw;
-}
-.workouts-calendar #calendar .fc-view-harness {
-  max-height: 50vh;
-}
 
 /*# sourceMappingURL=front.css.map */
