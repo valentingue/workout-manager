@@ -69,7 +69,7 @@ foreach($posts as $k => $post){
         }
 
         foreach ($days as $i => $date) {
-            $training_days[] = $date->format("D Y-m-d");
+            $training_days[] = $date->format("Y-m-d");
         }
 
         $context['training_days'] = json_encode($training_days);
@@ -92,21 +92,6 @@ foreach($posts as $k => $post){
     }
 
 }
-
-/* $str = '2022-03-';
-  for($i2=1; $i2<30; $i2++)
-  {
-
-    // echo '<br>',
-      $ddd = $str.$i2;
-    // echo '',
-      $date = date('Y M D d', $time = strtotime($ddd) );
-
-    if( strpos($date, 'Sat') || strpos($date, 'Sun') )
-    {
-      echo '<br>' .$date;
-    }
-  } */
 
 function dateRange($begin, $end, $interval = null){
     $begin = new \DateTime($begin);
