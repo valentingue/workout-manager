@@ -124,6 +124,7 @@ function workout_manager_enqueue_scripts() {
 	$current_plugin_version = \workout_manager\get_plugin_version();
 
 	wp_enqueue_style('front-style', WORKOUT_MANAGER_URL.'assets/scss/front.css');
+	wp_enqueue_script('script-js', WORKOUT_MANAGER_URL.'assets/js/script.js', ['jquery']);
 
 	wp_enqueue_script('plyr-wm', WORKOUT_MANAGER_URL.'node_modules/plyr/dist/plyr.min.js', ["jquery"], '1.0', true);
 
