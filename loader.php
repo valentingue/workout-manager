@@ -136,7 +136,7 @@ function workout_manager_enqueue_scripts() {
     ));
 
 	wp_enqueue_script('popper-wm', WORKOUT_MANAGER_URL.'node_modules/@popperjs/core/dist/umd/popper.min.js', ['jquery']);
-    wp_enqueue_script('bootstrap-wm', WORKOUT_MANAGER_URL.'node_modules/bootstrap/dist/js/bootstrap.min.js', ['jquery', 'popper-js']);
+    wp_enqueue_script('bootstrap-wm', WORKOUT_MANAGER_URL.'node_modules/bootstrap/dist/js/bootstrap.min.js', ['jquery', 'popper-wm']);
 
 	wp_enqueue_script('toastr-wm', WORKOUT_MANAGER_URL.'node_modules/toastr/build/toastr.min.js', ['jquery']);
     wp_enqueue_style('toastr-css', WORKOUT_MANAGER_URL.'node_modules/toastr/build/toastr.min.css');

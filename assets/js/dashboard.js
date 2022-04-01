@@ -17,4 +17,13 @@ $(document).ready(function(){
         calendar.render();
     }
 
+    let $prevWorkout;
+    $('.accordion-button').on('click', e => {
+    if ($prevWorkout !== e.currentTarget) {
+        $prevWorkout = e.currentTarget;
+        $('.accordion-collapse').removeClass("show");
+        $('.accordion-button').attr('aria-expanded', false);
+    }
+    });
+
 });
