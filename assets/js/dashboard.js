@@ -1,3 +1,16 @@
+/* -------------------------------------------------------------------------- */
+/*                            Import jspdf from cdn                           */
+/* -------------------------------------------------------------------------- */
+function addScript(url) {
+    const script = document.createElement('script');
+    script.type = 'application/javascript';
+    script.src = url;
+    document.head.appendChild(script);
+}
+  addScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js');
+
+/* -------------------------------------------------------------------------- */
+
 $(document).ready(function(){  
 
     if ($('.workouts-calendar').attr('data-training-days') !== ''){
@@ -11,6 +24,11 @@ $(document).ready(function(){
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
+            headerToolbar: {
+                left: 'prev,today,next',
+                center: 'title',
+                right: 'dayGridWeek,dayGridMonth'
+            },    
             events: training_days,
             height: 650
         });
@@ -25,5 +43,21 @@ $(document).ready(function(){
         $('.accordion-button').attr('aria-expanded', false);
     }
     });
+
+    var doc = new jsPDF();
+    var specialElementHandlers = {
+        '#editor': function (element, renderer) {
+            return true;
+        }
+    };
+
+    $('#pdf-export').click(function () {
+        doc.fromHTML($('#current-workout').html(), 15, 15, {
+            'width': 170,
+                'elementHandlers': specialElementHandlers
+        });
+        doc.save('workout.pdf');
+    });
+
 
 });

@@ -27,23 +27,21 @@
             <div id="calendar"></div>
         </div>
         <div class="tools col-6">
-            <button id='pdf-export'></button>
+            <button id='pdf-export'>Téléchager le programme</button>
+            <div id="editor"></div>
         </div>
     </div>
     <div class="container">
-        {# -------------------------------------------------------------------------- */
-        /*                              Current Workouts                              */
-        /* -------------------------------------------------------------------------- #}
-        <section class="current-workout">
-            <h2 class="current-workout-title">Current Workout</h2>
-            {% if workouts is empty %}
-                <h4 class="no-workout text-center">Currently, you don't have any workout</h2>
-            {% else %}
-                {% for workout in workouts %}
-                    {# {{dump(workout)}} #}
-
-                    <h4 class="workout-name">{{workout.acf_fields['wm-workout_field_name']}}</h2>
-
+    {# -------------------------------------------------------------------------- */
+    /*                              Current Workouts                              */
+    /* -------------------------------------------------------------------------- #}
+    <section id='current-workout' class="current-workout">
+        <h2 class="current-workout-title">Current Workout</h2>
+        {% if workouts is empty %}
+            <h4 class="no-workout text-center">Currently, you don't have any workout</h2>
+        {% else %}
+            {% for workout in workouts %}
+                <h4 class="workout-name">{{workout.acf_fields['wm-workout_field_name']}} - Commence le: {{workout.acf_fields['wm-workout_field_start_date']}}</h2>
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
