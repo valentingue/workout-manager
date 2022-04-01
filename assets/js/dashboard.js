@@ -28,8 +28,16 @@ $(document).ready(function(){
                 left: 'prev,today,next',
                 center: 'title',
                 right: 'dayGridWeek,dayGridMonth'
-            },    
+            },  
+            locale: 'frLocale',  
             events: training_days,
+            buttonText: {
+                today:    'Aujourd\'hui',
+                month:    'Mois',
+                week:     'Semaine',
+                day:      'Jour',
+                list:     'Liste'
+            },
             height: 650
         });
         calendar.render();
