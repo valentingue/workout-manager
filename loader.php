@@ -52,6 +52,11 @@ function workout_manager_plugins_loaded(){
 }
 add_action( 'plugins_loaded', 'workout_manager_plugins_loaded' );
 
+// Composer loader
+require_once(WORKOUT_MANAGER_DIR."/includes/vendor/autoload.php");
+
+// Add Timber
+if(class_exists("Timber\Timber")) new Timber\Timber();
 
 function workout_manager_init(){
 
