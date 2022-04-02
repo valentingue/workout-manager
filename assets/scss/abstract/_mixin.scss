@@ -1,0 +1,4 @@
+// -- add a colored filter on the image
+@mixin image-filter ($rgba) {
+    box-shadow: inset 0 0 0 9999px $rgba;    
+}

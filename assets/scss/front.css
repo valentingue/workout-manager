@@ -11119,7 +11119,21 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+/* Theme colors */
+/* Bootstrap variables */
+/* Font size */
+/* Margin and padding */
+/* Colors */
+/* Container size */
+/* theme */
+.font-size-14 {
+  font-size: 14px;
+}
+
 /* parts */
+/* -------------------------------------------------------------------------- */
+/*                                   Tooltip                                  */
+/* -------------------------------------------------------------------------- */
 .exercice-tooltip {
   display: inline;
   position: relative;

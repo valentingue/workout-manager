@@ -16,15 +16,15 @@ $(document).ready(function(){
     /* -------------------------------------------------------------------------- */
     /*                                  Calendar                                  */
     /* -------------------------------------------------------------------------- */
-    if ($('.workouts-calendar').attr('data-training-days') !== ''){
+    $('.workouts-calendar').each((index, value)=>{
         let training_days = [];
-        let days = JSON.parse($('.workouts-calendar').attr('data-training-days'));
+        let days = JSON.parse($(value).attr('data-training-days'));
 
         days.forEach(function(currentValue, index, arr){
             training_days.push( { title: 'Entrainement', start: new Date(currentValue) } ) ;
         });
 
-        var calendarEl = document.getElementById('calendar');
+        var calendarEl = document.getElementById('calendar'+'-'+$(value).attr('data-workout-name'));
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             headerToolbar: {
@@ -41,11 +41,15 @@ $(document).ready(function(){
                 day:      'Jour',
                 list:     'Liste'
             },
-            height: 650
+            aspectRatio: 1,
+            //height: 650
         });
         calendar.render();
-    }
+    });
 
+    /* -------------------------------------------------------------------------- */
+    /*                     Close all accordion except current                     */
+    /* -------------------------------------------------------------------------- */
     let $prevWorkout;
     $('.accordion-button').on('click', e => {
     if ($prevWorkout !== e.currentTarget) {
@@ -54,11 +58,6 @@ $(document).ready(function(){
         $('.accordion-button').attr('aria-expanded', false);
     }
     });
-
-    /* -------------------------------------------------------------------------- */
-    /*                               Workout tooltip                              */
-    /* -------------------------------------------------------------------------- */
-    //$('[data-toggle="tooltip"]').tooltip()
 
     /* -------------------------------------------------------------------------- */
     /*                              Download workout                              */
@@ -70,8 +69,10 @@ $(document).ready(function(){
         }
     };
 
-    $('#pdf-export').click(function () {
-        doc.fromHTML($('#current-workout').html(), 15, 15, {
+    $('#pdf-export').click(function (e) {
+        console.log($(e.currentTarget).attr('data-export-workout'));
+
+        doc.fromHTML($('#workout-container-'+$(e.currentTarget).attr('data-export-workout')).html(), 15, 15, {
             'width': 170,
                 'elementHandlers': specialElementHandlers
         });

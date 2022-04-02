@@ -132,8 +132,8 @@ function workout_manager_enqueue_scripts() {
     wp_enqueue_script('fullcalendar-js', WORKOUT_MANAGER_URL.'node_modules/fullcalendar/main.min.js');
     wp_enqueue_style('fullcalendar-css', WORKOUT_MANAGER_URL.'node_modules/fullcalendar/main.min.css');
 
-	wp_enqueue_script( 'workout_manager_athlete_js', WORKOUT_MANAGER_URL . 'assets/js/athlete.js', array( 'jquery' ) , $current_plugin_version );
-	wp_enqueue_script( 'workout_manager_dashboard_js', WORKOUT_MANAGER_URL . 'assets/js/dashboard.js', array( 'jquery' ) , $current_plugin_version );
+	wp_enqueue_script( 'workout_manager_athlete_js', WORKOUT_MANAGER_URL . 'assets/js/athlete.js', array( 'jquery' ) , time() );
+	wp_enqueue_script( 'workout_manager_dashboard_js', WORKOUT_MANAGER_URL . 'assets/js/dashboard.js', array( 'jquery' ) , time() );
 	wp_localize_script( 'workout_manager_athlete_js', 'workout_manager_athlete_ajax_object', array( 
 		'ajaxurl' => admin_url( 'admin-ajax.php'),
         'redirecturl' => home_url(),

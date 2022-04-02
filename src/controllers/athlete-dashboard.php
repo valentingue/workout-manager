@@ -58,7 +58,6 @@ foreach($posts as $k => $post){
     
     // if workout start date > today && end date < today => add workout to current workouts array
     if ( date('Y-m-d', strtotime($post->acf_fields['wm-workout_field_start_date'])) < date('Y-m-d') && date('Y-m-d', strtotime($post->acf_fields['wm-workout_field_end_date'])) > date('Y-m-d')){
-        //$post->acf_fields['wm-workout_field_training_days'] = json_encode($post->acf_fields['wm-workout_field_training_days']);
 
         $dates = dateRange($post->acf_fields['wm-workout_field_start_date'], $post->acf_fields['wm-workout_field_end_date']);
         
@@ -76,8 +75,8 @@ foreach($posts as $k => $post){
             $training_days[] = $date->format("Y-m-d");
         }
 
-        $context['training_days'] = json_encode($training_days);
 
+        $post->training_days =  json_encode($training_days);
         $context["workouts"][] = $post;
     }
 
@@ -105,8 +104,6 @@ function dateRange($begin, $end, $interval = null){
     return iterator_to_array(new \DatePeriod($begin, $interval, $end));
 }
 
-//$context["workouts"] = $posts;
-//printr( $context["workouts"] );
 
 $view_path  = WORKOUT_MANAGER_DIR."/templates/dashboard.twig";
 \Timber::render($view_path, $context);

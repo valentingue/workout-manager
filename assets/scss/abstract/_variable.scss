@@ -1,0 +1,91 @@
+$enable-responsive-font-sizes: true;
+$rfs-two-dimensional: true;
+$rfs-mode: max-media-query;
+$rfs-base-font-size: 1rem;
+
+$white: white;
+$turquoise: #0CB4CE;
+$orange: #E69500;
+$purple: #4D0082;
+
+/* Theme colors */
+$black: #111;
+$black-light: #363636;
+$grey-lighten: #e8e8e8;
+$grey-medium: #8c8c8c;
+$grey: #363638;
+$brown: #2d2d2d;
+$brown-light: #383838;
+$red: #89240a;
+$cyan: #3498D8;
+$yellow: #ffd600;
+
+$font-grey: #5d4a4b;
+$primary-color: $cyan;
+$secondary-color: $grey;
+
+/* Bootstrap variables */
+$body-color: $black;
+$text-muted: $grey-medium;
+$body-bg: $grey-lighten;
+$line-height-base: 1.6;
+$font-family-sans-serif: 'Lato', sans-serif;
+$link-color: $grey;
+$link-hover-decoration: underline;
+$navbar-light-toggler-icon-bg: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(255, 255, 255)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+
+/* Font size */
+$h1-font-size:3.6rem;
+$h2-font-size:3rem;
+$h3-font-size:2rem;
+$h4-font-size:20px;
+$h5-font-size:19px;
+$font-size-base:1.1rem;
+
+/* Margin and padding */
+$spacer: 2.5rem !default;
+$spacers: (
+  0: 0,
+  1: ($spacer * .25),
+  2: ($spacer * .5),
+  3: $spacer,
+  4: ($spacer * 1.5),
+  5: ($spacer * 3),
+  6: ($spacer * 5),
+  7: ($spacer * 8),
+  8: ($spacer * 11),
+  9: ($spacer * 15),
+  10: ($spacer * 17),
+  11: ($spacer * 19),
+);
+
+/* Colors */
+$theme-colors: (
+  primary: $primary-color,
+  secondary: $secondary-color,
+  light: $white,
+  dark: $black,
+  darker: $black-light,
+  grey-lighten: $grey-lighten
+);
+
+/* Container size */
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1400px
+) !default;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 600px,
+  md: 800px,
+  lg: 1000px,
+  xl: 1280px,
+  xxl: 1400px
+);
+
+// Recurrent changes
+$letter-spacing: -0.8px;
