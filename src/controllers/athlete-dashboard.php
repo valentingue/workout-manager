@@ -51,6 +51,10 @@ foreach($posts as $k => $post){
 
         $posts[$k] = $post;
     }
+
+    foreach($post->acf_fields['wm-workout_field_exercices'] as $i => $exercice){
+        $posts[$k]->acf_fields['wm-workout_field_exercices'][$i]['exercice_image'] = wp_get_attachment_image_url($exercice['exercice_image']);
+    }
     
     // if workout start date > today && end date < today => add workout to current workouts array
     if ( date('Y-m-d', strtotime($post->acf_fields['wm-workout_field_start_date'])) < date('Y-m-d') && date('Y-m-d', strtotime($post->acf_fields['wm-workout_field_end_date'])) > date('Y-m-d')){
@@ -90,7 +94,6 @@ foreach($posts as $k => $post){
              $context["next_workouts"][] = $post; 
         }
     }
-
 }
 
 function dateRange($begin, $end, $interval = null){

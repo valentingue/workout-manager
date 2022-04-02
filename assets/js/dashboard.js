@@ -13,6 +13,9 @@ function addScript(url) {
 
 $(document).ready(function(){  
 
+    /* -------------------------------------------------------------------------- */
+    /*                                  Calendar                                  */
+    /* -------------------------------------------------------------------------- */
     if ($('.workouts-calendar').attr('data-training-days') !== ''){
         let training_days = [];
         let days = JSON.parse($('.workouts-calendar').attr('data-training-days'));
@@ -52,6 +55,14 @@ $(document).ready(function(){
     }
     });
 
+    /* -------------------------------------------------------------------------- */
+    /*                               Workout tooltip                              */
+    /* -------------------------------------------------------------------------- */
+    //$('[data-toggle="tooltip"]').tooltip()
+
+    /* -------------------------------------------------------------------------- */
+    /*                              Download workout                              */
+    /* -------------------------------------------------------------------------- */
     var doc = new jsPDF();
     var specialElementHandlers = {
         '#editor': function (element, renderer) {
