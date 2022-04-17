@@ -7,6 +7,9 @@
                     <span class="text-white">{{ user_fields["specialisation"]["value"] }}</span>
                 </div>
                 <div class='col-md-auto mt-2 my-md-auto'>
+                    <button type="button" class="btn alternate-btn zindex font-weight-normal py-1" style="padding-left: 78px; padding-right:78px;" data-bs-toggle="modal" data-bs-target="#modal-user-datas">
+                        {{ __("Edit my profile", "workout_manager") }}
+                    </button>
                     <a class="btn btn-primary zindex alternate-btn py-1" href='{{ logout_url }}'>
                         {% if fn("wp_is_mobile") %}
                             <span class="icon-logout ml-auto"></span>
@@ -215,4 +218,41 @@
             </section>
         {% endif %}
     </div>
+</div>
+
+<div class="modal fade" id="modal-user-datas" tabindex="-1" aria-labelledby="modal-user-datasLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modification de vos informations personnelles</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form id="athlete-infopersos" method="post">
+                <div class="row">
+                    {% for input_name, input_datas in user_fields %}
+                        <div class="col-12 col-sm-6 form-group mb-2 ">
+                            <label for="input-{{ input_name }}">{{ input_datas.label }}</label>
+                            <input required type="{{(input_datas.type == 'date_picker') ? "date" : "text" }}" id='input-{{ input_name }}' class="form-control" name='{{ input_name }}' value='{{ input_datas.value }}' {{ (input_datas.maxlength != '') ? 'maxlength="'~(input_datas.maxlength)~'"' : ''  }} placeholder="{{ input_datas.label }}*" />
+                        </div>
+                    {% endfor %}
+                    <div class="col-12 col-sm-6 form-group mb-2 ">
+                        <label for="password_1">{{ __("Change password" , "cenas_ds") }}</label>
+                        <input type="password" class="form-control" id='password_1' name='password_1' placeholder='{{ __("Let empty to keep actual password" , "cenas_ds") }}' />
+                    </div>
+                    <div class="col-12 col-sm-6 form-group mb-2 ">
+                        <label for="password_2">{{ __("Confirm password" , "cenas_ds") }}</label>
+                        <input type="password" class="form-control" id='password_2' name='password_2' />
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-full btn-secondary">{{ __("Change my informations" , "cenas_ds") }} </button> 
+                    <button onclick='workout_manager_delete_account();return false;' class="btn btn-full btn-warning">{{ __("Delete my account" , "cenas_ds") }} </button>
+                    <center><img src='{{ fn("get_admin_url") }}images/spinner.gif' class="d-none loader" /></center>
+                </div>
+                {{ nonce_user_fields }}
+            </form>
+        </div>
+    </div>
+  </div>
 </div>

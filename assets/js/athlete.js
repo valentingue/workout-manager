@@ -116,17 +116,6 @@ jQuery(document).ready(function($) {
         });
         e.preventDefault();
     });
-
-    if ($.fn.slick) {
-        $("#carousel-athlete-media").slick({
-            prevArrow: "<div class='align-items-center btn-primary" + (muGlobalData.wpIsMobile ? " bottom-0 " : " ") + "d-flex justify-content-center right-50 m-0 ml-1 p-0 position-absolute slick-arrow zindex'>" +
-                "<span class='icon-left text-white'></span>" +
-                "</div>",
-            nextArrow: "<div class='align-items-center btn-primary" + (muGlobalData.wpIsMobile ? " bottom-0 " : " ") + "d-flex justify-content-center left-50 m-0 ml-1 p-0 position-absolute slick-arrow zindex'>" +
-                "<span class='icon-right text-white'></span>" +
-                "</div>",
-        });
-    }
 });
 
 
