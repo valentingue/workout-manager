@@ -55,9 +55,14 @@ function get_athlete_profile_datas(){
 
 	foreach($acf_fields as $field){
 		$value 							= ($is_user_logged_in) ? get_field($field["name"] , "user_".$current_user_id) : "";
-		$user_fields[$field["name"]] 	= ["label" => __($field["label"] , "workout_manager") , "value" => $value];
-	}
+		$user_fields[$field["name"]] 	= [
+			"label" => __($field["label"] , "workout_manager"), 
+			"value" => $value,
+			"maxlength" => (array_key_exists('maxlength', $field) ? $field["maxlength"] : ''),
+			"type" => $field["type"],
+		];
 
+	}
 	return $user_fields;
 
 }

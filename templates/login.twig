@@ -52,106 +52,51 @@
                 <p class="my-2">
                     {{ __("Create your account and access to your dashboard.", "workout_manager") }}
                 </p>
-                <a class="btn alternate-btn zindex font-weight-normal py-1" style="padding-left: 78px; padding-right:78px;" data-toggle="modal" data-target=".modal-user-datas">
+                <button type="button" class="btn alternate-btn zindex font-weight-normal py-1" style="padding-left: 78px; padding-right:78px;" data-bs-toggle="modal" data-bs-target="#modal-user-datas">
                     {{ __("Register", "workout_manager") }}
-                </a>
+                </button>
             </div>
-        </div>
-    </div>
-    <div class="bg-grey-lighten">
-        <div class="container pt-3 pb-2 py-md-4">
-            <section class="row">
-                <div class="col-12 col-md pr-2 mb-4 mb-md-0">
-                    <div class="pr-md-4">
-                        <h2>{{ accreditations_titre }}</h2>
-                        <div>
-                            {{ accreditations_texte }}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-15 col-md pl-2">
-                    <div class="d-flex flex-column h-100 pl-md-4">
-                        <h2>{{ titre_prochaine_formation }}</h2>
-                        <div class="row my-auto">
-                            <div class="col-auto my-auto">
-                                {% set date_next_formation = fn("get_the_date", "l d F", formation_a_metre_en_avant.ID)|split(' ') %}
-                                <div id="menu-navbar-formation-date" class="font-weight-bold h5 mb-0 text-secondary text-center text-uppercase">
-                                    <div>{{ date_next_formation[0] }}</div>
-                                    <div class="h1 mb-0 font-weight-bold">{{ date_next_formation[1] }}</div>
-                                    <div>{{ date_next_formation[2] }}</div>
-                                </div>
-                            </div>
-                            <div class="col my-auto text-secondary">
-                                <div>{{ formation_a_metre_en_avant.post_title }}</div>
-                                <a href="{{ fn("get_the_permalink", formation_a_metre_en_avant.ID) }}" class="text-secondary link_underline_animate link_underline_animate_reverse">
-                                    {{ __("More information", "workout_manager") }}
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="mt-4">
-                <h2>{{ en_savoir_plus_titre }}</h2>
-                <div class="row">
-                    {% for en_savoir_plus_bloc in en_savoir_plus_blocs %}
-                        <div class="col-12 col-md {{ fn("wp_is_mobile") ? "mb-3" }}">
-                            <div style="background: url({{ en_savoir_plus_bloc["image"]["sizes"]["large"] }}) center/cover"
-                                 class="bg-zoom rounded img-fluid {{ loop.index is odd ? "bg-filter-primary" : "bg-filter-secondary" }}">
-                                <div class="text-white text-center py-5 py-lg-6">
-                                    <h2 class="mb-0">{{ en_savoir_plus_bloc.titre }}</h2>
-                                    <a href="{{ en_savoir_plus_bloc.lien }}" class="text-white link_underline_animate link_underline_animate_reverse">
-                                        {{ __("More information", "workout_manager") }}
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </section>
         </div>
     </div>
 </div>
 
-<div class="modal fade modal-user-datas" tabindex="-1" role="dialog" aria-labelledby="modalUserDatas" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title" id="create-account-modal">{{__('Create your account', 'workout_manager')}}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="athlete-register" method="post">
-                    <div class="row">
-                        {% for input_name, input_datas in user_fields %}
-                            <div class="col-12 col-sm-6 mb-2 ">
-                                <input type="text" required class="form-control" name='{{ input_name }}' value='' placeholder="{{ input_datas.label }}*" />
-                            </div>
-                        {% endfor %}
-                        <div class="col-12 col-sm-6 mb-2 ">
-                            <input type="password" required class="form-control" name='password_1' value='' placeholder="{{__('Password', 'workout_manager')}}*" />
-                        </div>
-                        <div class="col-12 col-sm-6 mb-2 ">
-                            <input type="password" required class="form-control" name='password_2' value='' placeholder="{{__('Confirm password','workout_manager')}}*" />
-                        </div>
-
+<!-- Modal -->
+<div class="modal fade" id="modal-user-datas" tabindex="-1" aria-labelledby="modal-user-datasLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="create-account-modal">{{__('Create your account', 'workout_manager')}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="athlete-register" method="post">
+            <div class="row">
+                {% for input_name, input_datas in user_fields %}
+                    <div class="col-12 col-sm-6 mb-2 ">
+                        <input type="{{(input_datas.type == 'date_picker') ? "date" : "text" }}" required class="form-control" name='{{ input_name }}' value='' {{ (input_datas.maxlength != '') ? 'maxlength="'~(input_datas.maxlength)~'"' : ''  }} placeholder="{{ input_datas.label }}*" />
                     </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-secondary btn-full pull-right">{{__('Create my account', 'workout_manager')}} <img src='{{ loader_image }}' class='d-none loader' /></button>
-                    </div>
-                    {{ nonce_register }}
-                </form>
+                {% endfor %}
+                <div class="col-12 col-sm-6 mb-2 ">
+                    <input type="password" required class="form-control" name='password_1' value='' placeholder="{{__('Password', 'workout_manager')}}*" />
+                </div>
+                <div class="col-12 col-sm-6 mb-2 ">
+                    <input type="password" required class="form-control" name='password_2' value='' placeholder="{{__('Confirm password','workout_manager')}}*" />
+                </div>
+
             </div>
-            <div class="modal-footer">
-                <small class="mx-auto">{{ __('All fields are required <br> Your account will only be active after validation from your coach. You will receive an email as soon as the activation is effective' , 'workout_manager') }}</small>
-                <small class="mx-auto mt-2">
-                {{ __('The information collected will only be used in connection with your request for information and will only be shared in accordance with our privacy policy. If you have any questions regarding the use of your personal data, you can consult our <a class="text-decoration" href="/politique-de-confidentialite/">privacy policy</a> or contact us at contact@cenas.ch' , 'workout_manager') }}</small>
+            <div class="text-center">
+                <button type="submit" class="btn btn-secondary btn-full pull-right">{{__('Create my account', 'workout_manager')}} <img src='{{ loader_image }}' class='d-none loader' /></button>
             </div>
-        </div>
+            {{ nonce_register }}
+        </form>
     </div>
+    <div class="modal-footer">
+        <small class="mx-auto">{{ __('All fields are required <br> Your account will only be active after validation from your coach. You will receive an email as soon as the activation is effective' , 'workout_manager') }}</small>
+        <small class="mx-auto mt-2">
+        {{ __('The information collected will only be used in connection with your request for information and will only be shared in accordance with our privacy policy. If you have any questions regarding the use of your personal data, you can consult our <a class="text-decoration" href="/politique-de-confidentialite/">privacy policy</a> or contact us at contact@cenas.ch' , 'workout_manager') }}</small>
+    </div>
+    </div>
+  </div>
 </div>
 
 <script>

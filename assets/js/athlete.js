@@ -64,7 +64,7 @@ jQuery(document).ready(function($) {
               toastr.error(html_message);
             } else {
               toastr.success(html_message);
-              $(".modal-user-datas").modal("hide");
+              $("#modal-user-datas .btn-close").click();
             }
           },
           complete: function (data) {
