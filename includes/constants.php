@@ -9,7 +9,8 @@ define(	'WORKOUT_MANAGER_ACTIVE_FIELD'  , 'athlete_is_active');
 use function workout_manager\get_plugin_version;
 
 const WORKOUT_MANAGER_CPT = [
-	"workout"
+	"workout",
+	"contract"
 ];
 
 define(	'WORKOUT_MANAGER_VERSION', get_plugin_version());
