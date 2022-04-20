@@ -29,7 +29,6 @@ function workout_manager_autoloader( $class_name ) {
 	   
 	} */
 	
-	require_once( WORKOUT_MANAGER_DIR . '/vendor/autoload.php');
 	require_once( WORKOUT_MANAGER_DIR . '/cpt/workout/cpt.class.php');
 	require_once( WORKOUT_MANAGER_DIR . '/cpt/contract/cpt.class.php');
 
@@ -40,6 +39,8 @@ spl_autoload_register( 'workout_manager_autoloader' );
 // ===================== Initialisation du plugin =====================
 function workout_manager_plugins_loaded(){
 
+	require_once( WORKOUT_MANAGER_DIR . '/vendor/autoload.php');
+	require_once( WORKOUT_MANAGER_DIR . '/includes/contract_form.php');
 	require_once( WORKOUT_MANAGER_DIR . "/includes/functions.php"  );
 	require_once( WORKOUT_MANAGER_DIR . "/includes/hooks.php"  );
 	require_once( WORKOUT_MANAGER_DIR . "/includes/constants.php"  );
