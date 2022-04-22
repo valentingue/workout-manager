@@ -1,6 +1,17 @@
 {
+    "autoload":{
+        "psr-4":{
+            "Classes\\": "./classes"
+        }
+    },
     "require": {
         "twig/twig": "^2.0",
-        "timber/timber": "^1.19"
+        "timber/timber": "^1.19",
+        "mikehaertl/php-pdftk": "^0.12.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
     }
 }

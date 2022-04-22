@@ -13,6 +13,12 @@ class ComposerStaticInita61575767155bc820699e7e1a1f45ad5
     );
 
     public static $prefixLengthsPsr4 = array (
+        'm' => 
+        array (
+            'mikehaertl\\tmp\\' => 15,
+            'mikehaertl\\shellcommand\\' => 24,
+            'mikehaertl\\pdftk\\' => 17,
+        ),
         'T' => 
         array (
             'Twig\\' => 5,
@@ -27,10 +33,23 @@ class ComposerStaticInita61575767155bc820699e7e1a1f45ad5
         'C' => 
         array (
             'Composer\\Installers\\' => 20,
+            'Classes\\' => 8,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'mikehaertl\\tmp\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mikehaertl/php-tmpfile/src',
+        ),
+        'mikehaertl\\shellcommand\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mikehaertl/php-shellcommand/src',
+        ),
+        'mikehaertl\\pdftk\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mikehaertl/php-pdftk/src',
+        ),
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
@@ -54,6 +73,10 @@ class ComposerStaticInita61575767155bc820699e7e1a1f45ad5
         'Composer\\Installers\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
+        ),
+        'Classes\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/classes',
         ),
     );
 

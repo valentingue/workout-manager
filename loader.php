@@ -39,7 +39,6 @@ spl_autoload_register( 'workout_manager_autoloader' );
 // ===================== Initialisation du plugin =====================
 function workout_manager_plugins_loaded(){
 
-	require_once( WORKOUT_MANAGER_DIR . '/vendor/autoload.php');
 	require_once( WORKOUT_MANAGER_DIR . '/includes/contract_form.php');
 	require_once( WORKOUT_MANAGER_DIR . "/includes/functions.php"  );
 	require_once( WORKOUT_MANAGER_DIR . "/includes/hooks.php"  );
@@ -57,7 +56,9 @@ function workout_manager_plugins_loaded(){
 add_action( 'plugins_loaded', 'workout_manager_plugins_loaded' );
 
 // Composer loader
-require_once(WORKOUT_MANAGER_DIR."/includes/vendor/autoload.php");
+require_once('includes/vendor/autoload.php');
+
+require_once('classes/generate.php');
 
 // Add Timber
 if(class_exists("Timber\Timber")) new Timber\Timber();

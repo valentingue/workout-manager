@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-use \mikehaertl\pdftk\Pdf;
+use mikehaertl\pdftk\Pdf;
 
 add_action( 'admin_menu', 'workout_manager_contract_admin_menu' );
 function workout_manager_contract_admin_menu(){
@@ -45,7 +45,7 @@ function workout_manager_contract_do_page(){
 	
 	// Build the Form
 ?>		
-	<h2><?php _e( 'WordPress HTML form POST request via wp-admin/admin-post.php', PLUGIN_NAME ); ?></h2>		
+	<h2><?php _e( 'Send a contract to your athlete', PLUGIN_NAME ); ?></h2>		
 	<div class="workout_manager_add_user_meta_form">
 				
 	<form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" id="workout_manager_add_user_meta_form" >			
@@ -113,30 +113,37 @@ function the_form_response() {
 		$workout_manager_user_id = absint( $workout_manager_user->ID ) ; */
 		
 		// server processing logic
-		
-		if( isset( $_POST['ajaxrequest'] ) && $_POST['ajaxrequest'] === 'true' ) {
+	
+
+		if( isset( $_POST['workout_manager_add_user_meta_nonce'] ) ) {
 
 			$pdf = new Pdf(WORKOUT_MANAGER_DIR.'/tmp/contrat_vierge_copie.pdf');
 
 			$params = [
 				'page1_lastname_firstname' => 'test@test.com',
 				'page2_coach_info' => 'El Bergando',
-				'page4_offer_solo' => 'Yes',
+				'page4_offer_solo' => true,
 				'page4_offer_solo_duration' => $_POST['workout_manager']['duration'],
 				'page4_offer_solo_mensuality' => $_POST['workout_manager']['mensuality'],
 				'page4_offer_team_validity_date' => $_POST['workout_manager']['validity_date']
 			];
 
 			$pdf->fillForm($params)
-				->needAppearances()
-				->send('filled.pdf');	
-
+				->flatten()
+				->saveAs(WORKOUT_MANAGER_DIR.'/tmp/rendered/filled.pdf');	
 				
+			if ($pdf === false) {
+				$error = $pdf->getError();
+			}
+			
+			/* $pdf = new GeneratePDF();
+			$response = $pdf->generate($params); */
+
 			// server response
-			echo '<pre>';					
+			/* echo '<pre>';					
 				print_r( $_POST );
 			echo '</pre>';				
-			wp_die();
+			wp_die(); */
 		}
 
 		// server response
