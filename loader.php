@@ -125,6 +125,12 @@ function workout_manager_protect_files( $array, $int, $int2 ) {
 }
 add_action('updated_post_meta', 'workout_manager_protect_files' , 10 , 3);
 
+add_action( 'admin_enqueue_scripts', 'workout_manager_enqueue_custom_admin_style' );
+function workout_manager_enqueue_custom_admin_style() {
+	wp_enqueue_script('back-js', WORKOUT_MANAGER_URL.'assets/js/back.js', ['jquery']);
+}
+
+
 function workout_manager_enqueue_scripts() {
 	$current_plugin_version = \workout_manager\get_plugin_version();
 
