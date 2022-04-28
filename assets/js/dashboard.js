@@ -1,50 +1,54 @@
-/* -------------------------------------------------------------------------- */
-/*                            Import jspdf from cdn                           */
-/* -------------------------------------------------------------------------- */
-function addScript(url) {
-    const script = document.createElement('script');
-    script.type = 'application/javascript';
-    script.src = url;
-    document.head.appendChild(script);
-}
-  addScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js');
-
-/* -------------------------------------------------------------------------- */
-
 $(document).ready(function(){  
+    
+   /* -------------------------------------------------------------------------- */
+    /*                            Import jspdf from cdn                           */
+    /* -------------------------------------------------------------------------- */
+    function addScript(url) {
+        const script = document.createElement('script');
+        script.type = 'application/javascript';
+        script.src = url;
+        document.head.appendChild(script);
+    }
+    addScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js');
 
+    /* -------------------------------------------------------------------------- */
+      
     /* -------------------------------------------------------------------------- */
     /*                                  Calendar                                  */
     /* -------------------------------------------------------------------------- */
     $('.workouts-calendar').each((index, value)=>{
-        let training_days = [];
-        let days = JSON.parse($(value).attr('data-training-days'));
 
-        days.forEach(function(currentValue, index, arr){
-            training_days.push( { title: 'Entrainement', start: new Date(currentValue) } ) ;
-        });
+        if( $(value).attr('data-training-days') !== '[]'){
+            let training_days = [];
+            let days = JSON.parse($(value).attr('data-training-days'));
 
-        var calendarEl = document.getElementById('calendar'+'-'+$(value).attr('data-workout-name'));
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            headerToolbar: {
-                left: 'prev,today,next',
-                center: 'title',
-                right: 'dayGridWeek,dayGridMonth'
-            },  
-            locale: 'frLocale',  
-            events: training_days,
-            buttonText: {
-                today:    'Aujourd\'hui',
-                month:    'Mois',
-                week:     'Semaine',
-                day:      'Jour',
-                list:     'Liste'
-            },
-            aspectRatio: 1,
-            //height: 650
-        });
-        calendar.render();
+            days.forEach(function(currentValue, index, arr){
+                training_days.push( { title: 'Entrainement', start: new Date(currentValue) } ) ;
+            });
+
+            var calendarEl = document.getElementById('calendar'+'-'+$(value).attr('data-workout-name'));
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,today,next',
+                    center: 'title',
+                    right: 'dayGridWeek,dayGridMonth'
+                },  
+                locale: 'frLocale',  
+                events: training_days,
+                buttonText: {
+                    today:    'Aujourd\'hui',
+                    month:    'Mois',
+                    week:     'Semaine',
+                    day:      'Jour',
+                    list:     'Liste'
+                },
+                aspectRatio: 1,
+                //height: 650
+            });
+            calendar.render();
+        }
+        else $(value).remove();
     });
 
     /* -------------------------------------------------------------------------- */
