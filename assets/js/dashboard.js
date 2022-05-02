@@ -1,18 +1,4 @@
 $(document).ready(function(){  
-    
-   /* -------------------------------------------------------------------------- */
-    /*                            Import jspdf from cdn                           */
-    /* -------------------------------------------------------------------------- */
-    function addScript(url) {
-        const script = document.createElement('script');
-        script.type = 'application/javascript';
-        script.src = url;
-        document.head.appendChild(script);
-    }
-    addScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js');
-
-    /* -------------------------------------------------------------------------- */
-      
     /* -------------------------------------------------------------------------- */
     /*                                  Calendar                                  */
     /* -------------------------------------------------------------------------- */
