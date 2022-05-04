@@ -134,14 +134,14 @@ function workout_manager_enqueue_custom_admin_style() {
 function workout_manager_enqueue_scripts() {
 	$current_plugin_version = \workout_manager\get_plugin_version();
 
+	wp_enqueue_style('front-style', WORKOUT_MANAGER_URL.'assets/scss/front.css', [], time());
+	wp_enqueue_script('script-js', WORKOUT_MANAGER_URL.'assets/js/script.js', ['jquery']);
+
 	wp_enqueue_script( 'workout_manager_athlete_js', WORKOUT_MANAGER_URL . 'assets/js/athlete.js', array( 'jquery' ) , time(), false );
 	wp_enqueue_script( 'workout_manager_dashboard_js', WORKOUT_MANAGER_URL . 'assets/js/dashboard.js', array( 'jquery' ) , time(), false );
 
 	wp_enqueue_script( 'jsPDF', WORKOUT_MANAGER_URL.'assets/js/lib/jspdf.js', array( 'jquery' ),'2.3.1',false );
 	wp_enqueue_script( 'jsPDF-debug', WORKOUT_MANAGER_URL.'assets/js/lib/jspdf-debug.js', array( 'jquery' ),'1.3.2',false );
-
-	wp_enqueue_style('front-style', WORKOUT_MANAGER_URL.'assets/scss/front.css', [], time());
-	wp_enqueue_script('script-js', WORKOUT_MANAGER_URL.'assets/js/script.js', ['jquery']);
 
 	wp_enqueue_script('plyr-wm', WORKOUT_MANAGER_URL.'node_modules/plyr/dist/plyr.min.js', ["jquery"], '1.0', true);
 
