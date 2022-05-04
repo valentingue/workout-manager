@@ -142,6 +142,7 @@ function workout_manager_enqueue_scripts() {
 
 	wp_enqueue_script( 'jsPDF', WORKOUT_MANAGER_URL.'assets/js/lib/jspdf.js', array( 'jquery' ),'2.3.1',false );
 	wp_enqueue_script( 'jsPDF-debug', WORKOUT_MANAGER_URL.'assets/js/lib/jspdf-debug.js', array( 'jquery' ),'1.3.2',false );
+	wp_enqueue_script( 'jsPDF-autotable', WORKOUT_MANAGER_URL.'assets/js/lib/jspdf-autotable.js', array( 'jquery' ),'3.5.23',false );
 
 	wp_enqueue_script('plyr-wm', WORKOUT_MANAGER_URL.'node_modules/plyr/dist/plyr.min.js', ["jquery"], '1.0', true);
 

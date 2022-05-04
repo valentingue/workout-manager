@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                             <div id='workout-container-{{fn('sanitize_title', workout.acf_fields['wm-workout_field_name'])}}'>
-                                <table class="table table-striped table-bordered" data-workout-name='{{fn('sanitize_title', workout.acf_fields['wm-workout_field_name'])}}'>
+                                <table id='table-{{fn('sanitize_title', workout.acf_fields['wm-workout_field_name'])}}' class="table table-striped table-bordered">
                                     <thead class='fw-bold font-size-14'>
                                         <tr>
                                             <th scope="col" class='text-center'>Excercice</th>

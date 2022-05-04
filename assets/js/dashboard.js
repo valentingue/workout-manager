@@ -52,20 +52,22 @@ $(document).ready(function(){
     /* -------------------------------------------------------------------------- */
     /*                              Download workout                              */
     /* -------------------------------------------------------------------------- */
-    var doc = new jsPDF();
+    
     var specialElementHandlers = {
         '#editor': function (element, renderer) {
             return true;
         }
     };
 
-    $('#pdf-export').click(function (e) {
-        console.log($(e.currentTarget).attr('data-export-workout'));
+    $('#pdf-export').click(function () {
+        var doc = new jsPDF();
+        console.log($('#table-'+$(this).attr('data-export-workout')));
 
-        doc.fromHTML($('#workout-container-'+$(e.currentTarget).attr('data-export-workout')).html(), 15, 15, {
-            'width': 170,
-                'elementHandlers': specialElementHandlers
+        doc.autoTable({
+            margin: { top: 10 },
+            html: '#table-'+$(this).attr('data-export-workout'),
         });
+
         doc.save('workout.pdf');
     });
 
