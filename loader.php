@@ -136,9 +136,9 @@ function workout_manager_enqueue_scripts() {
 
 	wp_enqueue_script( 'workout_manager_athlete_js', WORKOUT_MANAGER_URL . 'assets/js/athlete.js', array( 'jquery' ) , time(), false );
 	wp_enqueue_script( 'workout_manager_dashboard_js', WORKOUT_MANAGER_URL . 'assets/js/dashboard.js', array( 'jquery' ) , time(), false );
-	
-	wp_enqueue_script( 'jsPDF', 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js', array( 'jquery' ),'',false );
-	wp_enqueue_script( 'jsPDF-debug', 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js', array( 'jquery' ),'',false );
+
+	wp_enqueue_script( 'jsPDF', WORKOUT_MANAGER_URL.'assets/js/lib/jspdf.js', array( 'jquery' ),'2.3.1',false );
+	wp_enqueue_script( 'jsPDF-debug', WORKOUT_MANAGER_URL.'assets/js/lib/jspdf-debug.js', array( 'jquery' ),'1.3.2',false );
 
 	wp_enqueue_style('front-style', WORKOUT_MANAGER_URL.'assets/scss/front.css', [], time());
 	wp_enqueue_script('script-js', WORKOUT_MANAGER_URL.'assets/js/script.js', ['jquery']);
