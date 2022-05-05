@@ -64,7 +64,7 @@
                                     <tbody class="text-end font-size-14">
                                         {% for exercice in workout.acf_fields['wm-workout_field_exercices'] %}
                                             <tr>
-                                                <th scope="row">
+                                                <td scope="row">
                                                     {% if exercice['exercice_image'] %}
                                                     <span class="exercice-tooltip tooltip-effect-1"> 
                                                         <span class="tooltip-content clearfix"> 
@@ -75,7 +75,7 @@
                                                     {% else %}
                                                     {{exercice["exercice_name"]}}
                                                     {% endif %}
-                                                </th>
+                                                </td>
                                                 <td>{{exercice["exercice_nb_reps"]}}</td>
                                                 <td>{{exercice["exercice_weight"]}}</td>
                                                 <td>{{exercice["exercice_rest_time"]}}</td>
@@ -121,7 +121,7 @@
                                     <tbody class="text-end font-size-14">
                                         {% for exercice in future_workout.acf_fields['wm-workout_field_exercices'] %}
                                             <tr>
-                                                <th scope="row">
+                                                <td scope="row">
                                                     {% if exercice['exercice_image'] %}
                                                     <span class="exercice-tooltip tooltip-effect-1"> 
                                                         <span class="tooltip-content clearfix"> 
@@ -132,7 +132,7 @@
                                                     {% else %}
                                                     {{exercice["exercice_name"]}}
                                                     {% endif %}
-                                                </th>
+                                                </td>
                                                 <td>{{exercice["exercice_nb_reps"]}}</td>
                                                 <td>{{exercice["exercice_weight"]}}</td>
                                                 <td>{{exercice["exercice_rest_time"]}}</td>
@@ -178,7 +178,7 @@
                                     <tbody class="text-end font-size-14">
                                         {% for exercice in past_workout.acf_fields['wm-workout_field_exercices'] %}
                                             <tr>
-                                                <th scope="row">
+                                                <td scope="row">
                                                     {% if exercice['exercice_image'] %}
                                                     <span class="exercice-tooltip tooltip-effect-1"> 
                                                         <span class="tooltip-content clearfix"> 
@@ -189,7 +189,7 @@
                                                     {% else %}
                                                     {{exercice["exercice_name"]}}
                                                     {% endif %}
-                                                </th>
+                                                </td>
                                                 <td>{{exercice["exercice_nb_reps"]}}</td>
                                                 <td>{{exercice["exercice_weight"]}}</td>
                                                 <td>{{exercice["exercice_rest_time"]}}</td>

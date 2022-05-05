@@ -52,24 +52,56 @@ $(document).ready(function(){
     /* -------------------------------------------------------------------------- */
     /*                              Download workout                              */
     /* -------------------------------------------------------------------------- */
-    
-    var specialElementHandlers = {
-        '#editor': function (element, renderer) {
-            return true;
-        }
-    };
 
     $('#pdf-export').click(function () {
+        //var doc = new jsPDF();
+        var doc = new jsPDF('p','px','a4');
+
+        var margins = {
+            top:10,
+            bottom: 10,
+            left: 10,
+            width: 1000
+        };
+        
+        var specialElementHandlers = {
+            '.no-export': function (element, renderer) {
+                return true;
+            }
+        };
+
+        doc.fromHTML(
+            $('#workout-container-'+$(this).attr('data-export-workout')).html(), 
+            margins.left, margins.top, 
+            {
+                'width': margins.width,
+                'elementHandlers': specialElementHandlers,
+            },
+            function(dispose){
+                doc.save('workout.pdf');
+            },margins);
+    });
+
+    /* $('#pdf-export').click(function () {
+        const doc = new jsPDF('p', 'cm', 'a4');
+
+        doc.autoTable({html: '#table-test'});
+    
+        doc.save('workout.pdf');
+    }); */
+
+
+    /* $('#pdf-export').click(function () {
         var doc = new jsPDF();
-        console.log($('#table-'+$(this).attr('data-export-workout')));
 
         doc.autoTable({
+            styles: { fillColor: [255, 0, 0] },
+            columnStyles: { 0: { halign: 'center', fillColor: [0, 255, 0] } }, // Cells in first column centered and green
             margin: { top: 10 },
-            html: '#table-'+$(this).attr('data-export-workout'),
+            html: '#table-'+$(this).attr('data-export-workout') 
         });
 
         doc.save('workout.pdf');
-    });
-
+    }); */
 
 });
