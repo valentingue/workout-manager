@@ -45,10 +45,6 @@
                                 <div class="col">
                                     <h4 class="workout-name">{{workout.acf_fields['wm-workout_field_name']}} <span class='d-block' >Commence le: {{workout.acf_fields['wm-workout_field_start_date']}}</span></h4>
                                 </div>
-                                <div class="col d-flex justify-content-center align-items-center">
-                                    <button id='pdf-export' data-export-workout='{{fn('sanitize_title', workout.acf_fields['wm-workout_field_name'])}}'>Téléchager le programme</button>
-                                    <div id="editor"></div>
-                                </div>
                             </div>
                             <div id='workout-container-{{fn('sanitize_title', workout.acf_fields['wm-workout_field_name'])}}'>
                                 <table id='table-{{fn('sanitize_title', workout.acf_fields['wm-workout_field_name'])}}' class="table table-striped table-bordered">

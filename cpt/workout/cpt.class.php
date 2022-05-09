@@ -5,7 +5,7 @@ class cpt{
 
     public $cpt_label;
     public static $cpt_name = "wm-workout";
-    public $dashicon = "dashicons-media-document";
+    public $dashicon = "dashicons-welcome-write-blog";
 
     private static $instance = null;
 

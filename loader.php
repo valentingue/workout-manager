@@ -29,8 +29,7 @@ function workout_manager_autoloader( $class_name ) {
 	   
 	} */
 	
-	require_once( WORKOUT_MANAGER_DIR . '/cpt/workout/cpt.class.php');
-	require_once( WORKOUT_MANAGER_DIR . '/cpt/contract/cpt.class.php');
+	
 
 }
 spl_autoload_register( 'workout_manager_autoloader' );
@@ -51,6 +50,11 @@ function workout_manager_plugins_loaded(){
 	\workout_manager\get_plugin_version();
 
 	require_once( WORKOUT_MANAGER_DIR . "/cpt/functions.inc.php"  );
+
+
+	foreach(WORKOUT_MANAGER_CPT as $cpt){
+		require_once( WORKOUT_MANAGER_DIR.'/cpt/'.$cpt.'/cpt.class.php');
+	}
 		
 }
 add_action( 'plugins_loaded', 'workout_manager_plugins_loaded' );

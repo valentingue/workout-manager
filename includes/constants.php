@@ -15,7 +15,9 @@ use function workout_manager\get_plugin_version;
 
 const WORKOUT_MANAGER_CPT = [
 	"workout",
-	"contract"
+	"contract",
+	"gym",
+	"coach"
 ];
 
 define(	'WORKOUT_MANAGER_VERSION', get_plugin_version());
