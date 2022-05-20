@@ -25,7 +25,6 @@ class cpt{
         $this->create_post_type();
         //$this->create_taxonomies();
         $this->create_acf_fields();
-
     }
 
 
@@ -69,46 +68,6 @@ class cpt{
         );
 
     }
-
-
-    /* private function create_taxonomies()
-    {
-
-        $taxo_name = self::$cpt_name . "-category";
-
-        register_taxonomy($taxo_name,
-            self::$cpt_name,
-            array(
-                'capabilities' => array(
-                    'manage_terms' => 'edit_posts',
-                    'edit_terms' => 'edit_posts',
-                    'delete_terms' => 'edit_posts',
-                    'assign_terms' => 'edit_posts',
-                ),
-                'hierarchical' => true,
-                'label' => __('Categories', 'workout_manager'),
-                'query_var' => true,
-                'rewrite' => true,
-                'label' => __('Categories', 'workout_manager'),
-                'show_ui' => true,
-                'labels' => array(
-                    'name' => __('Categories', 'workout_manager'),
-                    'singular_name' => __('Category', 'workout_manager'),
-                    'all_items' => __('All categories', 'workout_manager'),
-                    'edit_item' => __('Edit category', 'workout_manager'),
-                    'view_item' => __('See category', 'workout_manager'),
-                    'update_item' => __('Update category', 'workout_manager'),
-                    'add_new_item' => __('Add a category', 'workout_manager'),
-                    'new_item_name' => __('New category', 'workout_manager'),
-                    'search_items' => __('Search category', 'workout_manager'),
-                    'popular_items' => __('Most use category', 'workout_manager')
-                )
-            )
-
-        );
-
-
-    } */
 
     private function create_acf_fields()
     {

@@ -17,11 +17,14 @@ function create_cpt(){
 
 
     foreach(WORKOUT_MANAGER_CPT as $cpt_name){
+		$class = '\\workout_manager\cpt\\'.$cpt_name."\\cpt";
 
-
-        $class = '\\workout_manager\cpt\\'.$cpt_name."\\cpt";
-        new $class;
-        
+		if($cpt_name === 'planning'){
+			$class_planning = new $class;
+			$class_planning->register_hooks();
+		}
+        else  new $class; 
+		
     }
 
 }
@@ -79,6 +82,20 @@ function clean($str){
 	while(substr($str , 0 , 1) == " ") $str = substr($str , 1 , strlen($str)-1);
 	while(substr($str , strlen($str)-1 , 1) == " ") $str = substr($str , 0 , strlen($str)-1);
 	return $str;
+}
+
+function strings_to_js(){
+	
+	return [
+		'mediaUploaderTitle' => __('Select a image to upload', 'fitness-schedule'),
+		'mediaUploaderButton' => __('Use this image', 'fitness-schedule'),
+		'editWorkoutTitle' => __('Edit this Workout', 'fitness-schedule'),
+		'editWorkoutButton' => __('Apply changes', 'fitness-schedule'),
+		'editWorkoutAction' => __('Edit', 'fitness-schedule'),
+		'addWorkoutTimeError' => __('Start time must be before end Time', 'fitness-schedule'),
+		'addWorkoutConflictError' => __("You can't add a workout here because there is already another one at this time. We suggest you make another planning (eg: special bike planning) ", 'fitness-schedule'),
+		'addWorkoutOutsideBoundariesError' => __("This workout is outside the current planning hours boundaries", 'fitness-schedule'),
+	];
 }
 
 function update_extra_profile_fields($user_id) {

@@ -44,6 +44,12 @@ function workout_manager_plugins_loaded(){
 	require_once( WORKOUT_MANAGER_DIR . "/includes/constants.php"  );
 	require_once( WORKOUT_MANAGER_DIR . '/src/ajax.php' );
 	require_once( WORKOUT_MANAGER_DIR . "/src/acf.php");
+
+	require_once(WORKOUT_MANAGER_DIR.'/includes/abstractentity.php');
+
+	require_once(WORKOUT_MANAGER_DIR.'/includes/planning/planningServices.php');
+	//require_once(WORKOUT_MANAGER_DIR.'/includes/planning.php');
+	
 	
 	//if(is_admin())	new \workout_manager\back\main();
 
@@ -55,7 +61,7 @@ function workout_manager_plugins_loaded(){
 	foreach(WORKOUT_MANAGER_CPT as $cpt){
 		require_once( WORKOUT_MANAGER_DIR.'/cpt/'.$cpt.'/cpt.class.php');
 	}
-		
+
 }
 add_action( 'plugins_loaded', 'workout_manager_plugins_loaded' );
 
@@ -133,6 +139,32 @@ add_action( 'admin_enqueue_scripts', 'workout_manager_enqueue_custom_admin_style
 function workout_manager_enqueue_custom_admin_style() {
 	wp_enqueue_script('back-js', WORKOUT_MANAGER_URL.'assets/js/back.js', ['jquery']);
 }
+
+function admin_enqueue_assets($hook) {
+	global $post_type;
+
+	if($hook != 'toplevel_page_fitness-planning' and !in_array($post_type, ["wm-planning", "wm-gym", "wm-workout"])) {
+		return;
+	}
+
+	wp_enqueue_style('wp-color-picker');
+
+	wp_enqueue_style('workout-manager-admin-style', WORKOUT_MANAGER_URL.'/admin/css/fitness-planning-admin.css', array(), time(), false);
+
+	if(($hook == 'post.php' or $hook == 'post-new.php') and $post_type == "wm-planning") {
+
+		wp_enqueue_script('moment-js', WORKOUT_MANAGER_URL.'/admin/js/libs/moment.min.js', array(), '2.1.9', false);
+
+		wp_enqueue_script('workout-manager-manage-workouts', WORKOUT_MANAGER_URL.'/admin/js/fitness-planning-manage-workouts.js', array('jquery', 'moment'), time(), false);
+	}
+
+	wp_enqueue_script('workout-manager-admin-js', WORKOUT_MANAGER_URL.'/admin/js/fitness-planning-admin.js', array('jquery', 'wp-color-picker'), time(), false);
+
+	wp_localize_script( "workout-manager-admin-js", 'fitnessPlanningStrings', workout_manager\strings_to_js());
+
+}
+
+add_action( 'admin_enqueue_scripts', 'admin_enqueue_assets' );
 
 
 function workout_manager_enqueue_scripts() {

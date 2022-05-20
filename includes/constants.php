@@ -17,7 +17,8 @@ const WORKOUT_MANAGER_CPT = [
 	"workout",
 	"contract",
 	"gym",
-	"coach"
+	"coach",
+	"planning"
 ];
 
 define(	'WORKOUT_MANAGER_VERSION', get_plugin_version());
