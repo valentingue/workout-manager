@@ -1,10 +1,10 @@
 <?php
 
-namespace workout_manager\cpt\coach;
+namespace workout_manager\cpt\collective_workout;
 class cpt{
 
     public $cpt_label;
-    public static $cpt_name = "coach";
+    public static $cpt_name = "collective_workout";
     public $dashicon = "dashicons-admin-users";
 
     private static $instance = null;
@@ -20,7 +20,7 @@ class cpt{
     public function __construct()
     {
 
-        $this->cpt_label = __('Coachs', 'workout_manager');
+        $this->cpt_label = __('Collective Workout', 'workout_manager');
 
         $this->create_post_type();
         //$this->create_taxonomies();
@@ -35,13 +35,13 @@ class cpt{
         register_post_type(self::$cpt_name,
             array(
                 'labels' => array(
-                    'name' => __('Coachs', 'workout_manager'),
-                    'singular_name' => __('Coach', 'workout_manager'),
-                    'all_items' => __('All coachs', 'workout_manager'),
-                    'add_new_item' => __('Add coach', 'workout_manager'),
-                    'edit_item' => __('Edit coach', 'workout_manager'),
-                    'new_item' => __('New coach', 'workout_manager'),
-                    'view_item' => __('See coach', 'workout_manager'),
+                    'name' => __('Collective workout', 'workout_manager'),
+                    'singular_name' => __('Collective workout', 'workout_manager'),
+                    'all_items' => __('All collective workouts', 'workout_manager'),
+                    'add_new_item' => __('Add collective workout', 'workout_manager'),
+                    'edit_item' => __('Edit collective workout', 'workout_manager'),
+                    'new_item' => __('New collective workout', 'workout_manager'),
+                    'view_item' => __('See collective workout', 'workout_manager'),
                     'search_items' => __('Search', 'workout_manager'),
                     'not_found' => __('No data found', 'workout_manager'),
                     'not_found_in_trash' => __('No data found', 'workout_manager'),
@@ -118,12 +118,12 @@ class cpt{
 
         acf_add_local_field_group(array(
             'key' => $prefix_field.'group',
-            'title' => 'Coach info',
+            'title' => 'Collective workout info',
             'fields' => array(
                 array(
-                    'key' => $prefix_field.'coach_desc',
-                    'label' => 'Description of the coach',
-                    'name' => $prefix_field.'coach_desc',
+                    'key' => $prefix_field.'desc',
+                    'label' => 'Description of the workout',
+                    'name' => $prefix_field.'desc',
                     'type' => 'textarea',
                     'instructions' => '',
                     'required' => 1,
@@ -139,13 +139,37 @@ class cpt{
                     'append' => '',
                     'maxlength' => '',
                 ),
+                array(
+                    'key' => $prefix_field.'_pic',
+                    'label' => 'Description of the workout',
+                    'name' => $prefix_field.'pic',
+                    'type' => 'image',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'return_format' => 'array',
+                    'preview_size' => 'medium',
+                    'library' => 'all',
+                    'min_width' => '',
+                    'min_height' => '',
+                    'min_size' => '',
+                    'max_width' => '',
+                    'max_height' => '',
+                    'max_size' => '',
+                    'mime_types' => '',
+                ),
             ),
             'location' => array(
                 array(
                     array(
                         'param' => 'post_type',
                         'operator' => '==',
-                        'value' => 'coach',
+                        'value' => 'collective_workout',
                     ),
                     array(
                         'param' => 'current_user_role',

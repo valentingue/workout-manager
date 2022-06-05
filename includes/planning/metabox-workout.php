@@ -1,15 +1,19 @@
+<?php 
+//var_dump($this->datas['collective_workouts']);
+
+?>
 <div class="fitplan-section">
   <div class="fitplan-add-workout">
 
-    <?php if(count($this->datas['workouts']) == 0): ?>
-    <p><?php _e("You don't have any workout to add to the planning. <a href='edit.php?post_type=workout'>Add a Workout</a>.", 'fitness-schedule'); ?></p>
+    <?php if(count($this->datas['collective_workouts']) == 0): ?>
+    <p><?php _e("You don't have any workout to add to the planning. <a href='edit.php?post_type=collective_workout'>Add a collective workout</a>.", 'fitness-schedule'); ?></p>
     <?php else: ?>
 
     <span class="fitplan-add-workout-action" ><?php _e('Add', 'fitness-schedule'); ?></span>
 
     <select name="fitplan_addworkout_workout">
-      <?php $first = true; foreach($this->datas['workouts'] as $ID => $workout):?>
-      <option value="<?php echo $ID; ?>" <?php if($first){ $first=false; echo 'selected'; } ?>><?php echo $workout["wm-workout_field_name"]; ?></option>
+      <?php $first = true; foreach($this->datas['collective_workouts'] as $ID => $workout):?>
+      <option value="<?php echo $ID; ?>" <?php if($first){ $first=false; echo 'selected'; } ?>><?php echo $workout['post_title']; ?></option>
       <?php endforeach; ?>
     </select>
 

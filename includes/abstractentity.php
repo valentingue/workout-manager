@@ -74,36 +74,44 @@ abstract class Entity {
 
   // Save custom fields
 	public function save_custom_fields($post_id, $post, $update) {
+		printr($this->fields);
+		
 		global $post_type;
 
-		if($this->check_saved_post($post_type, $this->cpt_label, $update, $post_id)) { return; }
+		//if($this->check_saved_post($post_type, $this->cpt_label, $update, $post_id)) { return; }
 
 		foreach($this->fields as $field => $field_metas) {
-
-      // Check if the field is registered by the Entity before saving it
-			if(array_key_exists($field, $_POST)) {
+			printr($field);
+      		// Check if the field is registered by the Entity before saving it
+			/* if(array_key_exists($field, $_POST)) {
 
 				// TODO later security check for types
 				// bool / int ...
 
 				// Save the value in post meta
-	      update_post_meta(
-	        $post_id,
-	        '_'.$field,
-	        $_POST[$field]
-	      );
-	    }
+				update_post_meta(
+					$post_id,
+					'_'.$field,
+					$_POST[$field]
+				);
+			} */
+			update_post_meta(
+				$post_id,
+				'_'.$field,
+				$_POST[$field]
+			);
 
-      // Disable unchecked checkboxes
-      if( $field_metas['type'] == "bool" and !isset( $_POST[$field] ) ) {
+			// Disable unchecked checkboxes
+			if( $field_metas['type'] == "bool" and !isset( $_POST[$field] ) ) {
 
-        update_post_meta(
-	        $post_id,
-	        '_'.$field,
-	        'off'
-	      );
-      }
+				update_post_meta(
+					$post_id,
+					'_'.$field,
+					'off'
+				);
+			}
 		}
+
 	}
 
   // This method check if WP is in the right place and is performing a standard save post

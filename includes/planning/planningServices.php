@@ -20,47 +20,53 @@ class Planning_Services {
 		);
 
 		// Get All Workouts and theirs metas
-		$args['post_type'] = "wm-workout";
+		$args['post_type'] = "collective_workout";
 		$workouts_datas = get_posts($args);
-		$datas['workouts'] = array();
+		$datas['collective_workouts'] = array();
 
 		foreach($workouts_datas as $workout_datas):
-			$datas['workouts'][$workout_datas->ID] = get_fields($workout_datas->ID);
+			$permalink = ['permalink' => get_the_permalink($workout_datas->ID)];
+			$post_datas = array_merge((array) $workout_datas, get_fields($workout_datas->ID),$permalink);
+			$datas['collective_workouts'][$workout_datas->ID] = $post_datas;
 		endforeach;
 
 		// Get all Coachssand theirs metas
-		$args['post_type'] = "wm-coach";
+		$args['post_type'] = "coach";
 		$coachs_datas = get_posts($args);
 		$datas['coachs'] = array();
 
 		foreach($coachs_datas as $coach_datas):
-			$datas['coachs'][$coach_datas->ID] = get_fields($coach_datas->ID);
+			$datas['coachs'][$coach_datas->ID]['post'] = $coach_datas;
+			$datas['coachs'][$coach_datas->ID]['acf'] = get_fields($coach_datas->ID);
 		endforeach;
 
 
 		// Calculate planning height from ratio and start/finish hours for morning and afternoon
 
-    // Ratio. eg: 90px per hour = 1.5 ratio in height
-    $ratio = intval($datas['fitplan_planning_px_per_hour']) / 60;
+		// Ratio. eg: 90px per hour = 1.5 ratio in height
+		$ratio = intval($datas['fitplan_planning_px_per_hour']) / 60;
 
-    // Define Planning Morning and Afternoon areas height in px
-    $morning_start_time = \DateTime::createFromFormat('H:i', $datas['fitplan_planning_morning_start']);
-    $morning_finish_time = \DateTime::createFromFormat('H:i', $datas['fitplan_planning_morning_finish']);
+		// Define Planning Morning and Afternoon areas height in px
+		$morning_start_time = \DateTime::createFromFormat('H:i', $datas['fitplan_planning_morning_start']);
+		$morning_finish_time = \DateTime::createFromFormat('H:i', $datas['fitplan_planning_morning_finish']);
 
-    $afternoon_start_time = \DateTime::createFromFormat('H:i', $datas['fitplan_planning_afternoon_start']);
-    $afternoon_finish_time = \DateTime::createFromFormat('H:i', $datas['fitplan_planning_afternoon_finish']);
+		$afternoon_start_time = \DateTime::createFromFormat('H:i', $datas['fitplan_planning_afternoon_start']);
+		$afternoon_finish_time = \DateTime::createFromFormat('H:i', $datas['fitplan_planning_afternoon_finish']);
 
-    $morning_duration = $morning_finish_time->diff($morning_start_time);
-    $morning_duration = ($morning_duration->h * 60 + $morning_duration->i) * $ratio;
+		$morning_duration = $morning_finish_time->diff($morning_start_time);
+		$morning_duration = ($morning_duration->h * 60 + $morning_duration->i) * $ratio;
 
-    $afternoon_duration = $afternoon_finish_time->diff($afternoon_start_time);
-    $afternoon_duration = ($afternoon_duration->h * 60 + $afternoon_duration->i) * $ratio;
+		$afternoon_duration = $afternoon_finish_time->diff($afternoon_start_time);
+		$afternoon_duration = ($afternoon_duration->h * 60 + $afternoon_duration->i) * $ratio;
 
-		// Each day is separated in 2 divs : morning and afternoon
-    $datas['planning_height'] = array(
-      "morning" => $morning_duration,
-      "afternoon" => $afternoon_duration,
-    );
+			// Each day is separated in 2 divs : morning and afternoon
+		$datas['planning_height'] = array(
+		"morning" => $morning_duration,
+		"afternoon" => $afternoon_duration,
+		);
+
+		/* var_dump($datas);
+		die; */
 
         // Get the Planning entries and prepare datas for JSON
 		if($datas['fitplan_planning'] != ""){
@@ -72,7 +78,7 @@ class Planning_Services {
             // Prepare datas for each Workouts Entries in the planning
 			// Database only keep record of start/finish time, Workout and Coach IDs
 			// We need to add the metas for each entry
-
+			//printr($datas['planning']);
 			foreach($datas['planning'] as $day => $entries) {
 				foreach($entries as $key => $entry) {
 					if($entry != null){
@@ -81,7 +87,7 @@ class Planning_Services {
 						$workout_id = $entry['workout'];
 
 						// Don't keep entry if attached Workout has been removed
-						if(!isset($datas['workouts'][$workout_id])) {
+						if(!isset($datas['collective_workouts'][$workout_id])) {
 							$to_remove[] = array("day" =>$day, "key" => $key);
 							unset($datas['planning'][$day][$key]);
 
@@ -89,7 +95,7 @@ class Planning_Services {
 							continue;
 						}
 
-						$entry['workout'] = $datas['workouts'][$workout_id];
+						$entry['workout'] = $datas['collective_workouts'][$workout_id];
 
 						// Then the coach
 						$coach_id = $entry['coach'];
@@ -111,8 +117,8 @@ class Planning_Services {
 							// if not american format, set a standard, simple format.
 							$time_format = "H:i";
 						}
-            $entry['start_display'] = $start_time->format($time_format);
-            $entry['finish_display'] = $finish_time->format($time_format);
+						$entry['start_display'] = $start_time->format($time_format);
+						$entry['finish_display'] = $finish_time->format($time_format);
 
 						$duration = $finish_time->diff($start_time);
 						$duration_in_min = $duration->h * 60 + $duration->i;

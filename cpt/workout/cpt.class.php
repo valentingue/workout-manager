@@ -4,7 +4,7 @@ namespace workout_manager\cpt\workout;
 class cpt{
 
     public $cpt_label;
-    public static $cpt_name = "wm-workout";
+    public static $cpt_name = "workout";
     public $dashicon = "dashicons-welcome-write-blog";
 
     private static $instance = null;
@@ -400,7 +400,7 @@ class cpt{
                     array(
                         'param' => 'post_type',
                         'operator' => '==',
-                        'value' => 'wm-workout',
+                        'value' => 'workout',
                     ),
                     array(
                         'param' => 'current_user_role',

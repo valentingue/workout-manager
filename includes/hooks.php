@@ -3,7 +3,7 @@
 add_filter( 'manage_wm-workout_posts_columns', 'wm_workout_filter_posts_columns' );
 function wm_workout_filter_posts_columns( $columns ) {
     unset( $columns['date'] );    
-    $columns['workout_athlete'] = __( 'Athlete' );
+    $columns['collective_workout_athlete'] = __( 'Athlete' );
     $columns['start_workout_date'] = __( 'Start workout date', 'workout_manager' );
     $columns['end_workout_date'] =  __( 'End workout date', 'workout_manager' );
     return $columns;
@@ -20,9 +20,9 @@ function custom_wm_workout_column( $column, $post_id ) {
         echo $user_meta['first_name'][0].' '.$user_meta['first_name'][0];
     }
     if ( 'start_workout_date' === $column ) {
-        echo date('d/m/Y', strtotime($acf_fields['wm-workout_field_start_date'])); 
+        echo date('d/m/Y', strtotime($acf_fields['collective_workout_field_start_date'])); 
     }
     if ( 'end_workout_date' === $column ) {
-        echo date('d/m/Y', strtotime($acf_fields['wm-workout_field_end_date']));
+        echo date('d/m/Y', strtotime($acf_fields['collective_workout_field_end_date']));
     }
 }

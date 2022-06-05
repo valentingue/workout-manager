@@ -10,7 +10,7 @@ class cpt extends \workout_manager\Entities\Entity {
 
 	public function __construct() {
 
-		$this->CPT_slug = 'wm-planning';
+		$this->CPT_slug = 'planning';
 		
 
 		$this->define_post_types();
@@ -19,24 +19,24 @@ class cpt extends \workout_manager\Entities\Entity {
 			'fitplan_planning' => array("type" => "json", "default" => ""),
 
 			'fitplan_planning_weekdays' 				=> array("type" => "array", "default" => ""),
-			'fitplan_planning_morning_start' 		=> array("type" => "time", "default" => "09:00"),
-			'fitplan_planning_morning_finish' 	=> array("type" => "time", "default" => "13:00"),
-			'fitplan_planning_afternoon_start' 	=> array("type" => "time", "default" => "17:00"),
-			'fitplan_planning_afternoon_finish' => array("type" => "time", "default" => "21:00"),
-			'fitplan_planning_show_morning'     => array("type" => "bool", "default" => "on"),
-			'fitplan_planning_show_afternoon'   => array("type" => "bool", "default" => "on"),
+			'fitplan_planning_morning_start' 			=> array("type" => "time", "default" => "09:00"),
+			'fitplan_planning_morning_finish' 			=> array("type" => "time", "default" => "13:00"),
+			'fitplan_planning_afternoon_start' 			=> array("type" => "time", "default" => "17:00"),
+			'fitplan_planning_afternoon_finish' 		=> array("type" => "time", "default" => "21:00"),
+			'fitplan_planning_show_morning'     		=> array("type" => "bool", "default" => "on"),
+			'fitplan_planning_show_afternoon'   		=> array("type" => "bool", "default" => "on"),
 
 			'fitplan_planning_workout_display_pic' 		=> array("type" => "time", "default" => true),
 			'fitplan_planning_workout_display_color' 	=> array("type" => "time", "default" => true),
 			'fitplan_planning_workout_display_title' 	=> array("type" => "time", "default" => false),
 			'fitplan_planning_workout_text_color' 	 	=> array("type" => "color", "default" => "#444"),
 			'fitplan_planning_workout_default_color' 	=> array("type" => "color", "default" => "#eee"),
-			'fitplan_planning_workout_radius' 				=> array("type" => "int", "default" => 4),
+			'fitplan_planning_workout_radius' 			=> array("type" => "int", "default" => 4),
 
-			'fitplan_planning_background_color' => array("type" => "text", "default" => ""),
-			'fitplan_planning_border_color' 		=> array("type" => "color", "default" => "#eee"),
-			'fitplan_planning_days_text_color' 	=> array("type" => "color", "default" => "#000"),
-			'fitplan_planning_px_per_hour' 			=> array("type" => "int", "default" => 90),
+			'fitplan_planning_background_color' 		=> array("type" => "text", "default" => ""),
+			'fitplan_planning_border_color' 			=> array("type" => "color", "default" => "#eee"),
+			'fitplan_planning_days_text_color' 			=> array("type" => "color", "default" => "#000"),
+			'fitplan_planning_px_per_hour' 				=> array("type" => "int", "default" => 90),
 		);
 
 		// Methods for preparing datas
@@ -46,7 +46,7 @@ class cpt extends \workout_manager\Entities\Entity {
 	public function register_hooks() {
 		add_action('init', array($this, 'define_post_types'));
 		add_action('admin_menu', array( $this, 'add_admin_menu'));
-		//add_action('admin_enqueue_scripts', array($this, 'enqueue_assets'));
+		add_action('admin_enqueue_scripts', array($this, 'enqueue_assets'));
 		add_action('add_meta_boxes', array($this, 'register_meta_boxes'));
 		add_action('save_post', array($this, 'save_custom_fields'), 10, 3);
 		add_filter('manage_'.$this->CPT_slug.'_posts_columns', array($this, 'register_custom_columns'));
@@ -103,17 +103,16 @@ class cpt extends \workout_manager\Entities\Entity {
 
 	// Send datas about Workouts and Coachs to JS
 	public function enqueue_assets() {
-
 		wp_localize_script(
-			"workout-manager-admin-js",
+			"workout-manager-manage-workouts",
 			'fitnessPlanningWorkouts',
-			$this->datas['wm-workout']
+			$this->datas['collective_workouts']
 		);
 
 		wp_localize_script(
-			'workout-manager-admin-js',
+			'workout-manager-manage-workouts',
 			'fitnessPlanningCoachs',
-			$this->datas['wm-coach']
+			$this->datas['coachs']
 		);
 	}
 

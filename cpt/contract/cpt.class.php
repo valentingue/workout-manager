@@ -4,7 +4,7 @@ namespace workout_manager\cpt\contract;
 class cpt{
 
     public $cpt_label;
-    public static $cpt_name = "wm-contract";
+    public static $cpt_name = "contract";
     public $dashicon = "dashicons-media-document";
 
     private static $instance = null;
@@ -195,7 +195,7 @@ class cpt{
                     array(
                         'param' => 'post_type',
                         'operator' => '==',
-                        'value' => 'wm-contract',
+                        'value' => 'contract',
                     ),
                     array(
                         'param' => 'current_user_role',

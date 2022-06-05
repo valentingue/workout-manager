@@ -20,7 +20,7 @@ class Planning extends Entity {
 
 	public function __construct() {
 
-    	$this->CPT_slug = 'wm-planning';
+    	$this->CPT_slug = 'planning';
 
 		// Custom fields and thier default values
 		$this->fields = array(
@@ -102,13 +102,13 @@ class Planning extends Entity {
 	public function enqueue_assets() {
 
 		wp_localize_script(
-			PLUGIN_NAME,
+			'workout-manager-manage-workouts',
 			'fitnessPlanningWorkouts',
-			$this->datas['workouts']
+			$this->datas['collective_workouts']
 		);
 
 		wp_localize_script(
-			PLUGIN_NAME,
+			'workout-manager-manage-workouts',
 			'fitnessPlanningCoachs',
 			$this->datas['coachs']
 		);

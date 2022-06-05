@@ -4,7 +4,7 @@ namespace workout_manager\cpt\gym;
 class cpt{
 
     public $cpt_label;
-    public static $cpt_name = "wm-gym";
+    public static $cpt_name = "gym";
     public $dashicon = "dashicons-store";
 
     private static $instance = null;
@@ -76,7 +76,7 @@ class cpt{
 
         $args = [
             'numberposts' => -1,
-            'post_type' => 'wm-coach',
+            'post_type' => 'coach',
             'post_status' => 'publish'
         ];
 
@@ -91,7 +91,7 @@ class cpt{
 
         $args = [
             'numberposts' => -1,
-            'post_type' => 'wm-planning',
+            'post_type' => 'planning',
             'post_status' => 'publish'
         ];
         $collective_courses = get_posts($args);
@@ -213,7 +213,7 @@ class cpt{
                     array(
                         'param' => 'post_type',
                         'operator' => '==',
-                        'value' => 'wm-gym',
+                        'value' => 'gym',
                     ),
                     array(
                         'param' => 'current_user_role',

@@ -143,7 +143,7 @@ function workout_manager_enqueue_custom_admin_style() {
 function admin_enqueue_assets($hook) {
 	global $post_type;
 
-	if($hook != 'toplevel_page_fitness-planning' and !in_array($post_type, ["wm-planning", "wm-gym", "wm-workout"])) {
+	if($hook != 'toplevel_page_fitness-planning' and !in_array($post_type, ["planning", "gym", "workout"])) {
 		return;
 	}
 
@@ -151,7 +151,7 @@ function admin_enqueue_assets($hook) {
 
 	wp_enqueue_style('workout-manager-admin-style', WORKOUT_MANAGER_URL.'/admin/css/fitness-planning-admin.css', array(), time(), false);
 
-	if(($hook == 'post.php' or $hook == 'post-new.php') and $post_type == "wm-planning") {
+	if(($hook == 'post.php' or $hook == 'post-new.php') and $post_type == "planning") {
 
 		wp_enqueue_script('moment-js', WORKOUT_MANAGER_URL.'/admin/js/libs/moment.min.js', array(), '2.1.9', false);
 
@@ -332,7 +332,7 @@ add_filter('template_include', 'workout_manager_obj_templates');
 function workout_manager_obj_templates( $template ) {
 
 	foreach(WORKOUT_MANAGER_CPT as $cpt_name){
-		$cpt_slug = "wm-".$cpt_name;
+		$cpt_slug = "".$cpt_name;
 		if(is_singular($cpt_slug)){
             $theme_file 		= 'single-'.$cpt_name.'.php';
 			$exists_in_theme 	= locate_template($theme_file, false);

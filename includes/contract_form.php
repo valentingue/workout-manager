@@ -112,9 +112,9 @@ function workout_manager_contract_do_page(){
 
 function the_form_response() {
 
-	if( isset( $_POST['workout_manager_add_user_meta_nonce'] ) /* && wp_verify_nonce( $_POST['workout_manager_add_user_meta_nonce'], 'workout_manager_add_user_meta_form_nonce') */ ) { 
+	if( isset( $_POST['collective_workout_manager_add_user_meta_nonce'] ) /* && wp_verify_nonce( $_POST['collective_workout_manager_add_user_meta_nonce'], 'workout_manager_add_user_meta_form_nonce') */ ) { 
 		
-		$selected_user = get_user_by('id', $_POST['workout_manager']['user_select'] );
+		$selected_user = get_user_by('id', $_POST['collective_workout_manager']['user_select'] );
 		$selected_user->user_meta = get_user_meta($selected_user->ID);
 		$selected_user->acf_fields = get_fields('user_'.$selected_user->ID);
 
@@ -130,16 +130,16 @@ function the_form_response() {
 		$pdf = new GeneratePDF;
 		
 		$data = [];
-		foreach( $_POST['workout_manager'] as $field_name => $field_value){
+		foreach( $_POST['collective_workout_manager'] as $field_name => $field_value){
 			$data[$field_name] = $field_value;
 
 			if(stristr($field_name, 'page4_offer')){
-				$data[$field_name.'_duration'] = $_POST['workout_manager']['duration'];
-				$data[$field_name.'_mensuality'] = $_POST['workout_manager']['mensuality'];
+				$data[$field_name.'_duration'] = $_POST['collective_workout_manager']['duration'];
+				$data[$field_name.'_mensuality'] = $_POST['collective_workout_manager']['mensuality'];
 				
 			}
 			
-			$data['page4_offer_team_validity_date'] = $_POST['workout_manager']['validity_date'];
+			$data['page4_offer_team_validity_date'] = $_POST['collective_workout_manager']['validity_date'];
 		}
 
 		unset($data['duration']);
@@ -178,11 +178,11 @@ function custom_redirect( $admin_notice, $response ) {
 
 function print_plugin_admin_notices() {   
 	
-	if ( isset( $_REQUEST['workout_manager_admin_add_notice'] ) ) {
-		if( $_REQUEST['workout_manager_admin_add_notice'] === "success") {
+	if ( isset( $_REQUEST['collective_workout_manager_admin_add_notice'] ) ) {
+		if( $_REQUEST['collective_workout_manager_admin_add_notice'] === "success") {
 			$html =	'<div class="notice notice-success is-dismissible"> 
 						<p><strong>The request was successful. </strong></p><br>';
-			$html .= '<pre>' . htmlspecialchars( print_r( $_REQUEST['workout_manager_response'], true) ) . '</pre></div>';
+			$html .= '<pre>' . htmlspecialchars( print_r( $_REQUEST['collective_workout_manager_response'], true) ) . '</pre></div>';
 			echo $html;
 		}
 	}
