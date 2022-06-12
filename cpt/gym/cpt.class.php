@@ -23,7 +23,7 @@ class cpt{
         $this->cpt_label = __('Gyms', 'workout_manager');
 
         $this->create_post_type();
-        //$this->create_taxonomies();
+        $this->create_taxonomies();
         $this->create_acf_fields();
     }
 
@@ -69,6 +69,33 @@ class cpt{
 
     }
 
+    private function create_taxonomies(){
+        $taxo_name = self::$cpt_name . "-facilitie";
+
+        register_taxonomy(
+            $taxo_name,
+            self::$cpt_name,
+            array(
+                'label' => 'Équipements',
+                'labels' => array(
+                    'name' => 'Équipements',
+                    'singular_name' => 'Équipement',
+                    'all_items' => 'Tous les équipements',
+                    'edit_item' => 'Éditer l\'équipement',
+                    'view_item' => 'Voir l\'équipement',
+                    'update_item' => 'Mettre à jour l\'équipement',
+                    'add_new_item' => 'Ajouter un équipement',
+                    'new_item_name' => 'Nouvel équipement',
+                    'search_items' => 'Rechercher parmi les équipements',
+                    'popular_items' => 'Équipements les plus utilisées'
+                ),
+                'hierarchical' => true
+            )
+        );
+
+        register_taxonomy_for_object_type( 'facilitie', self::$cpt_name );
+    }
+
     private function create_acf_fields()
     {
 
@@ -111,8 +138,8 @@ class cpt{
             'fields' => array(
                 array(
                     'key' => $prefix_field.'coachs',
-                    'label' => 'Coach(s)',
-                    'name' => $prefix_field.'coachs',
+                    'label' => 'Coach de la salle',
+                    'name' => 'coachs',
                     'type' => 'repeater',
                     'instructions' => '',
                     'required' => 0,
@@ -122,35 +149,157 @@ class cpt{
                         'class' => '',
                         'id' => '',
                     ),
-                    'collapsed' => 'coach',
+                    'collapsed' => '',
                     'min' => 0,
                     'max' => 0,
-                    'layout' => 'row',
+                    'layout' => 'table',
                     'button_label' => '',
                     'sub_fields' => array(
                         array(
                             'key' => $prefix_field.'coach',
                             'label' => 'Coach',
                             'name' => 'coach',
-                            'type' => 'select',
+                            'type' => 'post_object',
                             'instructions' => '',
-                            'required' => 1,
+                            'required' => 0,
                             'conditional_logic' => 0,
                             'wrapper' => array(
                                 'width' => '',
                                 'class' => '',
                                 'id' => '',
                             ),
-                            'choices' => $coachs,
-                            'default_value' => false,
-                            'allow_null' => 1,
+                            'post_type' => array(
+                                0 => 'coach',
+                            ),
+                            'taxonomy' => '',
+                            'allow_null' => 0,
                             'multiple' => 0,
-                            'ui' => 0,
-                            'return_format' => 'array',
-                            'ajax' => 0,
-                            'placeholder' => '',
+                            'return_format' => 'object',
+                            'ui' => 1,
                         ),
                     ),
+                ),
+                array(
+                    'key' => $prefix_field.'opening_days',
+                    'label' => 'Jours d\'ouverture',
+                    'name' => 'opening_days',
+                    'type' => 'checkbox',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'choices' => array(
+                        '0' => 'Lundi',
+                        '1' => 'Mardi',
+                        '2' => 'Mercredi',
+                        '3' => 'Jeudi',
+                        '4' => 'Vendredi',
+                        '5' => 'Samedi',
+                        '6' => 'Dimanche',
+                    ),
+                    'allow_custom' => 0,
+                    'default_value' => array(
+                    ),
+                    'layout' => 'horizontal',
+                    'toggle' => 0,
+                    'return_format' => 'value',
+                    'save_custom' => 0,
+                ),
+                array(
+                    'key' => $prefix_field.'opening_hours',
+                    'label' => 'Heures d\'ouverture',
+                    'name' => 'opening_hours',
+                    'type' => 'text',
+                    'instructions' => '(ex: 6h-22h)',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => '',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                    'maxlength' => '',
+                ),
+                array(
+                    'key' => $prefix_field.'differents_hours',
+                    'label' => 'Heures d\'ouverture différentes (matinée - après midi)',
+                    'name' => 'differents_hours',
+                    'type' => 'true_false',
+                    'instructions' => '(ex: 6h-13h)',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'message' => '',
+                    'default_value' => 0,
+                    'ui' => 0,
+                    'ui_on_text' => '',
+                    'ui_off_text' => '',
+                ),
+                array(
+                    'key' => $prefix_field.'morning_hours',
+                    'label' => 'Heures d\'ouverture en matinée',
+                    'name' => 'morning_hours',
+                    'type' => 'text',
+                    'instructions' => '(ex: 14h-22h)',
+                    'required' => 0,
+                    'conditional_logic' => array(
+                        array(
+                            array(
+                                'field' => $prefix_field.'differents_hours',
+                                'operator' => '==',
+                                'value' => '1',
+                            ),
+                        ),
+                    ),
+                    'wrapper' => array(
+                        'width' => '50',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => '',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                    'maxlength' => '',
+                ),
+                array(
+                    'key' => $prefix_field.'afternoon_hours',
+                    'label' => 'Heures d\'ouverture en après-midi',
+                    'name' => 'afternoon_hours',
+                    'type' => 'text',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => array(
+                        array(
+                            array(
+                                'field' => $prefix_field.'differents_hours',
+                                'operator' => '==',
+                                'value' => '1',
+                            ),
+                        ),
+                    ),
+                    'wrapper' => array(
+                        'width' => '50',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => '',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                    'maxlength' => '',
                 ),
                 array(
                     'key' => $prefix_field.'gym_mail',

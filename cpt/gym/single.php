@@ -22,8 +22,8 @@ while ( have_posts() ) : the_post();
         }
     }
 
-    $twig_vars['taxos'] = get_the_terms($post->ID, 'coach-specialite');
-    //var_dump($twig_vars['taxos']);
+    $twig_vars['taxos'] = get_the_terms($post->ID, 'gym-facilities');
+    
     // render
     Timber::render("single.twig", $twig_vars);
     
