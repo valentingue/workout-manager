@@ -11130,6 +11130,28 @@ textarea.form-control-lg {
   font-size: 14px;
 }
 
+.wm-btn {
+  padding: 12px 24px;
+  font-size: 16px;
+  line-height: 28px;
+  text-align: center;
+  display: inline-block;
+  text-transform: uppercase;
+  font-family: HeadingProTreble-ExtraBold, sans-serif;
+  font-weight: 700;
+  border: 0;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.wm-btn--secondary {
+  color: #fff !important;
+  background-color: #6131ad !important;
+}
+
+.wm-link {
+  text-decoration: none;
+}
+
 /* parts */
 /* -------------------------------------------------------------------------- */
 /*                                   Tooltip                                  */
@@ -11212,6 +11234,373 @@ textarea.form-control-lg {
   display: block;
   padding: 1.31em 1.21em 1.21em 0;
   color: #fff;
+}
+
+/* pages */
+.trainer-detailpage-main {
+  margin: auto;
+}
+
+.trainer-detailpage-header .top-content {
+  position: relative;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.trainer-detailpage-header .top-content:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 70%;
+  background-color: #fff;
+  z-index: -1;
+}
+
+.trainer-detailpage-header .top-content .block-wrapper {
+  max-width: 1088px;
+  margin: 20px auto 0;
+  display: flex;
+}
+
+.trainer-detailpage-header .top-content .image-block {
+  width: 40%;
+  position: relative;
+  padding-bottom: 3%;
+}
+
+.trainer-detailpage-header .top-content .image-block .image {
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: contain;
+  max-width: 640px;
+  display: block;
+  margin: auto;
+}
+
+.trainer-detailpage-header .top-content .image-block .image img {
+  position: absolute;
+  bottom: -30px;
+  left: -30px;
+  width: 130px;
+}
+
+.trainer-detailpage-header .top-content .image-block .image:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+  width: 100%;
+}
+
+.trainer-detailpage-header .top-content .image-block .image-online-trainer-block {
+  right: 0;
+}
+
+.trainer-detailpage-header .top-content .image-block .image-online-trainer-block .image-online-trainer {
+  position: absolute;
+  right: 0;
+  left: auto;
+  width: 160px;
+  height: 85px;
+}
+
+.trainer-detailpage-header .top-content .info-block {
+  padding: 0 20px 0 0;
+  width: 60%;
+}
+
+.trainer-detailpage-header .top-content .info-block .content-wrapper {
+  margin: auto;
+  width: 100%;
+}
+
+.trainer-detailpage-header .top-content .info-block .content-wrapper .title {
+  display: inline-block;
+  color: #2d2d2d;
+  font-size: 56px;
+  line-height: 58px;
+  margin: 0 0 15px;
+}
+
+.trainer-detailpage-header .top-content .info-block .content-wrapper .title.mobile {
+  display: none;
+}
+
+.trainer-detailpage-header .top-content .info-block .content-wrapper .title span {
+  display: block;
+  font-size: 24px;
+  line-height: 28px;
+  color: #fe7000;
+}
+
+.trainer-detailpage-header .top-content .info-block .content-wrapper .content-block {
+  margin: 0 0 24px;
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.trainer-detailpage-header .top-content .info-block .content-wrapper .content-block .sub-title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  margin: 0;
+}
+
+.trainer-detailpage-header .top-content .info-block .content-wrapper .labels span {
+  background-color: #ededf7;
+  color: #747490;
+  padding: 4px;
+  margin: 0 4px 4px 0;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 8px;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.trainer-detailpage-header .header-divider {
+  padding-left: 60px;
+  padding-right: 60px;
+  position: relative;
+  display: flex;
+}
+
+.trainer-detailpage-header .header-divider:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 70%;
+  background-color: #fff;
+  z-index: -1;
+}
+
+.trainer-detailpage-header .header-divider .image-block,
+.trainer-detailpage-header .header-divider .info-block {
+  width: 50%;
+}
+
+.trainer-detailpage-header .header-divider .image-block {
+  position: relative;
+  padding-bottom: 3%;
+}
+
+.trainer-detailpage-header .header-divider .image-block .image {
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: contain;
+  max-width: 640px;
+  display: block;
+  margin: auto;
+}
+
+.trainer-detailpage-header .header-divider .image-block .image:before {
+  content: "";
+  display: block;
+  padding-top: 69.6875%;
+  width: 100%;
+}
+
+.trainer-detailpage-header .header-divider .info-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding: 20px;
+}
+
+.trainer-detailpage-header .header-divider .info-block .content-wrapper {
+  margin: auto;
+  width: 100%;
+  max-width: 490px;
+}
+
+.trainer-detailpage-header .header-divider .info-block .content-wrapper .title {
+  display: inline-block;
+  color: #000;
+  text-transform: uppercase;
+  font-family: ImpactURW, sans-serif;
+  font-size: 88px;
+  line-height: 88px;
+  margin: 0 0 15px;
+}
+
+.trainer-detailpage-header .header-divider .info-block .content-wrapper .title.mobile {
+  display: none;
+}
+
+.trainer-detailpage-header .header-divider .info-block .content-wrapper .title span {
+  -webkit-text-stroke: 1px #fe7000;
+  color: transparent;
+  display: block;
+}
+
+.trainer-detailpage-header .header-divider .info-block .content-wrapper .description {
+  font-size: 18px;
+  line-height: 28px;
+  margin: 0 0 24px;
+}
+
+@media only screen and (max-width: 1280px) {
+  .trainer-detailpage-header .header-divider,
+.trainer-detailpage-header .top-content {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .bread-crumb,
+.trainer-detailpage-header .top-content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .trainer-detailpage-header .top-content .info-block .content-wrapper .title {
+    font-size: 48px;
+    line-height: 50px;
+  }
+
+  .trainer-detailpage-header .header-divider {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .trainer-detailpage-header .header-divider .info-block .content-wrapper .title {
+    font-size: 48px;
+    line-height: 48px;
+  }
+}
+@media only screen and (max-width: 900px) {
+  .trainer-detailpage-header .top-content:after {
+    width: 100%;
+    top: -140px;
+    bottom: 0;
+  }
+
+  .trainer-detailpage-header .top-content .block-wrapper {
+    flex-direction: column-reverse;
+    background-color: #fff;
+    padding: 20px;
+  }
+
+  .trainer-detailpage-header .top-content .image-block {
+    width: 100%;
+    padding-bottom: 0;
+  }
+
+  .trainer-detailpage-header .top-content .image-block:after {
+    content: "";
+    position: absolute;
+    left: -16px;
+    right: -16px;
+    bottom: 0;
+    height: 50%;
+    background-color: #fff;
+    z-index: -1;
+  }
+
+  .trainer-detailpage-header .top-content .image-block .image img {
+    left: unset;
+    right: -5px;
+    max-width: 70px;
+  }
+
+  .trainer-detailpage-header .top-content .image-block .image-online-trainer-block .image-online-trainer {
+    right: auto;
+    left: 0;
+    width: 120px;
+    height: 65px;
+    max-width: 100%;
+  }
+
+  .trainer-detailpage-header .top-content .info-block {
+    width: 100%;
+    padding: 50px 0 0;
+  }
+
+  .trainer-detailpage-header .header-divider {
+    flex-direction: column-reverse;
+    background-color: #fff;
+  }
+
+  .trainer-detailpage-header .header-divider:after {
+    width: 100%;
+    top: -140px;
+    bottom: 0;
+  }
+
+  .trainer-detailpage-header .header-divider .image-block,
+.trainer-detailpage-header .header-divider .info-block {
+    width: 100%;
+  }
+
+  .trainer-detailpage-header .header-divider .image-block {
+    padding-bottom: 0;
+  }
+
+  .trainer-detailpage-header .header-divider .image-block:after {
+    content: "";
+    position: absolute;
+    left: -16px;
+    right: -16px;
+    bottom: 0;
+    height: 50%;
+    background-color: #fff;
+    z-index: -1;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .trainer-detailpage-header {
+    background-color: #fff;
+  }
+
+  .trainer-detailpage-header .top-content {
+    padding: 0;
+  }
+
+  .trainer-detailpage-header .top-content .block-wrapper {
+    padding: 16px;
+  }
+
+  .trainer-detailpage-header .top-content .image-block:after {
+    left: 0;
+    right: 0;
+  }
+
+  .trainer-detailpage-header .top-content .info-block .content-wrapper .title {
+    font-size: 32px;
+    line-height: 36px;
+  }
+
+  .trainer-detailpage-header .top-content .info-block .content-wrapper .title span {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .trainer-detailpage-header .header-divider {
+    padding: 0;
+  }
+
+  .trainer-detailpage-header .header-divider .image-block:after {
+    left: 0;
+    right: 0;
+  }
+
+  .trainer-detailpage-header .header-divider .info-block .content-wrapper .title.mobile {
+    display: block;
+  }
+
+  .trainer-detailpage-header .header-divider .info-block .content-wrapper .title.desktop {
+    display: none;
+  }
+}
+@media (-ms-high-contrast: none), screen and (-ms-high-contrast: active) {
+  .trainer-detailpage-header .header-divider .info-block .content-wrapper .title span {
+    color: #fff;
+    text-shadow: -1px -1px 0 #fe7000, 1px -1px 0 #fe7000, -1px 1px 0 #fe7000, 1px 1px 0 #fe7000;
+  }
 }
 
 /*# sourceMappingURL=front.css.map */

@@ -23,14 +23,13 @@ class cpt{
         $this->cpt_label = __('Coachs', 'workout_manager');
 
         $this->create_post_type();
-        //$this->create_taxonomies();
+        $this->create_taxonomies();
         $this->create_acf_fields();
 
     }
 
 
-    private function create_post_type()
-    {
+    private function create_post_type(){
 
         register_post_type(self::$cpt_name,
             array(
@@ -71,44 +70,32 @@ class cpt{
     }
 
 
-    /* private function create_taxonomies()
-    {
+    private function create_taxonomies(){
+        $taxo_name = self::$cpt_name . "-specialite";
 
-        $taxo_name = self::$cpt_name . "-category";
-
-        register_taxonomy($taxo_name,
+        register_taxonomy(
+            $taxo_name,
             self::$cpt_name,
             array(
-                'capabilities' => array(
-                    'manage_terms' => 'edit_posts',
-                    'edit_terms' => 'edit_posts',
-                    'delete_terms' => 'edit_posts',
-                    'assign_terms' => 'edit_posts',
-                ),
-                'hierarchical' => true,
-                'label' => __('Categories', 'workout_manager'),
-                'query_var' => true,
-                'rewrite' => true,
-                'label' => __('Categories', 'workout_manager'),
-                'show_ui' => true,
+                'label' => 'Spécialités',
                 'labels' => array(
-                    'name' => __('Categories', 'workout_manager'),
-                    'singular_name' => __('Category', 'workout_manager'),
-                    'all_items' => __('All categories', 'workout_manager'),
-                    'edit_item' => __('Edit category', 'workout_manager'),
-                    'view_item' => __('See category', 'workout_manager'),
-                    'update_item' => __('Update category', 'workout_manager'),
-                    'add_new_item' => __('Add a category', 'workout_manager'),
-                    'new_item_name' => __('New category', 'workout_manager'),
-                    'search_items' => __('Search category', 'workout_manager'),
-                    'popular_items' => __('Most use category', 'workout_manager')
-                )
+                    'name' => 'Spécialités',
+                    'singular_name' => 'Spécialité',
+                    'all_items' => 'Toutes les spécialité',
+                    'edit_item' => 'Éditer la spécialité',
+                    'view_item' => 'Voir la spécialité',
+                    'update_item' => 'Mettre à jour la spécialité',
+                    'add_new_item' => 'Ajouter une spécialité',
+                    'new_item_name' => 'Nouvelle spécialité',
+                    'search_items' => 'Rechercher parmi les spécialités',
+                    'popular_items' => 'Spécialités les plus utilisées'
+                ),
+                'hierarchical' => true
             )
-
         );
 
-
-    } */
+        register_taxonomy_for_object_type( 'specialite', self::$cpt_name );
+    }
 
     private function create_acf_fields()
     {
@@ -127,6 +114,82 @@ class cpt{
                     'type' => 'textarea',
                     'instructions' => '',
                     'required' => 1,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => '',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                    'maxlength' => '',
+                ),
+                array(
+                    'key' => $prefix_field.'assurance_rc_pro',
+                    'label' => 'Assurance RC Professionnelle',
+                    'name' => $prefix_field.'assurance_rc_pro',
+                    'type' => 'text',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => '',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                    'maxlength' => '',
+                ),
+                array(
+                    'key' => $prefix_field.'carte_pro',
+                    'label' => 'Carte professionnelle',
+                    'name' => $prefix_field.'carte_pro',
+                    'type' => 'text',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => '',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                    'maxlength' => '',
+                ),
+                array(
+                    'key' => $prefix_field.'education',
+                    'label' => 'Diplôme (le plus haut)',
+                    'name' => $prefix_field.'education',
+                    'type' => 'text',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => '',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                    'maxlength' => '',
+                ),
+                array(
+                    'key' => $prefix_field.'url',
+                    'label' => 'Site personnel',
+                    'name' => $prefix_field.'url',
+                    'type' => 'url',
+                    'instructions' => '',
+                    'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
                         'width' => '',

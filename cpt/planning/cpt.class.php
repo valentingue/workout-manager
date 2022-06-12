@@ -103,17 +103,20 @@ class cpt extends \workout_manager\Entities\Entity {
 
 	// Send datas about Workouts and Coachs to JS
 	public function enqueue_assets() {
-		wp_localize_script(
-			"workout-manager-manage-workouts",
-			'fitnessPlanningWorkouts',
-			$this->datas['collective_workouts']
-		);
-
-		wp_localize_script(
-			'workout-manager-manage-workouts',
-			'fitnessPlanningCoachs',
-			$this->datas['coachs']
-		);
+		if (!empty($this->datas['collective_workouts'])){
+			wp_localize_script(
+				"workout-manager-manage-workouts",
+				'fitnessPlanningWorkouts',
+				$this->datas['collective_workouts']
+			);
+		}
+		if (!empty($this->datas['collective_workouts'])){
+			wp_localize_script(
+				'workout-manager-manage-workouts',
+				'fitnessPlanningCoachs',
+				$this->datas['coachs']
+			);
+		}
 	}
 
 	public function register_meta_boxes() {

@@ -168,6 +168,10 @@ add_action( 'admin_enqueue_scripts', 'admin_enqueue_assets' );
 
 
 function workout_manager_enqueue_scripts() {
+	/* TODO
+		/!\ Check what type of page we're on to include proper style
+		/!\ Check what type of page we're on to include proper script
+	*/
 	$current_plugin_version = \workout_manager\get_plugin_version();
 
 	wp_enqueue_style('front-style', WORKOUT_MANAGER_URL.'assets/scss/front.css', [], time());

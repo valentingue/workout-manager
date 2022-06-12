@@ -74,14 +74,13 @@ abstract class Entity {
 
   // Save custom fields
 	public function save_custom_fields($post_id, $post, $update) {
-		printr($this->fields);
 		
 		global $post_type;
 
-		//if($this->check_saved_post($post_type, $this->cpt_label, $update, $post_id)) { return; }
+		if($this->check_saved_post($post_type, 'planning', $update, $post_id)) { return; }
 
 		foreach($this->fields as $field => $field_metas) {
-			printr($field);
+
       		// Check if the field is registered by the Entity before saving it
 			/* if(array_key_exists($field, $_POST)) {
 

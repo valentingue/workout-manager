@@ -65,9 +65,6 @@ class Planning_Services {
 		"afternoon" => $afternoon_duration,
 		);
 
-		/* var_dump($datas);
-		die; */
-
         // Get the Planning entries and prepare datas for JSON
 		if($datas['fitplan_planning'] != ""){
 
@@ -78,7 +75,7 @@ class Planning_Services {
             // Prepare datas for each Workouts Entries in the planning
 			// Database only keep record of start/finish time, Workout and Coach IDs
 			// We need to add the metas for each entry
-			//printr($datas['planning']);
+
 			foreach($datas['planning'] as $day => $entries) {
 				foreach($entries as $key => $entry) {
 					if($entry != null){

@@ -1,0 +1,44 @@
+<div class='trainer-detailpage-header'>
+    <div class='top-content'>
+        <div class="block-wrapper">
+            <div class="info-block">
+                <div class="content-wrapper">
+                    <h1 class="title">{{title}}<span>Personal Trainer</span></h1>
+                    <div class="content-block">
+                        <h2 class="sub-title">Introduction</h2>
+                        <div>
+                            <p>{{acf_fields.coach_field_coach_desc}}</p>
+                            <p><b>Assurance RC Pro:</b> {{acf_fields.coach_field_assurance_rc_pro}}</p>
+                            <p><b>Carte Pro:</b> {{acf_fields.coach_field_carte_pro}}</p>
+                        </div>
+                    </div>
+
+                    <div class="content-block">
+                        <h2 class="sub-title">Specialitiés</h2>
+                        <div class="labels">
+                        {% for taxo in taxos %}
+                            <span>{{taxo.name}}</span>
+                        {% endfor%}
+                        </div>
+                    </div>
+
+                    <div class="content-block">
+                        <h2 class="sub-title">Education </h2>
+                        <div class="labels">
+                            <span>{{acf_fields.coach_field_education}}</span>
+                        </div>
+                    </div>
+
+                    <div class="content-block">
+                        <a class="wm-btn wm-btn--secondary wm-link" href="{{acf_fields.coach_field_url}}">Get in touch</a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="image-block">
+                <div class="image" alt="JD Personal Trainer - photo 1" title="JD Personal Trainer - photo 1 | Basic Fit" style="background: url({{img}}) center/cover">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
