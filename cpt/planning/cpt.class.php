@@ -246,7 +246,7 @@ class cpt extends \workout_manager\Entities\Entity {
 
 		// Store content in buffer (goal is to return var, not echoing it now)
 		ob_start();
-		include WORKOUT_MANAGER_DIR.'public/templates/shortcode-planning.php';
+		include WORKOUT_MANAGER_DIR.'/includes/planning/shortcode-planning.php';
 		$output = ob_get_contents();
 		ob_end_clean();
 

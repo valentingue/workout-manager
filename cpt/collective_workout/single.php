@@ -18,11 +18,15 @@ while ( have_posts() ) : the_post();
     if (class_exists('ACF')){
         $fields = \get_fields($post->ID);
         if(is_array($fields)){
-            foreach($fields as $field_name => $field_datas) $twig_vars["acf_fields"][$field_name] = $field_datas;
+            foreach($fields as $field_name => $field_datas) {
+                if($field_name == "collective_workout_field_pic"){
+                    $field_datas = wp_get_attachment_url($field_datas['ID']);
+                };
+
+                $twig_vars["acf_fields"][$field_name] = $field_datas;
+            }
         }
     }
-
-    $twig_vars['taxos'] = get_the_terms($post->ID, 'coach-specialite');
     //var_dump($twig_vars['taxos']);
     // render
     Timber::render("single.twig", $twig_vars);
