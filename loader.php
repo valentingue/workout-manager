@@ -355,3 +355,35 @@ function workout_manager_obj_templates( $template ) {
   	return $template;
 
 }
+
+function wm_custom_menu_order($menu_ord) {
+    if (!$menu_ord) return true;
+	else{
+		return array(
+			'index.php', // Dashboard
+			'separator1', // First separator
+			'edit.php?post_type=page', // Pages
+			'edit.php', // Posts
+			'upload.php', // Media
+			'edit.php?post_type=gym', // CPT gym
+			'edit.php?post_type=workout', // CPT workout
+			'edit.php?post_type=collective_workout', // CPT collective_workout
+			'edit.php?post_type=planning', // CPT planning
+			'edit.php?post_type=coach', // CPT coach
+			'edit.php?post_type=contract', // CPT contract
+			'admin.php?page=workout_manager_contract',  // Send contract 
+			'link-manager.php', // Links
+			'edit-comments.php', // Comments
+			'separator2', // Second separator
+			'themes.php', // Appearance
+			'plugins.php', // Plugins
+			'users.php', // Users
+			'tools.php', // Tools
+			'options-general.php', // Settings
+			'separator-last', // Last separator
+		);
+	}
+  }
+
+  add_filter('custom_menu_order', 'wm_custom_menu_order'); // Activate custom_menu_order
+  add_filter('menu_order', 'wm_custom_menu_order');

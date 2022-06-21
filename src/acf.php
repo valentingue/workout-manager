@@ -8,7 +8,8 @@ acf_add_options_page(array(
     'menu_slug' 	=> 'workout_manager_settings',
     'icon_url'     => 'dashicons-admin-settings',
     'capability'	=> 'edit_posts',
-    'redirect'		=> false
+    'redirect'		=> false,
+	'position'    	=> 2
 ));
 
 acf_add_local_field_group(array(

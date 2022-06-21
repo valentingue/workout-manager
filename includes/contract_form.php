@@ -5,7 +5,7 @@ use Classes\GeneratePDF;
 
 add_action( 'admin_menu', 'workout_manager_contract_admin_menu' );
 function workout_manager_contract_admin_menu(){
-    add_menu_page( 'Send contract', 'Send contract', 'administrator', 'workout_manager_contract', 'workout_manager_contract_do_page', 'dashicons-printer', 30);
+    add_menu_page( 'Send contract', 'Send contract', 'administrator', 'workout_manager_contract', 'workout_manager_contract_do_page', 'dashicons-printer', 1);
 }
 
 add_action( 'admin_post_workout_manager_form_response', 'the_form_response');
