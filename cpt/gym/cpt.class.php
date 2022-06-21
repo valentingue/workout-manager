@@ -233,7 +233,7 @@ class cpt{
                     'label' => 'Heures d\'ouverture différentes (matinée - après midi)',
                     'name' => 'differents_hours',
                     'type' => 'true_false',
-                    'instructions' => '(ex: 6h-13h)',
+                    'instructions' => '',
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -252,7 +252,7 @@ class cpt{
                     'label' => 'Heures d\'ouverture en matinée',
                     'name' => 'morning_hours',
                     'type' => 'text',
-                    'instructions' => '(ex: 14h-22h)',
+                    'instructions' => '(ex: 06h-12h)',
                     'required' => 0,
                     'conditional_logic' => array(
                         array(
@@ -279,7 +279,7 @@ class cpt{
                     'label' => 'Heures d\'ouverture en après-midi',
                     'name' => 'afternoon_hours',
                     'type' => 'text',
-                    'instructions' => '',
+                    'instructions' => '(ex: 14h-22h)',
                     'required' => 0,
                     'conditional_logic' => array(
                         array(
