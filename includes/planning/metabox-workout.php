@@ -1,5 +1,4 @@
 <?php 
-//var_dump($this->datas['collective_workouts']);
 
 ?>
 <div class="fitplan-section">
@@ -36,9 +35,9 @@
     <span><?php _e('with', 'fitness-schedule'); ?></span>
 
     <select name="fitplan_addworkout_coach" <?php if(count($this->datas['coachs']) == 0) echo "disabled"; ?>>
-      <option value="" selected><?php echo __('(None)', 'fitness-schedule' ); ?></option>
-      <?php foreach($this->datas['coachs'] as $ID => $coach): var_dump($coach);?>
-      <option value="<?php echo $ID; ?>"><?php echo $coach->post_title; ?></option>
+      <option value="" selected><?php echo __('Aucun', 'fitness-schedule' ); ?></option>
+      <?php foreach($this->datas['coachs'] as $ID => $coach): ?>
+      <option value="<?php echo $ID; ?>"><?php echo $coach['post']->post_title; ?></option>
       <?php endforeach; ?>
       <?php if(count($this->datas['coachs']) == 0): ?>
       <option value=""><?php _e('No coach defined'); ?></option>

@@ -62,6 +62,7 @@ class cpt{
                 ),
                 'supports' => array('title', 'editor', 'thumbnail'),
                 'has_archive' => true,
+                'publicly_queryable' => false,
                 'rewrite' => array('slug' => self::$cpt_name),
                 'menu_icon' => $this->dashicon
             )

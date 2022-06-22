@@ -84,7 +84,8 @@ class cpt extends \workout_manager\Entities\Entity {
 				'read_post' => 'edit_posts',
 			),
 			'supports' => array('title', 'thumbnail'),
-			'has_archive' => true,
+			'has_archive' => false,
+			'publicly_queryable' => false,
 			'menu_icon'         => self::$dashicon
 		);
 
@@ -110,7 +111,7 @@ class cpt extends \workout_manager\Entities\Entity {
 				$this->datas['collective_workouts']
 			);
 		}
-		if (!empty($this->datas['collective_workouts'])){
+		if (!empty($this->datas['coachs'])){
 			wp_localize_script(
 				'workout-manager-manage-workouts',
 				'fitnessPlanningCoachs',

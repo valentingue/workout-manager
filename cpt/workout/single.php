@@ -21,7 +21,7 @@ while ( have_posts() ) : the_post();
             foreach($fields as $field_name => $field_datas) $twig_vars["acf_fields"][$field_name] = $field_datas;
         }
     }
-    printr($twig_vars);
+    var_dump($twig_vars);
 
     // render
     Timber::render("single.twig", $twig_vars);

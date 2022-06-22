@@ -1,5 +1,6 @@
 <?php 
-//var_dump($entry); 
+/* var_dump($entry['coach']); 
+die; */
 ?>
 
 <div class="fitplan-planning-item fitplan-planning-item-workout-<?php echo $entry['workout']['ID']; ?>" data-position-id="<?php echo $id ?>" style="top: <?php echo $entry['top']; ?>; height: <?php echo $entry['height']; ?>;">
@@ -7,7 +8,7 @@
     style="
       <?php
         if($this->datas['fitplan_planning_workout_display_color'] == "on"):
-          echo 'background-color: '.$entry['workout']['fitplan_planning_workout_display_color'];
+          echo 'background-color: '.$this->datas['fitplan_planning_background_color'];
         else:
           echo 'background-color: '.$this->datas['fitplan_planning_workout_default_color'];
         endif;
@@ -57,7 +58,7 @@
     </div>
 
     <div class="fitplan-planning-modal-desc">
-      <?php echo nl2br($entry['workout']['collective_workout_field_desc']); ?>
+      <?php echo wp_trim_words(nl2br($entry['workout']['collective_workout_field_desc']), 55); ?>
     </div>
 
     <?php if($entry['workout']['permalink'] != ""): ?>
@@ -66,12 +67,12 @@
 
     <?php if(isset($entry['coach'])): ?>
     <div class="fitplan-planning-modal-coach">
-      <img class="fitplan-planning-modal-coach-img" src="<?php echo $entry['coach']['fitplan_coach_pic']['url']; ?>" alt="<?php echo $entry['coach']['post_title']; ?>">
+      <img class="fitplan-planning-modal-coach-img" src="<?php echo $entry['coach']['picture']; ?>" alt="<?php echo $entry['coach']['post']->post_title; ?>">
       <span class="fitplan-planning-modal-coach-by"><?php _e('By', 'fitness-schedule'); ?></span>
       <br>
-      <strong class="fitplan-planning-modal-coach-name" data-coach-id="<?php echo $entry['coach']['ID']; ?>"><?php echo $entry['coach']['post_title']; ?></strong>
+      <strong class="fitplan-planning-modal-coach-name" data-coach-id="<?php echo $entry['coach']['post']->ID; ?>"><?php echo $entry['coach']['post']->post_title; ?></strong>
       <div class="fitplan-planning-modal-coach-bio">
-        <?php echo $entry['coach']['fitplan_coach_bio']; ?>
+        <?php echo $entry['coach']['acf']['coach_field_coach_desc']; ?>
       </div>
     </div>
     <?php endif; ?>

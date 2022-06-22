@@ -60,9 +60,10 @@ class cpt{
                     'read_post' => 'edit_posts',
                 ),
                 'supports' => array('title', 'editor', 'thumbnail'),
-                'has_archive' => true,
+                'has_archive' => false,
+                //'publicly_queryable' => false,
                 'rewrite' => array('slug' => self::$cpt_name),
-                'menu_icon' => $this->dashicon
+                'menu_icon' => $this->dashicon,
             )
 
         );
@@ -300,6 +301,28 @@ class cpt{
                     'prepend' => '',
                     'append' => '',
                     'maxlength' => '',
+                ),
+                array(
+                    'key' => $prefix_field.'gym_planning',
+                    'label' => 'Planning',
+                    'name' => 'gym_planning',
+                    'type' => 'post_object',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'post_type' => array(
+                        0 => 'planning',
+                    ),
+                    'taxonomy' => '',
+                    'allow_null' => 0,
+                    'multiple' => 0,
+                    'return_format' => 'id',
+                    'ui' => 1,
                 ),
                 array(
                     'key' => $prefix_field.'gym_mail',

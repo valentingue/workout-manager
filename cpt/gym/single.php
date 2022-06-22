@@ -18,7 +18,13 @@ while ( have_posts() ) : the_post();
     if (class_exists('ACF')){
         $fields = \get_fields($post->ID);
         if(is_array($fields)){
-            foreach($fields as $field_name => $field_datas) $twig_vars["acf_fields"][$field_name] = $field_datas;
+            foreach($fields as $field_name => $field_datas) {
+                $twig_vars["acf_fields"][$field_name] = $field_datas;
+                
+                if( $field_name === 'gym_planning' ){
+                    $twig_vars["acf_fields"]['gym_planning_shortcode'] = do_shortcode('[fitness-planning id="'.$field_datas.'"]');
+                }
+            }
         }
     }
 

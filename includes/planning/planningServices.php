@@ -38,6 +38,7 @@ class Planning_Services {
 		foreach($coachs_datas as $coach_datas):
 			$datas['coachs'][$coach_datas->ID]['post'] = $coach_datas;
 			$datas['coachs'][$coach_datas->ID]['acf'] = get_fields($coach_datas->ID);
+			$datas['coachs'][$coach_datas->ID]['picture'] = get_the_post_thumbnail_url($coach_datas->ID);
 		endforeach;
 
 
