@@ -36,7 +36,7 @@ $context["page_fields"]  = $page_fields;
 
 
 // Affichage du rendu
-$view_path  = WORKOUT_MANAGER_DIR."/templates/login.twig";
+$view_path  = WORKOUT_MANAGER_DIR."/includes/templates/login.twig";
 
 \Timber::render($view_path, $context);
 

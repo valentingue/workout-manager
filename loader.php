@@ -26,7 +26,6 @@ function workout_manager_autoloader( $class_name ) {
 		
         if (file_exists($classFile)) require_once $classFile;
         else die("Missing file class : ".$classFile);
-	   
 	} */
 	
 	
@@ -258,7 +257,7 @@ function workout_manager_page_template( $template ) {
 			wp_redirect("/".WORKOUT_MANAGER_URL_DASHBOARD."/");
 			exit;
 		}
-
+		
 		$template = WORKOUT_MANAGER_DIR . '/src/controllers/'.WORKOUT_MANAGER_TEMPLATE_LOGIN.'.php';
 	}
 	return $template;
@@ -352,7 +351,7 @@ function workout_manager_obj_templates( $template ) {
 
 	}
 	
-  	return $template;
+	return $template;
 
 }
 
@@ -383,7 +382,7 @@ function wm_custom_menu_order($menu_ord) {
 			'separator-last', // Last separator
 		);
 	}
-  }
+}
 
-  add_filter('custom_menu_order', 'wm_custom_menu_order'); // Activate custom_menu_order
-  add_filter('menu_order', 'wm_custom_menu_order');
+  	add_filter('custom_menu_order', 'wm_custom_menu_order'); // Activate custom_menu_order
+	add_filter('menu_order', 'wm_custom_menu_order');

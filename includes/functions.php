@@ -87,14 +87,14 @@ function clean($str){
 function strings_to_js(){
 	
 	return [
-		'mediaUploaderTitle' => __('Select a image to upload', 'fitness-schedule'),
-		'mediaUploaderButton' => __('Use this image', 'fitness-schedule'),
-		'editWorkoutTitle' => __('Edit this Workout', 'fitness-schedule'),
-		'editWorkoutButton' => __('Apply changes', 'fitness-schedule'),
-		'editWorkoutAction' => __('Edit', 'fitness-schedule'),
-		'addWorkoutTimeError' => __('Start time must be before end Time', 'fitness-schedule'),
-		'addWorkoutConflictError' => __("You can't add a workout here because there is already another one at this time. We suggest you make another planning (eg: special bike planning) ", 'fitness-schedule'),
-		'addWorkoutOutsideBoundariesError' => __("This workout is outside the current planning hours boundaries", 'fitness-schedule'),
+		'mediaUploaderTitle' => __('Select a image to upload', PLUGIN_TEXT_DOMAIN),
+		'mediaUploaderButton' => __('Use this image', PLUGIN_TEXT_DOMAIN),
+		'editWorkoutTitle' => __('Edit this Workout', PLUGIN_TEXT_DOMAIN),
+		'editWorkoutButton' => __('Apply changes', PLUGIN_TEXT_DOMAIN),
+		'editWorkoutAction' => __('Edit', PLUGIN_TEXT_DOMAIN),
+		'addWorkoutTimeError' => __('Start time must be before end Time', PLUGIN_TEXT_DOMAIN),
+		'addWorkoutConflictError' => __("You can't add a workout here because there is already another one at this time. We suggest you make another planning (eg: special bike planning) ", PLUGIN_TEXT_DOMAIN),
+		'addWorkoutOutsideBoundariesError' => __("This workout is outside the current planning hours boundaries", PLUGIN_TEXT_DOMAIN),
 	];
 }
 

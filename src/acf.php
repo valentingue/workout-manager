@@ -91,6 +91,7 @@ acf_add_local_field_group(array(
 // Athlete infos
 acf_add_local_field_group(array(
 	'key' => 'group_'.WORKOUT_MANAGER_ACF_PREFIX.'_athlete',
+	'name'	=> WORKOUT_MANAGER_ACF_PREFIX.'_athlete',
 	'title' => 'Informations athlete',
 	'fields' => array(
 		array(
