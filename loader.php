@@ -37,6 +37,7 @@ spl_autoload_register( 'workout_manager_autoloader' );
 // ===================== Initialisation du plugin =====================
 function workout_manager_plugins_loaded(){
 
+	require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	require_once( WORKOUT_MANAGER_DIR . '/includes/contract_form.php');
 	require_once( WORKOUT_MANAGER_DIR . "/includes/functions.php"  );
 	require_once( WORKOUT_MANAGER_DIR . "/includes/hooks.php"  );

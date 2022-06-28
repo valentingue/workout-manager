@@ -3,8 +3,6 @@ namespace workout_manager;
 
 function get_plugin_version(){
 
-	if ( ! function_exists( 'get_plugins' ) ) require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-
     $plugin_folder 	= get_plugins( '/' . plugin_basename( WORKOUT_MANAGER_DIR ) );
 	$plugin_file 	= basename( WORKOUT_MANAGER_LOADER );
     $version 		= $plugin_folder[$plugin_file]["Version"];
