@@ -22,4 +22,8 @@ const WORKOUT_MANAGER_CPT = [
 	"collective_workout"
 ];
 
+const WORKOUT_MANAGER_TAXOS = [
+	'collective_workout_category',
+];
+
 define(	'WORKOUT_MANAGER_VERSION', get_plugin_version());

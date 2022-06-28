@@ -24,6 +24,13 @@ while ( have_posts() ) : the_post();
                 };
 
                 $twig_vars["acf_fields"][$field_name] = $field_datas;
+                $twig_vars["taxos"] = get_the_terms($post->ID, "collective_workout_category");
+            }
+            
+            if( !empty($twig_vars['taxos']) ){
+                foreach( $twig_vars['taxos'] as $i => $taxo ){
+                    $twig_vars['taxos'][$i]->permalink = get_term_link($taxo->term_id);
+                }
             }
         }
     }

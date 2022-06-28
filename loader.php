@@ -62,8 +62,19 @@ function workout_manager_plugins_loaded(){
 		require_once( WORKOUT_MANAGER_DIR.'/cpt/'.$cpt.'/cpt.class.php');
 	}
 
+	
+
 }
 add_action( 'plugins_loaded', 'workout_manager_plugins_loaded' );
+
+function call_taxonomy_template_from_directory(){
+    global $post;
+	foreach(WORKOUT_MANAGER_TAXOS as $taxo){
+		$taxonomy_slug = get_query_var('taxonomy');
+		load_template(WORKOUT_MANAGER_DIR.'/includes/taxos/'.$taxo.'/taxonomy-'.$taxo.'.php');
+	}
+}
+add_filter('taxonomy_template', 'call_taxonomy_template_from_directory');
 
 // Composer loader
 require_once('includes/vendor/autoload.php');

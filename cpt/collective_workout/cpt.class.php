@@ -23,15 +23,13 @@ class cpt{
         $this->cpt_label = __('Collective Workout', 'workout_manager');
 
         $this->create_post_type();
-        //$this->create_taxonomies();
+        $this->create_taxonomies();
         $this->create_acf_fields();
 
     }
 
 
-    private function create_post_type()
-    {
-
+    private function create_post_type(){
         register_post_type(self::$cpt_name,
             array(
                 'labels' => array(
@@ -62,20 +60,15 @@ class cpt{
                 ),
                 'supports' => array('title', 'editor', 'thumbnail'),
                 'has_archive' => false,
-                'rewrite' => array('slug' => self::$cpt_name),
+                'rewrite' => array('slug' => 'collective-workout'),
                 'menu_icon' => $this->dashicon
             )
-
         );
-
     }
 
 
-    /* private function create_taxonomies()
-    {
-
-        $taxo_name = self::$cpt_name . "-category";
-
+    private function create_taxonomies(){
+        $taxo_name = self::$cpt_name . "_category";
         register_taxonomy($taxo_name,
             self::$cpt_name,
             array(
@@ -91,6 +84,9 @@ class cpt{
                 'rewrite' => true,
                 'label' => __('Categories', 'workout_manager'),
                 'show_ui' => true,
+                'has_archive' => true,
+                'rewrite' => array( 'slug' => 'collective-workout-category' ),
+                'show_in_rest' => false,
                 'labels' => array(
                     'name' => __('Categories', 'workout_manager'),
                     'singular_name' => __('Category', 'workout_manager'),
@@ -104,14 +100,10 @@ class cpt{
                     'popular_items' => __('Most use category', 'workout_manager')
                 )
             )
-
         );
+    }
 
-
-    } */
-
-    private function create_acf_fields()
-    {
+    private function create_acf_fields(){
         if (!function_exists("acf_add_local_field_group")) return;
 
         $prefix_field = self::$cpt_name . "_field_";
@@ -140,8 +132,35 @@ class cpt{
                     'maxlength' => '',
                 ),
                 array(
+                    'key' => $prefix_field.'_course_level',
+                    'label' => 'Level of the course',
+                    'name' => $prefix_field.'_course_level',
+                    'type' => 'select',
+                    'instructions' => '',
+                    'required' => 1,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'choices' => array(
+                        '' => 'Please select a level',
+                        'beginner' => 'Beginner',
+                        'intermediate' => 'Intermediate',
+                        'advanced' => 'Advanced',
+                    ),
+                    'default_value' => false,
+                    'allow_null' => 0,
+                    'multiple' => 0,
+                    'ui' => 0,
+                    'return_format' => 'value',
+                    'ajax' => 0,
+                    'placeholder' => '',
+                ),
+                array(
                     'key' => $prefix_field.'_pic',
-                    'label' => 'Description of the workout',
+                    'label' => 'Image for the workout',
                     'name' => $prefix_field.'pic',
                     'type' => 'image',
                     'instructions' => '',

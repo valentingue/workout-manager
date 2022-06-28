@@ -4,7 +4,12 @@
         <div class="col-auto d-flex align-items-center">
             <img height="300" width="300" src="{{acf_fields.collective_workout_field_pic}}" />
         </div>
-        <div class="col ms-5 d-flex align-items-center">
+        <div class="col d-flex flex-column ms-5">
+            <div class="collective-workout-categories">
+                {% for taxo in taxos %}
+                    <a href='{{taxo.permalink}}' class='text-decoration-none bg-primary px-3 py-1 rounded-pill'>{{taxo.name}}</a>
+                {% endfor %}
+            </div>
             <p>{{acf_fields.collective_workout_field_desc}}</p>
         </div>
     </div>
