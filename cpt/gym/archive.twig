@@ -1,0 +1,18 @@
+<div class="row ">
+    {% for archive in archives %}
+    <a href="{{ archive.permalink }}" class="text-decoration-none col-md-6 col-12 mb-2 single-job text-center">
+        <div class="bg-white p-md-2 content-card">
+            <img src="{{ archive.img }}" alt="{{ archive.title }}" class="m-auto img-fluid job-img d-block">
+            
+            {% for taxo in archive.taxos %}
+                {# <a href='{{taxo.permalink}}' class='text-decoration-none bg-primary px-3 py-1 rounded-pill'>{{taxo.name}}</a> #}
+                <span class='bg-primary px-3 py-1 rounded-pill'>{{taxo.name}}</span>
+            {% endfor %}
+            <p class="job-first-name">{{ archive.title }}</p>
+        </div>
+        <div class="description-card">{{ archive.content }}</div>
+    </a>
+    {% endfor %}
+</div>
+
+{{ pagination }}

@@ -59,7 +59,7 @@ class cpt{
                     'read_post' => 'edit_posts',
                 ),
                 'supports' => array('title', 'editor', 'thumbnail'),
-                'has_archive' => false,
+                'has_archive' => true,
                 'rewrite' => array('slug' => 'collective-workout'),
                 'menu_icon' => $this->dashicon
             )
