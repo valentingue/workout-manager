@@ -18,7 +18,6 @@ const WORKOUT_MANAGER_CPT = [
 	"contract",
 	"gym",
 	"coach",
-	"planning",
 	"collective_workout"
 ];
 

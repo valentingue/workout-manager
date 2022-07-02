@@ -134,7 +134,7 @@ class cpt{
                 array(
                     'key' => $prefix_field.'_course_level',
                     'label' => 'Level of the course',
-                    'name' => $prefix_field.'_course_level',
+                    'name' => $prefix_field.'course_level',
                     'type' => 'select',
                     'instructions' => '',
                     'required' => 1,

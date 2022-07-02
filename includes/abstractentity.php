@@ -77,7 +77,7 @@ abstract class Entity {
 		
 		global $post_type;
 
-		if($this->check_saved_post($post_type, 'planning', $update, $post_id)) { return; }
+		if($this->check_saved_post($post_type, 'gym', $update, $post_id)) { return; }
 
 		foreach($this->fields as $field => $field_metas) {
 

@@ -44,10 +44,4 @@
         <span class="dashicons dashicons-warning"></span> <?php _e("Afternoon starts before morning finish", 'fitness-schedule'); ?>
       </span>
     </p>
-
-    <p class="fitplan-label"><?php _e('Others', 'fitness-schedule'); ?></p>
-    <p>
-      <?php _e('You can customize the first day of the week or the date format in <a href="options-general.php" target="_blank">Settings > General</a>.', 'fitness-schedule'); ?>
-    </p>
-  </div>
 </div>

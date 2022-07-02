@@ -77,15 +77,4 @@ die; */
     </div>
     <?php endif; ?>
   </div>
-
-  <?php 
-  $current_user = wp_get_current_user();
-  if( is_super_admin( $current_user->ID ) ) :?>
-
-  <div class="fitplan-planning-item-overlay">
-    <a href="#" class="fitplan-planning-edit-item"><span><?php _e('Click to edit', 'fitness-schedule'); ?></span></a>
-    <a href="#" class="fitplan-planning-delete-item">×</a>
-  </div>
-
-  <?php endif ?>
 </div>

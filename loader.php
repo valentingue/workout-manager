@@ -162,7 +162,7 @@ function admin_enqueue_assets($hook) {
 
 	wp_enqueue_style('workout-manager-admin-style', WORKOUT_MANAGER_URL.'/admin/css/fitness-planning-admin.css', array(), time(), false);
 
-	if(($hook == 'post.php' or $hook == 'post-new.php') and $post_type == "planning") {
+	if(($hook == 'post.php' or $hook == 'post-new.php') and $post_type == "gym") {
 
 		wp_enqueue_script('moment-js', WORKOUT_MANAGER_URL.'/admin/js/libs/moment.min.js', array(), '2.1.9', false);
 

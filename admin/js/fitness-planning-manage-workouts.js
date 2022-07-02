@@ -204,7 +204,9 @@
 			console.log(workout);
 			// Don't handle coach If no one has been created yet
 			if (coachId != "") {
+				console.log(coachId);
 				var coach = fitnessPlanningCoachs[coachId];
+				console.log(coach)
 			}
 
 			// Populate base datas
@@ -252,14 +254,14 @@
 			// Populate Coach datas
 			if (coachId != "") {
 
-				if ('url' in coach.fitplan_coach_pic) {
-					$template.find('.fitplan-planning-modal-coach-img').attr('src', coach.fitplan_coach_pic.url).attr('alt', coach.post_title);
+				if ('picture' in coach) {
+					$template.find('.fitplan-planning-modal-coach-img').attr('src', coach.picture).attr('alt', coach.post_title);
 				} else {
 					$template.find('.fitplan-planning-modal-coach-img').remove();
 				}
 
-				$template.find('.fitplan-planning-modal-coach-name').html(coach.post_title).attr('data-coach-id', coach.ID);
-				$template.find('.fitplan-planning-modal-coach-bio').html(coach.fitplan_coach_bio);
+				$template.find('.fitplan-planning-modal-coach-name').html(coach.post.post_title).attr('data-coach-id', coach.ID);
+				$template.find('.fitplan-planning-modal-coach-bio').html(coach.acf.coach_field_coach_desc);
 
 			} else {
 				// remove coach markup
