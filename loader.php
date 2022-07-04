@@ -68,7 +68,6 @@ function workout_manager_plugins_loaded(){
 add_action( 'plugins_loaded', 'workout_manager_plugins_loaded' );
 
 function call_taxonomy_template_from_directory(){
-    global $post;
 	foreach(WORKOUT_MANAGER_TAXOS as $taxo){
 		$taxonomy_slug = get_query_var('taxonomy');
 		load_template(WORKOUT_MANAGER_DIR.'/includes/taxos/'.$taxo.'/taxonomy-'.$taxo.'.php');

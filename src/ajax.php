@@ -12,7 +12,7 @@ function workout_manager_ajax_router(): string {
         "edit_profile",
         "delete_account"
     ])) {
-	    die("Cheater :)");
+        die("Cheater :)");
     }
 
 	// call the function (works for methods to)
@@ -35,7 +35,7 @@ function login(array $args): string {
 
     // First check the nonce, if it fails the function will break
     //if(!wp_verify_nonce( $args['security_login'], 'ajax-login-nonce' )) wp_send_json(['success' => -1 , "message" => __('Bad request.', 'workout_manager')]);
-   
+
     // Check if all fields exists
     $error_messages = [];
     if(empty($args["username"]) || \workout_manager\clean($args["username"]) == "") $error_messages[] = __("Email is missing." , "workout_manager");
@@ -86,10 +86,8 @@ function login(array $args): string {
 }
 
 function register(array $args): string {
-  
     // First check the nonce, if it fails the function will break
     //if(!wp_verify_nonce( $args['security_register'], 'ajax-register-nonce' )) wp_send_json(['success' => -1 , "message" => __('Bad request.', 'workout_manager')]);
-   
 
     // Check if all fields exists
     $error_messages = [];
@@ -171,10 +169,10 @@ function register(array $args): string {
 }
 
 function edit_profile(array $args): string {
-  
+
     // First check the nonce, if it fails the function will break
     //if(!wp_verify_nonce( $args['security_edit_profile'], 'ajax-editprofile-nonce' )) wp_send_json(['success' => -1 , "message" => __('Bad request.', 'workout_manager')]);
-   
+
 
     $user_id = get_current_user_id();
 
@@ -239,10 +237,9 @@ function delete_account(array $args): string {
     if (isset($_REQUEST['lang'])) {
         do_action('wpml_switch_language', $_REQUEST['lang']);
     }
-  
+
     // First check the nonce, if it fails the function will break
     //if(!wp_verify_nonce( $args['security_edit_profile'], 'ajax-editprofile-nonce' )) wp_send_json(['success' => -1 , "message" => __('Bad request.', 'workout_manager')]);
-   
 
     $user_id = intval(get_current_user_id());
     if($user_id == 0){
