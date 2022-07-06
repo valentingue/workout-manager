@@ -222,6 +222,33 @@ class cpt extends \workout_manager\Entities\Entity{
                     ),
                 ),
                 array(
+                    'key' => $prefix_field.'gym_photos',
+                    'label' => 'Gym\'s photos',
+                    'name' => $prefix_field.'gym_photos',
+                    'type' => 'gallery',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'return_format' => 'id',
+                    'preview_size' => 'large',
+                    'insert' => 'append',
+                    'library' => 'all',
+                    'min' => '',
+                    'max' => '',
+                    'min_width' => '',
+                    'min_height' => '',
+                    'min_size' => '',
+                    'max_width' => '',
+                    'max_height' => '',
+                    'max_size' => '',
+                    'mime_types' => 'png,	jpeg, jpeg, webp',
+                ),
+                array(
                     'key' => $prefix_field.'opening_days',
                     'label' => 'Jours d\'ouverture',
                     'name' => 'opening_days',
@@ -462,7 +489,7 @@ class cpt extends \workout_manager\Entities\Entity{
 
 		add_meta_box('fitness-planning-settings', __('Settings', 'fitness-schedule'), array($this, 'render_metabox_settings'), $this->CPT_slug, 'normal', 'high');
 
-		add_meta_box('fitness-planning-shortcode', __('Shortcode', 'fitness-schedule'), array($this, 'render_metabox_shortcode'), $this->CPT_slug, 'side', 'low');
+		//add_meta_box('fitness-planning-shortcode', __('Shortcode', 'fitness-schedule'), array($this, 'render_metabox_shortcode'), $this->CPT_slug, 'side', 'low');
 
 		add_meta_box('fitness-planning-workout-styling', __('Customize Workouts', 'fitness-schedule'), array($this, 'render_metabox_workout_styling'), $this->CPT_slug, 'side', 'low');
 
@@ -481,10 +508,10 @@ class cpt extends \workout_manager\Entities\Entity{
 		include WORKOUT_MANAGER_DIR.'/includes/planning/metabox-settings.php';
 	}
 
-	public function render_metabox_shortcode($post) {
+	/* public function render_metabox_shortcode($post) {
 		$post_id = $post->ID;
 		include WORKOUT_MANAGER_DIR.'/includes/planning/metabox-shortcode.php';
-	}
+	} */
 
 	public function render_metabox_workout_styling($post) {
 		include WORKOUT_MANAGER_DIR.'/includes/planning/metabox-workout-styling.php';
