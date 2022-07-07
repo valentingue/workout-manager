@@ -24,6 +24,9 @@ while ( have_posts() ) : the_post();
                 if( $field_name === 'opening_hours'){
                     $twig_vars["acf_fields"][$field_name] = explode('-', $field_datas);
                 }
+                elseif( $field_name === 'weekend_hours'){
+                    $twig_vars["acf_fields"][$field_name] = explode('-', $field_datas);
+                }
                 elseif( $field_name === 'coachs'){
                     foreach($field_datas as $k => $coach){
                         $coach['coach']->permalink = get_the_permalink( $coach['coach']->ID);

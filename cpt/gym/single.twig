@@ -18,7 +18,7 @@
                             Du lundi au vendredi: de {{acf_fields.opening_hours[0]}} à {{acf_fields.opening_hours[1]}}
                         </div>
                         <div>
-                            Samedi &amp; dimanche : de 9h00 - 19h00
+                            Samedi &amp; dimanche : {% if acf_fields.differents_weekend_hours and '5' in acf_fields.opening_days or '6' in acf_fields.opening_days %} de {{acf_fields.weekend_hours[0]}} à {{acf_fields.weekend_hours[1]}} {% endif %}
                         </div>
                     </li>
                 </ul>
@@ -89,7 +89,7 @@
     </div>
 </section>
 
-<section class="trainer-tiles" id="personal-trainers">
+<section class="trainer-tiles" id="coachs">
     <div class="content">
         <span class="name-link-wrapper">
             <a href="javascript:;" class="name-link trainers" name="trainers"></a>

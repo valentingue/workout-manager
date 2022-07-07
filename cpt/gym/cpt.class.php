@@ -306,7 +306,26 @@ class cpt extends \workout_manager\Entities\Entity{
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
-                        'width' => '',
+                        'width' => '50',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'message' => '',
+                    'default_value' => 0,
+                    'ui' => 0,
+                    'ui_on_text' => '',
+                    'ui_off_text' => '',
+                ),
+                array(
+                    'key' => $prefix_field.'differents_weekend_hours',
+                    'label' => 'Heures d\'ouverture différentes le week-end ?',
+                    'name' => 'differents_weekend_hours',
+                    'type' => 'true_false',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => '0',
+                    'wrapper' => array(
+                        'width' => '50',
                         'class' => '',
                         'id' => '',
                     ),
@@ -329,7 +348,7 @@ class cpt extends \workout_manager\Entities\Entity{
                                 'field' => $prefix_field.'differents_hours',
                                 'operator' => '==',
                                 'value' => '1',
-                            ),
+                            )
                         ),
                     ),
                     'wrapper' => array(
@@ -356,11 +375,38 @@ class cpt extends \workout_manager\Entities\Entity{
                                 'field' => $prefix_field.'differents_hours',
                                 'operator' => '==',
                                 'value' => '1',
-                            ),
+                            )
                         ),
                     ),
                     'wrapper' => array(
                         'width' => '50',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => '',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                    'maxlength' => '',
+                ),
+                array(
+                    'key' => $prefix_field.'weekend_hours',
+                    'label' => 'Heures d\'ouverture le week-end',
+                    'name' => 'weekend_hours',
+                    'type' => 'text',
+                    'instructions' => '(ex: 06h-12h)',
+                    'required' => 0,
+                    'conditional_logic' => array(
+                        array(
+                            array(
+                                'field' => $prefix_field.'differents_weekend_hours',
+                                'operator' => '==',
+                                'value' => '1',
+                            ),
+                        ),
+                    ),
+                    'wrapper' => array(
+                        'width' => '',
                         'class' => '',
                         'id' => '',
                     ),
