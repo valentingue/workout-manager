@@ -55,14 +55,11 @@ function workout_manager_plugins_loaded(){
 
 	\workout_manager\get_plugin_version();
 
-	require_once( WORKOUT_MANAGER_DIR . "/cpt/functions.inc.php"  );
-
-
 	foreach(WORKOUT_MANAGER_CPT as $cpt){
 		require_once( WORKOUT_MANAGER_DIR.'/cpt/'.$cpt.'/cpt.class.php');
 	}
 
-	
+	require_once( WORKOUT_MANAGER_DIR . "/cpt/functions.inc.php"  );
 
 }
 add_action( 'plugins_loaded', 'workout_manager_plugins_loaded' );
@@ -147,7 +144,7 @@ add_action('updated_post_meta', 'workout_manager_protect_files' , 10 , 3);
 
 add_action( 'admin_enqueue_scripts', 'workout_manager_enqueue_custom_admin_style' );
 function workout_manager_enqueue_custom_admin_style() {
-	wp_enqueue_script('back-js', WORKOUT_MANAGER_URL.'assets/js/back.js', ['jquery']);
+	wp_enqueue_script('admin-js', WORKOUT_MANAGER_URL.'assets/js/admin.js', ['jquery']);
 }
 
 function admin_enqueue_assets($hook) {

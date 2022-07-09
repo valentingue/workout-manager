@@ -112,7 +112,7 @@ class cpt extends \workout_manager\Entities\Entity{
     }
 
     private function create_taxonomies(){
-        $taxo_name = self::$cpt_name . "-facilitie";
+        $taxo_name = self::$cpt_name . "_facilitie";
 
         register_taxonomy(
             $taxo_name,
@@ -131,6 +131,7 @@ class cpt extends \workout_manager\Entities\Entity{
                     'search_items' => 'Rechercher parmi les équipements',
                     'popular_items' => 'Équipements les plus utilisées'
                 ),
+                'rewrite' => array('slug' => 'gym-facilitie'),
                 'hierarchical' => true
             )
         );
@@ -138,8 +139,7 @@ class cpt extends \workout_manager\Entities\Entity{
         register_taxonomy_for_object_type( 'facilitie', self::$cpt_name );
     }
 
-    private function create_acf_fields()
-    {
+    private function create_acf_fields(){
 
         if (!function_exists("acf_add_local_field_group")) return;
 

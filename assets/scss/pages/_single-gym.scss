@@ -1,0 +1,289 @@
+.single-gym{
+
+    .banner {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        min-height: 610px;
+        position: relative;
+
+        &::before{
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            opacity: .3;
+        }
+
+        .banner-content {
+            position: absolute;
+            top: 100px;
+            bottom: 50px;
+            right: 20%;
+            width: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .banner-title {
+            font-family: "Poppins",sans-serif!important;
+            font-size: 55px;
+            text-transform: uppercase;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .gym-details{
+            .details{
+                .gym-infos{
+                    list-style: none;
+                }
+            }
+        }
+    }
+
+    .gym-photos{
+        .gallery-wrap {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 80vh;
+        }
+        
+        .item {
+        flex: 1;
+        height: 100%;
+        background-position: center;
+        background-size: cover;
+        background-repeat: none;
+        transition: flex 0.8s ease;
+        }
+    
+        .item:hover{
+            flex: 7;
+        }
+    }
+
+    .home-club-facilities {
+        padding-top: 96px;
+        margin: 0 auto;
+        .content{
+            max-width: none;
+            .main-title {
+                margin-top: 0;
+                font-size: 32px;
+                line-height: 36px;
+            }
+            .home-club-facilities__list {
+                padding-left: 0;
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                margin: 48px auto 20px;
+                .home-club-facilities__item {
+                    position: relative;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    min-height: 130px;
+                    flex-direction: column;
+                    justify-content: center;
+                    background-color: #fff;
+                    border-bottom: 3px solid #efefef;
+                    font-size: 20px;
+                    line-height: 24px;
+                    font-weight: 700;
+                    text-decoration: none;
+                    font-family: HeadingProTreble-ExtraBold,sans-serif;
+                    text-align: center;
+                    .gym-facilitie-icon{
+                        height: 80px;
+                        width: 80px;
+                        margin-bottom: 15px;
+                    }
+                }
+            }
+        }
+    }
+
+    .trainer-tiles{
+        .trainer-tiles__wrapper:not(.swiper-wrapper){
+            margin-right: 2%;
+
+            a{
+                text-decoration: none;
+            }
+
+            .trainer-tile__wrapperlink {
+                display: block;
+                height: 100%;
+                position: relative;
+                transition: border-color .3s;
+
+                .trainer-tile__figure-wrapper {
+                    position: relative;
+                    .trainer-tile__figure {
+                        margin: 0;
+                        overflow: hidden;
+                        position: relative;
+                        z-index: 2;
+                        &::before {
+                            content: "";
+                            display: block;
+                            padding-top: 100%;
+                            width: 100%;
+                        }
+                        .trainer-tile__figure__image {
+                            display: block;
+                            left: 0;
+                            max-width: 100%;
+                            position: absolute;
+                            top: 0;
+                            width: 100%;
+                        }
+                    }
+                }
+                .trainer-tile__content {
+                    position: relative;
+                    z-index: 2;
+                    background-color: #fff;
+                    padding: 16px 0 16px 20px;
+                    max-width: 72%;
+                    min-height: 200px;
+                    margin-left: auto;
+                    margin-top: -120px;
+                    display: flex;
+                    flex-direction: column;
+                    .trainer-tile__name {
+                        margin: 0;
+                        font-family: HeadingProDouble-Regular,sans-serif;
+                        font-size: 16px;
+                        line-height: 28px;
+                        font-family: HeadingProTreble-ExtraBold,sans-serif;
+                        color: #2d2d2d;
+                        text-transform: capitalize;
+                    }
+                    .trainer-tile__title {
+                        margin: 0;
+                        color: #2d2d2d;
+                        font-family: HeadingProTreble-Light,sans-serif;
+                        font-size: 13px;
+                        line-height: 24px;
+                        text-transform: none;
+                    }
+                    .trainer-tile__tags {
+                        padding-left: 0;
+                        margin: 0;
+                        list-style: none;
+                        display: flex;
+                        flex-wrap: wrap;
+                        margin-top: 5px;
+                        gap: 6px;
+                        .trainer-tile__tag {
+                            padding: 7px 7px 6px;
+                            background-color: #fff;
+                            border: 1px solid #2d2d2d;
+                            border-radius: 5px;
+                            font-family: HeadingProTreble-ExtraBold,sans-serif;
+                            font-size: 10px;
+                            line-height: 1;
+                            text-transform: uppercase;
+                            align-self: baseline;
+                            white-space: nowrap;
+                        }
+                    }
+                    .arrow-after {
+                        display: inline-flex;
+                        align-items: center;
+                        position: relative;
+                        font-size: 16px;
+                        line-height: 28px;
+                        text-transform: none;
+                        overflow: hidden;
+                        float: right;
+                        color: #2d2d2d;
+                        letter-spacing: 1px;
+                        margin-top: auto;
+                        justify-content: flex-end;
+                        &::before {
+                            display: block;
+                            content: "";
+                            position: absolute;
+                            bottom: 0;
+                            width: 100%;
+                            height: 2px;
+                            background-color: #fe7000;
+                            opacity: 0;
+                            transition: all .3s;
+                            left: -100%;
+                        }
+                        &::after {
+                            font-size: 22px;
+                            margin-bottom: 4px;
+                            margin-left: 2px;
+                            content: "\F101";
+                            font-family: iconfont;
+                            -webkit-font-smoothing: antialiased;
+                            -moz-osx-font-smoothing: grayscale;
+                            font-style: normal;
+                            font-variant: normal;
+                            font-weight: 400;
+                            text-decoration: none;
+                            text-transform: none;
+                            color: inherit;
+                            display: inline-block;
+                            margin-left: 5px;
+                            color: #fe7000;
+                            font-size: .85em;
+                            line-height: 1;
+                            -webkit-transform: rotate(45deg);
+                            transform: rotate(45deg);
+                            vertical-align: middle;
+                        }
+                        .meet {
+                            margin-right: 6px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+
+}
+@media only screen and (min-width: 1025px){
+    .home-club-facilities {
+        padding-top: 96px;
+        .content{
+            .home-club-facilities__list.four{
+                .home-club-facilities__item {
+                    width: 25%;
+                    min-height: 185px;
+                    border-right: 3px solid #efefef;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1025px){
+    .main-title {
+        font-size: 48px;
+        line-height: 52px;
+    }
+}
+
+@media only screen and (min-width: 768px){
+    .trainer-tiles__wrapper:not(.swiper-wrapper) {
+        display: flex;
+        flex-wrap: wrap;
+        .trainer-tile{
+            margin-right: 2%;
+            max-width: 304px;
+            width: 23.5%;
+            margin-bottom: 2%;
+        }
+    }
+}

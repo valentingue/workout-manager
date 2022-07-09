@@ -129,3 +129,130 @@ function update_extra_profile_fields($user_id) {
         
 }
 add_action('profile_update', '\workout_manager\update_extra_profile_fields');
+
+
+// Make functions available in Twig
+add_filter('timber/twig', function ($twig) {
+	// Affiche une image avec les parametres src-set , lazy , etc
+	$twig->addFunction(new \Timber\Twig_Function('workout_manager_display_image', function ($image_id , $params = []) {
+
+		if( empty($image_id) ) return;
+
+		$width 				= (!empty($params["w"])) ? $params["w"] : "";
+		$height 			= (!empty($params["h"])) ? $params["h"] : "";
+		$max_width_srcset 	= (!empty($params["srcset"])) ? $params["srcset"] : "";
+		$class 				= (!empty($params["class"])) ? $params["class"] : "";
+		$alt 				= (!empty($params["alt"])) ? $params["alt"] : "";
+		$loading 			= (isset($params["lazy"]) && !$params["lazy"]) ? "eager" : "lazy";
+		$crop 				= (isset($params["crop"])) ? $params["crop"] : 0;
+
+		if(!empty($width) && !empty($height)) $src = create_image_size($image_id, $width, $height, $crop);
+		else{
+			$src 				= wp_get_attachment_image_src($image_id , 'full')[0];
+			$meta 				= wp_get_attachment_metadata($image_id);
+			$width 				= $meta["width"];
+			$height 			= $meta["height"];
+			$max_width_srcset 	= $width+1;
+		}
+
+		$src_sets	= wp_get_attachment_image_srcset( $image_id, 'full' );
+
+		$max_width_srcset = intval($max_width_srcset);
+		if($max_width_srcset > 0) $src_sets	= get_src_sets_limited_per_width($src_sets , $max_width_srcset);
+
+		$attachment_image_alt 	= get_post_meta($image_id, '_wp_attachment_image_alt', TRUE);
+		$image_alt 				= (!empty($attachment_image_alt)) ? $attachment_image_alt : $alt;
+
+
+
+		$return = "";
+		$return = '<picture>';
+
+			// Set distinct <source> size
+			$sources = [];
+			foreach(explode("," , $src_sets) as $srcset){
+				$elements 		= explode(" " , trim($srcset));
+				$source_width	= str_replace("w" , "" , $elements[1]);
+				$source_url		= $elements[0];
+				if($source_width > 100) $sources[(int)$source_width] = $source_url;
+			}
+			krsort($sources , SORT_NUMERIC);
+
+			foreach($sources as $source_width => $source_url){
+				$return .='<source media="(min-width: '.$source_width.'px)" srcset="'.$source_url.'">';
+			}
+
+			// Set <img> tag
+			$return .= '<img src="'.$src.'" width="'.$width.'" height="'.$height.'" ';
+			$return .= 'loading="'.$loading.'" ';
+			if($image_alt != "") $return .= 'alt="'.$image_alt.'" ';
+			if($class != "") $return .= 'class="'.$class.'" ';
+			$return .= "/>";
+
+
+		$return .= '</picture>';
+
+
+		return $return;
+	}));
+	return $twig;
+});
+
+function create_image_size($image_id, $width, $height, $crop = 0) {
+
+	if(is_null($image_id)) return "";
+
+    // Temporarily create an image size
+    $size_id = 'lazy_' . $width . 'x' .$height . '_' . ((string) $crop);
+    add_image_size($size_id, $width, $height, $crop);
+
+    // Get the attachment data
+    $meta = wp_get_attachment_metadata($image_id);
+	if(!is_array($meta['sizes']))$meta['sizes'] = [];
+
+
+    // If the size does not exist
+    if(!isset($meta['sizes'][$size_id])) {
+        require_once(ABSPATH . 'wp-admin/includes/image.php');
+
+        $file       = get_attached_file($image_id);
+		if(!file_exists($file)) return wp_get_attachment_image_src($image_id);
+
+        $new_meta   = wp_generate_attachment_metadata($image_id, $file);
+
+        // Merge the sizes so we don't lose already generated sizes
+        $new_meta['sizes'] = array_merge($meta['sizes'], $new_meta['sizes']);
+
+        // Update the meta data
+        wp_update_attachment_metadata($image_id, $new_meta);
+    }
+
+    // Fetch the sized image
+    $sized = wp_get_attachment_image_src($image_id, $size_id);
+
+    // Remove the image size so new images won't be created in this size automatically
+    remove_image_size($size_id);
+    return $sized[0];
+
+}
+
+/**
+ * Remove srcset images versions if the image has width > $max_width , can be usefull for webperfs
+ */
+function get_src_sets_limited_per_width($src_sets , $max_width){
+
+    $src_sets       = explode("," , $src_sets);
+
+    foreach($src_sets as $it => $src_set){
+        $src_set    = trim($src_set);
+        $size       = explode(" " , $src_set);
+		if(!isset($size[1])) return '';
+		$size = $size[1];
+        $size       = str_replace("w" , "" , $size);
+
+        if($size > $max_width) unset($src_sets[$it]);
+    }
+    
+    return trim(implode("," , $src_sets));
+
+}

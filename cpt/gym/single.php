@@ -7,14 +7,19 @@ while ( have_posts() ) : the_post();
 
     // On récupère les paramètres qui nous intéressent et on récupère tous les champs ACF possible
     $twig_vars = [
-        'title'     => get_the_title(),
-        'content'   => get_the_content(),
-        'img'       =>  get_the_post_thumbnail_url($post->ID, 'medium'),
-        'acf_fields' => [],
-        'taxos' => get_the_terms($post->ID, 'gym-facilitie'),
-        'post_metas' =>  get_post_meta($post->ID, '_fitplan_planning'),
-        'planning' => do_shortcode('[fitness-planning id="'.$post->ID.'"]')
+        'title'             => get_the_title(),
+        'content'           => get_the_content(),
+        'thumbnail_id'      =>  get_post_thumbnail_id($post->ID),
+        'thumbnail_url'         =>  get_the_post_thumbnail_url($post->ID, 'full'),
+        'acf_fields'        => [],
+        'taxos'             => get_the_terms($post->ID, 'gym_facilitie'),
+        'post_metas'        =>  get_post_meta($post->ID, '_fitplan_planning'),
+        'planning'          => do_shortcode('[fitness-planning id="'.$post->ID.'"]')
     ];
+
+    foreach( $twig_vars['taxos'] as $i => $taxo){
+        $twig_vars['taxos'][$i]->icon = wp_get_attachment_image_url(get_term_thumbnail_id($taxo->term_id));
+    }
 
     // Get post's acf fields
     if (class_exists('ACF')){
