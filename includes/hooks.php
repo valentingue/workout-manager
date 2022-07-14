@@ -59,29 +59,55 @@ function set_coach_gym( $ID, $post, $update ) {
     if( wp_is_post_revision( $ID ) ) return;
     if( defined( 'DOING_AUTOSAVE' ) and DOING_AUTOSAVE ) return;
     if( $post->post_type != 'gym' ) return;
-
-    $post_meta_name = 'attached_gym';
     
     $gyms_per_coach = [];
+
+    /* -------------------------------------------------------------------------- */
+    /*                            Get all coachs posts                            */
+    /* -------------------------------------------------------------------------- */
     $all_coachs = get_posts([
         'numberposts' => -1,
         'post_type' => 'coach',
         'post_status' => 'publish'
     ]);
-
     foreach( $all_coachs as $coach){
-        $attached_gyms = get_post_meta($coach->ID, $post_meta_name, true);
+        //  for each coach we get their current attached gyms
+        //      => if the coach has no current gyms attached we assign it an empty array
+        $attached_gyms = get_post_meta($coach->ID, ATTACHED_GYM_POSTMETA, true);
         if( empty($attached_gyms)) $attached_gyms = [];
-
+        //      => else we assign it to $gym_per_coach with his attached gyms
         $gyms_per_coach[$coach->ID] = $attached_gyms;
     }
 
+    /* -------------------------------------------------------------------------- */
+    /*                         Current selected gym coachs                        */
+    /* -------------------------------------------------------------------------- */
     $coachs = get_field('coachs', $ID);
+
+    // create array of selected gym coachs for better readability
+    $gym_coachs = [];
     foreach( $coachs as $coach ){
-        $gyms_per_coach[$coach['coach']->ID][] = $ID;
+        $gym_coachs[] = $coach['coach']->ID;
+    }
+    // for each selected gym coachs
+    //  => add him the current gym post id
+    foreach( $gym_coachs as $coach ){
+        $gyms_per_coach[$coach][] = $ID;
     }
 
+    /* -------------------------------------------------------------------------- */
+    /*                           Update coachs postmeta                           */
+    /* -------------------------------------------------------------------------- */
     foreach($gyms_per_coach as $coach_id => $gyms_id){
-        update_post_meta($coach_id, $post_meta_name, array_unique($gyms_id));
+        // for each coachs
+        // => if current loop index coach is not in selected gym coachs
+        //   => delete the current gym id from his attached gyms
+        if( !in_array($coach_id, $gym_coachs) ){
+            foreach($gyms_id as $key => $current_gym_id){
+                if( $current_gym_id === $ID) unset($gyms_id[$key]);
+            }
+        }
+        // else update his postmeta
+        update_post_meta($coach_id, ATTACHED_GYM_POSTMETA, array_unique($gyms_id));
     }
 }

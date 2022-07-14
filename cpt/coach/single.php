@@ -21,7 +21,7 @@ while ( have_posts() ) : the_post();
             foreach($fields as $field_name => $field_datas) $twig_vars["acf_fields"][$field_name] = $field_datas;
         }
     }
-    $attached_gym = get_post_meta($post->ID, 'attached_gym', true); 
+    $attached_gym = get_post_meta($post->ID, ATTACHED_GYM_POSTMETA, true); 
     foreach($attached_gym as $gym){
         $gym_post = get_post($gym);
         $twig_vars['post_meta']['attached_gyms'][] = [
