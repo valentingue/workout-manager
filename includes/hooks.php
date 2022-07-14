@@ -49,3 +49,39 @@ function custom_collective_workout_column( $column, $post_id ) {
         echo $acf_fields['collective_workout_field_course_level']; 
     }
 }
+
+/* -------------------------------------------------------------------------- */
+/*                         Add attached gym to coachs                         */
+/* -------------------------------------------------------------------------- */
+add_action( 'save_post', 'set_coach_gym', 0, 3 );
+function set_coach_gym( $ID, $post, $update ) {
+    if( ! $update ) return;
+    if( wp_is_post_revision( $ID ) ) return;
+    if( defined( 'DOING_AUTOSAVE' ) and DOING_AUTOSAVE ) return;
+    if( $post->post_type != 'gym' ) return;
+
+    $post_meta_name = 'attached_gym';
+    
+    $gyms_per_coach = [];
+    $all_coachs = get_posts([
+        'numberposts' => -1,
+        'post_type' => 'coach',
+        'post_status' => 'publish'
+    ]);
+
+    foreach( $all_coachs as $coach){
+        $attached_gyms = get_post_meta($coach->ID, $post_meta_name, true);
+        if( empty($attached_gyms)) $attached_gyms = [];
+
+        $gyms_per_coach[$coach->ID] = $attached_gyms;
+    }
+
+    $coachs = get_field('coachs', $ID);
+    foreach( $coachs as $coach ){
+        $gyms_per_coach[$coach['coach']->ID][] = $ID;
+    }
+
+    foreach($gyms_per_coach as $coach_id => $gyms_id){
+        update_post_meta($coach_id, $post_meta_name, array_unique($gyms_id));
+    }
+}

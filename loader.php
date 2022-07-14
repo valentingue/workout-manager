@@ -48,7 +48,6 @@ function workout_manager_plugins_loaded(){
 	require_once(WORKOUT_MANAGER_DIR.'/includes/abstractentity.php');
 
 	require_once(WORKOUT_MANAGER_DIR.'/includes/planning/planningServices.php');
-	//require_once(WORKOUT_MANAGER_DIR.'/includes/planning.php');
 	
 	
 	//if(is_admin())	new \workout_manager\back\main();
@@ -170,7 +169,6 @@ function admin_enqueue_assets($hook) {
 	wp_localize_script( "workout-manager-admin-js", 'fitnessPlanningStrings', workout_manager\strings_to_js());
 
 }
-
 add_action( 'admin_enqueue_scripts', 'admin_enqueue_assets' );
 
 

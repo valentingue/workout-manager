@@ -21,9 +21,18 @@ while ( have_posts() ) : the_post();
             foreach($fields as $field_name => $field_datas) $twig_vars["acf_fields"][$field_name] = $field_datas;
         }
     }
+    $attached_gym = get_post_meta($post->ID, 'attached_gym', true); 
+    foreach($attached_gym as $gym){
+        $gym_post = get_post($gym);
+        $twig_vars['post_meta']['attached_gyms'][] = [
+            'gym_name'      => $gym_post->post_title,
+            'gym_permalink' => get_the_permalink($gym_post->ID),
+            'gym_thumbnail' => get_post_thumbnail_id($gym_post->ID),
+        ];
+    }
 
     $twig_vars['taxos'] = get_the_terms($post->ID, 'coach-specialite');
-    //var_dump($twig_vars['taxos']);
+    
     // render
     Timber::render("single.twig", $twig_vars);
     
