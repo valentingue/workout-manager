@@ -12,6 +12,7 @@ while ( have_posts() ) : the_post();
         'img'       => (is_object($post)) ? get_the_post_thumbnail_url($post->ID, 'medium') : "",
         'acf_fields' => [],
         'taxos' => [],
+        'gyms' => []
     ];
 
     // Get post's acf fields
@@ -21,15 +22,20 @@ while ( have_posts() ) : the_post();
             foreach($fields as $field_name => $field_datas) $twig_vars["acf_fields"][$field_name] = $field_datas;
         }
     }
-    $attached_gym = get_post_meta($post->ID, ATTACHED_GYM_POSTMETA, true); 
-    foreach($attached_gym as $gym){
-        $gym_post = get_post($gym);
-        $twig_vars['post_meta']['attached_gyms'][] = [
-            'gym_name'      => $gym_post->post_title,
-            'gym_permalink' => get_the_permalink($gym_post->ID),
-            'gym_thumbnail' => get_post_thumbnail_id($gym_post->ID),
-        ];
-    }
+
+    $args = array(
+        'post_type' => 'gym',
+        'meta_query' => array(
+            'relation' => 'AND',
+            array(
+                'key' => 'coachs',
+                'value' => $post->ID,
+                'compare' => 'LIKE'
+            )
+        )
+    );
+
+    $twig_vars['gyms']  = get_posts( $args );
 
     $twig_vars['taxos'] = get_the_terms($post->ID, 'coach-specialite');
     
