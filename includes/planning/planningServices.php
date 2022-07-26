@@ -7,7 +7,7 @@ class Planning_Services {
     }
 
 	public function prepare_datas($datas) {
-
+		global $post;
 		// Get the weekdays for Add a Workout metabox
 		$datas['weekdays'] = $this->get_weekdays($datas);
 
@@ -23,13 +23,13 @@ class Planning_Services {
 		$args['post_type'] = "collective_workout";
 		$workouts_datas = get_posts($args);
 		$datas['collective_workouts'] = array();
-
+		
 		foreach($workouts_datas as $workout_datas):
 			$permalink = ['permalink' => get_the_permalink($workout_datas->ID)];
 			$post_datas = array_merge((array) $workout_datas, get_fields($workout_datas->ID),$permalink);
 			$datas['collective_workouts'][$workout_datas->ID] = $post_datas;
 		endforeach;
-
+		
 		// Get all Coachssand theirs metas
 		$args['post_type'] = "coach";
 		$coachs_datas = get_posts($args);
@@ -76,14 +76,15 @@ class Planning_Services {
             // Prepare datas for each Workouts Entries in the planning
 			// Database only keep record of start/finish time, Workout and Coach IDs
 			// We need to add the metas for each entry
-
+			$attached_collective_workout = [];
 			foreach($datas['planning'] as $day => $entries) {
 				foreach($entries as $key => $entry) {
 					if($entry != null){
 
 						// First, the Workout
 						$workout_id = $entry['workout'];
-
+						$attached_collective_workout[$workout_id] = $entry ;
+						$attached_collective_workout[$workout_id]['day'] =  $day;
 						// Don't keep entry if attached Workout has been removed
 						if(!isset($datas['collective_workouts'][$workout_id])) {
 							$to_remove[] = array("day" =>$day, "key" => $key);
@@ -137,6 +138,12 @@ class Planning_Services {
 					}
 				}
 			}
+
+			update_post_meta(
+				$post->ID,
+				'attached_collective_workout',
+				$attached_collective_workout
+			);
 
 			// Remove unvalid Workouts (due to a Workout deletion in Admin > Fitness Planning > Workouts)
 			if(count($to_remove) > 0){

@@ -34,7 +34,18 @@ while ( have_posts() ) : the_post();
             }
         }
     }
-    //var_dump($twig_vars['taxos']);
+
+    $args = array(
+        'post_type' => 'gym',
+        'numberposts' => -1
+    );
+    $gyms  = get_posts( $args );
+    
+    foreach($gyms as $k => $gym){
+        $gym_post_meta = get_post_meta($gym->ID, "attached_collective_workout");
+        if(in_array($post->ID, array_keys($gym_post_meta[0]))) $twig_vars["attached_gyms"][] = $gym;
+    }
+    
     // render
     Timber::render("single.twig", $twig_vars);
     
