@@ -45,7 +45,7 @@ while ( have_posts() ) : the_post();
         $gym_post_meta = get_post_meta($gym->ID, "attached_collective_workout");
         if(in_array($post->ID, array_keys($gym_post_meta[0]))) $twig_vars["attached_gyms"][] = $gym;
     }
-    
+
     // render
     Timber::render("single.twig", $twig_vars);
     

@@ -61,7 +61,7 @@ class cpt{
                     'read_post' => 'edit_posts',
                 ),
                 'supports' => array('title', 'editor', 'thumbnail'),
-                'has_archive' => true,
+                'has_archive' => false,
                 'publicly_queryable' => false,
                 'rewrite' => array('slug' => self::$cpt_name),
                 'menu_icon' => $this->dashicon

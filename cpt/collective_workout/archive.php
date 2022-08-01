@@ -5,6 +5,7 @@ get_header();
 // On définit l'objet contenant les paramètres à passer au rendu Twig
 $twig_vars = [
     "archives"      => [],
+    'gyms_id' => [],
     "pagination"    => workout_manager\clean_pagination(get_the_posts_pagination())
 ];
 
@@ -36,7 +37,16 @@ while ( have_posts() ) : the_post();
     }
     
     $twig_vars["archives"][] = $archive;
-    
+
+    $args = array(
+        'post_type' => 'gym',
+        'numberposts' => -1
+    );
+    $gyms  = get_posts( $args );
+    foreach($gyms as $k => $gym){
+        $twig_vars['gyms_id'][$gym->ID] = $gym->post_title;
+    }
+
 endwhile;
 
 // render

@@ -4,13 +4,14 @@ declare(strict_types = 1);
 /**
  * Allow to call any php function or method.
  */
-function workout_manager_ajax_router(): string {
+function workout_manager_ajax_router() {
 	// check if function is authorised
     if(!isset($_POST['function']) || !in_array($_POST['function'], [
         "login",
         "register",
         "edit_profile",
-        "delete_account"
+        "delete_account",
+        "get_gyms_attached_collective_workout"
     ])) {
         die("Cheater :)");
     }
@@ -251,4 +252,39 @@ function delete_account(array $args): string {
     $return = ['success' => 1 , 'message'=> __('Your account was deleted. You will be redirected.' , 'workout_manager') , 'redirecturl' => get_site_url()];
     wp_send_json($return);
 
+}
+
+function get_gyms_attached_collective_workout(array $args){
+
+    $gym_post_meta = get_post_meta($args['gym_id'], "attached_collective_workout");
+
+    $posts = [];
+    foreach($gym_post_meta[0] as $k => $collective_workout){
+        $posts[] = get_post($k);
+    }
+
+    foreach($posts as $i => $post){
+        $posts[$i]->permalink = get_the_permalink($post->ID);
+        $posts[$i]->taxos = get_the_terms($post->ID, "collective_workout_category");
+        if (class_exists('ACF')){
+            $fields = \get_fields($post->ID);
+            if(is_array($fields)){
+                foreach($fields as $field_name => $field_datas) $acf_fields[$field_name] = $field_datas;
+                $posts[$i]->acf_fields = $acf_fields;
+            }
+        }
+    }
+
+    ob_start();
+
+    Timber::render(WORKOUT_MANAGER_DIR."/views/archive/archive-collective-workout.twig", [
+        'posts' => $posts,
+    ]);
+
+    $retour['collective_workout'] = ob_get_contents();
+    ob_end_clean();
+
+
+    // Send results in json
+    wp_send_json($retour);
 }

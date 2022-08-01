@@ -14,6 +14,12 @@ define( 'WORKOUT_MANAGER_LOADER'	, __FILE__ );
 define( 'WORKOUT_MANAGER_DIR'		, dirname(__FILE__) );
 define( 'WORKOUT_MANAGER_URL'		, plugins_url('/', __FILE__) );
 
+function printr($tab){
+	echo "<br/><pre>"; 
+	print_r($tab);	
+	echo "</pre><br/>";
+}
+
 // ===================== Autoloader des classes du plugin avec namespace  =====================
 function workout_manager_autoloader( $class_name ) {
 
@@ -143,7 +149,8 @@ add_action('updated_post_meta', 'workout_manager_protect_files' , 10 , 3);
 
 add_action( 'admin_enqueue_scripts', 'workout_manager_enqueue_custom_admin_style' );
 function workout_manager_enqueue_custom_admin_style() {
-	wp_enqueue_script('admin-js', WORKOUT_MANAGER_URL.'assets/js/admin.js', ['jquery']);
+	wp_enqueue_script('admin-js', WORKOUT_MANAGER_URL.'/admin/js/admin.js', ['jquery']);
+	wp_enqueue_script('back-js', WORKOUT_MANAGER_URL.'/admin/js/back.js', ['jquery']);
 }
 
 function admin_enqueue_assets($hook) {
@@ -207,6 +214,21 @@ function workout_manager_enqueue_scripts() {
 
 	wp_enqueue_script('toastr-wm', WORKOUT_MANAGER_URL.'node_modules/toastr/build/toastr.min.js', ['jquery']);
     wp_enqueue_style('toastr-css', WORKOUT_MANAGER_URL.'node_modules/toastr/build/toastr.min.css');
+	
+	$queried_object = get_queried_object();
+	if(is_archive() && $queried_object->name === "collective_workout"){
+		wp_enqueue_script('archive-collective-workout', WORKOUT_MANAGER_URL.'assets/js/archive-collective-workout.js', ['jquery']);
+
+		$js_params = array(
+			// Include the wp ajax php file
+			'ajax_url' => admin_url('admin-ajax.php'),
+			'site_url' => site_url('/'),
+			'loader' => "",
+		);
+		wp_localize_script('archive-collective-workout', 'main', $js_params);
+		
+		
+	}
 }
 add_action( 'wp_enqueue_scripts', 'workout_manager_enqueue_scripts' );
 

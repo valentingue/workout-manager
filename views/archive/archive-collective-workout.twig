@@ -1,0 +1,12 @@
+{% for collective_workout in posts %}
+    <a href="{{ collective_workout.permalink }}" class="text-decoration-none col-md-6 col-12 mb-2 single-job text-center">
+        <div class="bg-white p-md-2 content-card">
+            <img src="{{ collective_workout.acf_fields.collective_workout_field_pic['url'] }}" alt="{{ collective_workout.post_title }}" class="m-auto img-fluid job-img d-block" style="max-width: 20%">
+            {% for taxo in collective_workout.taxos %}
+                <span class='bg-primary px-3 py-1 rounded-pill'>{{taxo.name}}</span>
+            {% endfor %}
+            <p class="job-first-name">{{ collective_workout.post_title }}</p>
+        </div>
+        <div class="description-card">{{ collective_workout.content }}</div>
+    </a>
+{% endfor %}
