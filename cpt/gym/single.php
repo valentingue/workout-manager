@@ -34,10 +34,12 @@ while ( have_posts() ) : the_post();
                 }
                 elseif( $field_name === 'coachs'){
                     foreach($field_datas as $k => $coach){
-                        $coach['coach']->permalink = get_the_permalink( $coach['coach']->ID);
-                        $coach['coach']->taxos = get_the_terms($coach['coach']->ID, 'coach-specialite');
-                        $coach['coach']->picture = get_the_post_thumbnail_url($coach['coach']->ID, 'large');
-                        $twig_vars["acf_fields"][$field_name][] =$coach['coach'];
+                        $coach = get_post($coach);
+                        $coach->permalink = get_the_permalink( $coach->ID);
+                        $coach->taxos = get_the_terms($coach->ID, 'coach-specialite');
+                        $coach->picture = get_the_post_thumbnail_url($coach->ID, 'large');
+                        printr($coach);
+                        $twig_vars["acf_fields"][$field_name][] = $coach;
                     }
                 }
                 elseif( $field_name === 'gym_field_gym_photos' ){

@@ -256,12 +256,17 @@ function delete_account(array $args): string {
 
 function get_gyms_attached_collective_workout(array $args){
 
-    $gym_post_meta = get_post_meta($args['gym_id'], "attached_collective_workout");
+    if(!empty($args['gym_id'])){
+        $gym_post_meta = get_post_meta($args['gym_id'], "attached_collective_workout");
 
-    $posts = [];
-    foreach($gym_post_meta[0] as $k => $collective_workout){
-        $posts[] = get_post($k);
+        $posts = [];
+        foreach($gym_post_meta[0] as $k => $collective_workout){
+            $posts[] = get_post($k);
+        }
     }
+    else $posts = get_posts([
+        'post_type' => 'collective_workout'
+    ]);
 
     foreach($posts as $i => $post){
         $posts[$i]->permalink = get_the_permalink($post->ID);

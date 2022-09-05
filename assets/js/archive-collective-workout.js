@@ -21,7 +21,7 @@ function get_gyms_attached_collective_workout(gym_id){
                 console.log('ici');
                 $('#collective-workout-list').html(data.collective_workout);
             } else {
-                $("#collective-workout-list").html("<h4 class='text-center'>Désolé, nous n'avons pas de résultats.<br/>Nous vous laissons refaire une recherche d'ecoparc pour voir son actualité</h4>");
+                $("#collective-workout-list").html("<h4 class='text-center'>Désolé, nous n'avons pas de résultats.</h4>");
             }
         },
         complete: data =>{
