@@ -7,7 +7,10 @@
     "require": {
         "twig/twig": "^2.0",
         "timber/timber": "^1.19",
-        "mikehaertl/php-pdftk": "^0.12.0"
+        "mikehaertl/php-pdftk": "^0.12.0",
+        "tmw/fpdm": "^2.9",
+        "tecnickcom/tcpdf": "^6.6",
+        "dompdf/dompdf": "^2.0"
     },
     "config": {
         "allow-plugins": {

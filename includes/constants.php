@@ -10,7 +10,7 @@ define('ATTACHED_GYM_POSTMETA', 'attached_gym');
 
 $plugin_data = get_plugin_data(WP_PLUGIN_DIR.'/workout-manager/loader.php');
 define('PLUGIN_NAME'					, $plugin_data['Name']);
-define('PLUGIN_VERSION'					, $plugin_data['Version']);
+define('WM_PLUGIN_VERSION'					, $plugin_data['Version']);
 define('PLUGIN_TEXT_DOMAIN'				, $plugin_data['TextDomain'] );
 
 use function workout_manager\get_plugin_version;

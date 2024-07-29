@@ -14,10 +14,12 @@ define( 'WORKOUT_MANAGER_LOADER'	, __FILE__ );
 define( 'WORKOUT_MANAGER_DIR'		, dirname(__FILE__) );
 define( 'WORKOUT_MANAGER_URL'		, plugins_url('/', __FILE__) );
 
-function printr($tab){
-	echo "<br/><pre>"; 
-	print_r($tab);	
-	echo "</pre><br/>";
+if(!function_exists('printr')){
+	function printr($tab){
+		echo "<br/><pre>"; 
+		print_r($tab);	
+		echo "</pre><br/>";
+	}
 }
 
 // ===================== Autoloader des classes du plugin avec namespace  =====================
@@ -149,9 +151,22 @@ add_action('updated_post_meta', 'workout_manager_protect_files' , 10 , 3);
 
 add_action( 'admin_enqueue_scripts', 'workout_manager_enqueue_custom_admin_style' );
 function workout_manager_enqueue_custom_admin_style() {
-	wp_enqueue_script('admin-js', WORKOUT_MANAGER_URL.'/admin/js/admin.js', ['jquery']);
-	wp_enqueue_script('back-js', WORKOUT_MANAGER_URL.'/admin/js/back.js', ['jquery']);
+	wp_enqueue_script('pdf-lib', WORKOUT_MANAGER_URL.'node_modules/pdf-lib/dist/pdf-lib.js', ["jquery"], '1.0');
+
+
+	wp_enqueue_script('admin-js', WORKOUT_MANAGER_URL.'admin/js/admin.js', ['jquery'], time());
+	wp_enqueue_script('back-js', WORKOUT_MANAGER_URL.'admin/js/back.js', ['jquery'], time());
+
 }
+
+add_filter('script_loader_tag', function($tag, $handle, $src) {
+	if (is_admin()) {
+		if($handle === 'back-js'){
+			$tag = "<script type='module' src='" . $src . "' id='back-js-js'></script>";
+		}
+	}
+	return $tag;
+}, 10, 4 );
 
 function admin_enqueue_assets($hook) {
 	global $post_type;
@@ -184,7 +199,7 @@ function workout_manager_enqueue_scripts() {
 		/!\ Check what type of page we're on to include proper style
 		/!\ Check what type of page we're on to include proper script
 	*/
-	$current_plugin_version = \workout_manager\get_plugin_version();
+	$current_WM_PLUGIN_VERSION = \workout_manager\get_plugin_version();
 
 	wp_enqueue_style('front-style', WORKOUT_MANAGER_URL.'assets/scss/front.css', [], time());
 	wp_enqueue_script('script-js', WORKOUT_MANAGER_URL.'assets/js/script.js', ['jquery']);
@@ -412,5 +427,15 @@ function wm_custom_menu_order($menu_ord) {
 	}
 }
 
-  	add_filter('custom_menu_order', 'wm_custom_menu_order'); // Activate custom_menu_order
-	add_filter('menu_order', 'wm_custom_menu_order');
+add_filter('custom_menu_order', 'wm_custom_menu_order'); // Activate custom_menu_order
+add_filter('menu_order', 'wm_custom_menu_order');
+
+function workout_manager_register_gmap_key( $api ){
+    
+    $api['key'] = get_field('gmap_key', 'option');
+    
+    return $api;
+    
+}
+
+add_filter('acf/fields/google_map/api', 'workout_manager_register_gmap_key');

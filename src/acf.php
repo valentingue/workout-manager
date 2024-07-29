@@ -17,6 +17,27 @@ acf_add_local_field_group(array(
 	'title' => 'Workout Manager',
 	'fields' => array(
 		array(
+			'key' => 'field_61976c2fd413c',
+			'label' => 'Gmap Key',
+			'name' => 'gmap_key',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'post_type' => array(
+				0 => 'page',
+			),
+			'taxonomy' => '',
+			'allow_null' => 0,
+			'allow_archives' => 1,
+			'multiple' => 0,
+		),
+		array(
 			'key' => 'field_61976c2fd453c',
 			'label' => 'Login Page',
 			'name' => 'login_page_url',
@@ -164,7 +185,7 @@ acf_add_local_field_group(array(
 				'id' => '',
 			),
 			'display_format' => 'd/m/Y',
-			'return_format' => 'Y-m-d',
+			'return_format' => 'Ymd',
 			'first_day' => 1,
 		),
 		array(

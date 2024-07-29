@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+<head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+		
+	<title>Contrat</title>
+
+	<style>
+		.d-block{
+			display: block;
+		}
+		.align-center{
+			text-align: center;
+		}
+		.align-right{
+			text-align: right;
+		}
+		.m-auto{
+			margin: auto
+		}
+		.bold{
+			font-weight: bold;
+		}
+		.space-md{
+			height: 5rem;
+		}
+		.margin-top-sm{
+			margin-top: 1rem;
+		}
+		.margin-top-md{
+			margin-top: 2.5rem;
+		}
+		.margin-top-lg{
+			margin-top: 6rem;
+		}
+		.margin-bottom-xs{
+			margin-bottom: .2rem
+		}
+		.margin-bottom-sm{
+			margin-bottom: 1rem
+		}
+		.padding-bottom-xs{
+			padding-bottom: .2rem
+		}
+		.padding-bottom-sm{
+			padding-bottom: 1rem
+		}
+		.padding-bottom-md{
+			padding-bottom: 2.5rem
+		}
+		.uppercase{
+			text-transform: uppercase
+		}
+		.page-break-after {
+			page-break-after: always
+		}
+		.no-page-break-after {
+			page-break-after: avoid
+		}
+		.page-break-inside {
+			page-break-inside: auto
+		}
+		.no-page-break-before {
+			page-break-before: avoid
+		}
+
+		.contract-heading{
+			max-width: 400px;
+			margin: auto;
+		}
+	</style>
+</head>
+<body>
+<div class='page-header page-break-after margin-top-lg' id='page-header'>
+	<table border='0' class='table align-center ' style='border:0;border-collapse:collapse;width:100%;'>
+			<tr>
+				<td valign='top' class='bold'>
+					SARRAILLE JEAN-DAMIEN, MICRO-ENTREPRISE
+				</td>
+			</tr>
+			<tr>
+				<td valign='top'>
+					N° SIRET : 849 031 448 00020
+				</td>
+			</tr>
+			<tr>
+				<td valign='top'>
+					Adresse : 3429 avenue Julien Panchot, 66000 Perpignan
+				</td>
+			</tr>
+			<tr>
+				<td valign='top'>
+					Mail : jdsarraille@live.fr
+				</td>
+			</tr>
+			<tr>
+				<td valign='top'>
+					Téléphone : 06.34.44.92.15
+				</td>
+			</tr>
+			<tr>
+				<td class='space-md'></td>
+			</tr>
+			<tr>
+				<td class='bold'>
+					- ET -
+				</td>
+			</tr>
+			<tr>
+				<td class='space-md'></td>
+			</tr>
+			<tr>
+				<td>
+					<span class='bold'>
+						{{datas.client_firstname}} {{datas.client_lastname}} 
+					</span>
+					</br>
+					<small>(Nom/Prénom)</small>
+				</td>
+			</tr>
+			<tr>
+				<td class='space-md'></td>
+			</tr>
+			<tr>
+				<td>
+					<hr>
+				</td>
+			</tr>
+			<tr>
+				<td class='space-md'></td>
+			</tr>
+			<tr>
+				<td>
+					<h1 class='contract-heading'>CONTRAT CLIENT PERSONAL TRAINING</h1>
+				</td>
+			</tr>
+			<tr>
+				<td class='space-md'></td>
+			</tr>
+			<tr>
+				<td>
+					<hr>
+				</td>
+			</tr>
+		</table>
+</div>
+		
+<div class='page-footer' id='page-footer'>
+	
+</div>
+
+<div class='page-body margin-top-sm'>
+	<div class='page-break-after'>
+		<table border='0' class='table ' style='border:0;border-collapse:collapse;width:100%;'>
+			<tr>
+				<td class='padding-bottom-sm bold'>
+					ENTRE LES SOUSSIGNÉ(E) S
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<span class='d-block padding-bottom-xs' style="height: 30px">
+						Jean-Damien SARRAILLE
+					</span>
+					<small>
+						Ci-après « Le Personal Trainer »
+					</small>
+				</td>
+			</tr>
+			<tr>
+				<td class='space-md'></td>
+			</tr>
+			<tr>
+				<td class='align-right bold uppercase'>
+					D’UNE PART
+				</td>
+			</tr>
+			<tr>
+				<td class='bold uppercase'>
+					ET
+				</td>
+			</tr>
+			<tr>
+				<td class='space-md'></td>
+			</tr>
+			<tr>
+				<td>
+					<span class='d-block margin-bottom-sm'>
+						{{datas.client_firstname}} {{datas.client_lastname}} 
+					</span>
+					<span class='d-block margin-bottom-sm'>
+						De nationnalité {{datas.client_nationality}}
+					</span>
+					<span class='d-block margin-bottom-sm'>
+						Né(e) le {{datas.client_dob}} à {{datas.client_pob}}.
+					</span>
+					<span class='d-block margin-bottom-sm'>
+						Dommicilié au {{datas.client_address}}.
+					</span>
+					<span class='d-block margin-bottom-sm'>
+						Email: {{datas.client_email}}
+					</span>
+					<span class='d-block margin-bottom-sm'>
+						Téléphone: {{datas.client_phone}}
+					</span>
+					<small>
+						(Nom/Prénom/Date et lieu de naissance/ Nationalité/Adresse/N°de téléphone/Email)
+					</small>
+				</td>
+			</tr>
+			<tr>
+				<td class='space-md'></td>
+			</tr>
+			<tr>
+				<td class='align-right bold uppercase'>
+					D’AUTRE PART,
+				</td>
+			</tr>
+			<tr>
+				<td class='space-md'></td>
+			</tr>
+			<tr>
+				<td class='d-block bold uppercase align-center margin-bottom-sm'>
+					IL A ETE PREALABLEMENT EXPOSE CE QUI SUIT :
+				</td>
+				<td class='d-block'>
+					<span class='d-block margin-bottom-sm'>
+						<strong>A)</strong> Les Parties déclarent et reconnaissent que la négociation ayant précédé la conclusion du présent accord a été conduite de bonne foi et avoir bénéficié, pendant la phase pré-contractuelle de négociation, de toutes les informations nécessaires et utiles pour leur permettre de s'engager en toute connaissance de cause et s'être mutuellement communiqué toute information susceptible de déterminer leur consentement et qu'elles pouvaient légitimement ignorer.
+					</span>
+					<span class='d-block'>
+						<strong>B)</strong> Le Client sollicite du Personal Trainer une programmation de séances d’entraînement sportif variées et personnalisées selon ses besoins.
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td class='space-md'></td>
+			</tr>
+			<tr>
+				<td class='bold uppercase align-center margin-bottom-sm'>
+					CECI EXPOSÉ, IL A ÉTÉ CONVENU ET ARRÊTÉ CE QUI SUIT :
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+</body>
+</html>

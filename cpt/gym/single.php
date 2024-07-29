@@ -18,7 +18,8 @@ while ( have_posts() ) : the_post();
     ];
 
     foreach( $twig_vars['taxos'] as $i => $taxo){
-        $twig_vars['taxos'][$i]->icon = wp_get_attachment_image_url(get_term_thumbnail_id($taxo->term_id));
+        $term_pic = get_term_thumbnail_id($taxo->term_id);
+        $twig_vars['taxos'][$i]->icon = ($term_pic) ? wp_get_attachment_image_url($term_pic) : '';
     }
 
     // Get post's acf fields
@@ -38,7 +39,7 @@ while ( have_posts() ) : the_post();
                         $coach->permalink = get_the_permalink( $coach->ID);
                         $coach->taxos = get_the_terms($coach->ID, 'coach-specialite');
                         $coach->picture = get_the_post_thumbnail_url($coach->ID, 'large');
-                        printr($coach);
+                        //printr($coach);
                         $twig_vars["acf_fields"][$field_name][] = $coach;
                     }
                 }
@@ -55,7 +56,7 @@ while ( have_posts() ) : the_post();
         }
     }
 
-    var_dump($twig_vars);
+    // var_dump($twig_vars);
 
     // render
     Timber::render("single.twig", $twig_vars);

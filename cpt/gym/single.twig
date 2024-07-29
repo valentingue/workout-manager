@@ -5,7 +5,10 @@
             <div class="details js-club-header-details">
                 <div class='gym-infos'>
                     <div class="location">
-                        <a href="https://www.google.com/maps/search/?api=1&amp;query={{acf_fields.gym_address}}" class="js-club-location text-primary text-decoration-none" target="_blank">{{acf_fields.gym_address}}Lorem ipsum dolor sit amet</a>
+                    {# <pre>
+                        {{ dump(acf_fields.gym_address) }}
+                    </pre> #}
+                        <a href="https://www.google.com/maps/search/?api=1&amp;query={{acf_fields.gym_address.address}}" class="js-club-location text-primary text-decoration-none" target="_blank">Lorem ipsum dolor sit amet</a>
                     </div>
                     <div>
                         <span class="personal-support">Entraîneurs disponibles:</span>

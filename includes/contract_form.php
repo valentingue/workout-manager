@@ -1,6 +1,5 @@
 <?php
 
-use mikehaertl\pdftk\Pdf;
 use Classes\GeneratePDF;
 
 add_action( 'admin_menu', 'workout_manager_contract_admin_menu' );
@@ -111,45 +110,60 @@ function workout_manager_contract_do_page(){
 
 
 function the_form_response() {
-
-	if( isset( $_POST['collective_workout_manager_add_user_meta_nonce'] ) /* && wp_verify_nonce( $_POST['collective_workout_manager_add_user_meta_nonce'], 'workout_manager_add_user_meta_form_nonce') */ ) { 
-		
-		$selected_user = get_user_by('id', $_POST['collective_workout_manager']['user_select'] );
+	if( isset( $_POST['workout_manager_add_user_meta_nonce'] ) /* && wp_verify_nonce( $_POST['workout_manager_add_user_meta_nonce'], 'workout_manager_add_user_meta_form_nonce') */ ) { 
+		$selected_user = get_user_by('id', $_POST['workout_manager']['user_select'] );
 		$selected_user->user_meta = get_user_meta($selected_user->ID);
 		$selected_user->acf_fields = get_fields('user_'.$selected_user->ID);
 
 		$athelete_info = [
-			'page1_lastname_firstname' 			=> $selected_user->user_meta['first_name'][0].' '.$selected_user->user_meta['last_name'][0],
-			'page2_athlete_lastname_firstname' 	=> $selected_user->user_meta['first_name'][0].' '.$selected_user->user_meta['last_name'][0],
-			'page2_athlete_dob_pob' 			=> date('d/m/Y', strtotime($selected_user->acf_fields['date_of_birth'])),
-			'page2_athlete_nationality' 		=> '',
-			'page2_athlete_address' 			=> $selected_user->acf_fields['adresse'].' - '.$selected_user->acf_fields['code_postal'],
-			'page2_athlete_phone_email' 		=> $selected_user->data->user_email,
+			'client_firstname' 			=> $selected_user->user_meta['first_name'][0],
+			'client_lastname' 			=> $selected_user->user_meta['last_name'][0],
+			'client_dob' 				=> (!empty($selected_user->acf_fields['date_of_birth'])) ? date('d/m/Y', strtotime($selected_user->acf_fields['date_of_birth'])) : '',
+			'client_pob' 				=> (!empty($selected_user->acf_fields['place_of_birth'])) ? $selected_user->acf_fields['place_of_birth'] : '',
+			'client_nationality' 		=> '',
+			'client_address' 			=> (!empty($selected_user->acf_fields['adresse'])) ? $selected_user->acf_fields['adresse'].' à '.$selected_user->acf_fields['code_postal'] : '',
+			'client_email' 				=> $selected_user->data->user_email,
+			'client_phone' 				=> (!empty($selected_user->acf_fields['telephone'])) ?$selected_user->acf_fields['telephone'] : '',
 		];
 
 		$pdf = new GeneratePDF;
 		
-		$data = [];
-		foreach( $_POST['collective_workout_manager'] as $field_name => $field_value){
+		$client_fullname = $athelete_info['client_lastname'].' '.$athelete_info['client_firstname'];
+		$data = [
+			'page1_lastname_firstname' 				=> $client_fullname,
+			'page2_coach_info' 						=> 'Don Bergando',
+			'page2_athlete_lastname_firstname' 		=> $client_fullname,
+			'page2_athlete_dob_pob'					=> $athelete_info['client_dob'].', '.$athelete_info['client_pob'],
+			'page2_athlete_nationality' 			=> $athelete_info['client_nationality'],
+			'page2_athlete_address' 				=> $athelete_info['client_address'],
+			'page2_athlete_phone_email' 			=> $athelete_info['client_email'].', '.$athelete_info['client_phone'],
+			'page4_offer_duo'						=> false,
+			'page4_offer_duo_duration'				=> '',
+			'page4_offer_duo_mensuality'			=> '',
+			'page4_offer_team'						=> false,
+			'page4_offer_team_duration'				=> '',
+			'page4_offer_team_mensuality'			=> '',
+		];
+		foreach( $_POST['workout_manager'] as $field_name => $field_value){
 			$data[$field_name] = $field_value;
 
 			if(stristr($field_name, 'page4_offer')){
-				$data[$field_name.'_duration'] = $_POST['collective_workout_manager']['duration'];
-				$data[$field_name.'_mensuality'] = $_POST['collective_workout_manager']['mensuality'];
+				$data[$field_name.'_duration'] = $_POST['workout_manager']['duration'];
+				$data[$field_name.'_mensuality'] = $_POST['workout_manager']['mensuality'];
 				
 			}
 			
-			$data['page4_offer_team_validity_date'] = $_POST['collective_workout_manager']['validity_date'];
+			if(stristr($field_name, 'team')) $data['page4_offer_team_validity_date'] = $_POST['workout_manager']['validity_date'];
 		}
 
 		unset($data['duration']);
 		unset($data['mensuality']);
+		unset($data['validity_date']);
 		unset($data['user_select']);
-
-		$data = array_merge($data, $athelete_info);
 
 		$response = $pdf->generate($data); 
 		var_dump($response);
+		die;
 
 		// server response
 		$admin_notice = "success";
@@ -167,6 +181,8 @@ function the_form_response() {
 }
 
 function custom_redirect( $admin_notice, $response ) {
+		/* dump($response);
+		die; */
 		wp_redirect( esc_url_raw( add_query_arg( array(
 			'workout_manager_admin_add_notice' => $admin_notice,
 			'workout_manager_response' => $response,
@@ -178,11 +194,11 @@ function custom_redirect( $admin_notice, $response ) {
 
 function print_plugin_admin_notices() {   
 	
-	if ( isset( $_REQUEST['collective_workout_manager_admin_add_notice'] ) ) {
-		if( $_REQUEST['collective_workout_manager_admin_add_notice'] === "success") {
+	if ( isset( $_REQUEST['workout_manager_add_user_meta_nonce_admin_add_notice'] ) ) {
+		if( $_REQUEST['workout_manager_add_user_meta_nonce_admin_add_notice'] === "success") {
 			$html =	'<div class="notice notice-success is-dismissible"> 
 						<p><strong>The request was successful. </strong></p><br>';
-			$html .= '<pre>' . htmlspecialchars( print_r( $_REQUEST['collective_workout_manager_response'], true) ) . '</pre></div>';
+			$html .= '<pre>' . htmlspecialchars( print_r( $_REQUEST['workout_manager_add_user_meta_nonce_response'], true) ) . '</pre></div>';
 			echo $html;
 		}
 	}
